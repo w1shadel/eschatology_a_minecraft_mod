@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/apocalypse/apocalypse_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/apocalypse/apocalypse_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/apocalypse/apocalypse_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/apocalypse/apocalypse_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/apocalypse/apocalypse_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/apocalypse/apocalypse_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/apocalypse/apocalypse_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/apocalypse/apocalypse_base"
+    }
+  }
+}

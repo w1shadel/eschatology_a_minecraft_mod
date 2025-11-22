@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:ender_eye"
+    },
+    "title":{
+      "translate":  "advancements.eschatology.boss.root.title"
+    },
+    "description": {
+      "translate": "advancements.eschatology.boss.root.description"
+    },
+    "background": "minecraft:textures/block/diamond_block.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "unlocked": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

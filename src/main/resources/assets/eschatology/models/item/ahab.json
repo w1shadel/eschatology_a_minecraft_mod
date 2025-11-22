@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/ahab/ahab_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/ahab/ahab_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/ahab/ahab_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/ahab/ahab_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/ahab/ahab_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/ahab/ahab_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/ahab/ahab_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/ahab/ahab_base"
+    }
+  }
+}

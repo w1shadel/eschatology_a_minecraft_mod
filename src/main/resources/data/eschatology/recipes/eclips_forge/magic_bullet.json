@@ -1,0 +1,7 @@
+{
+  "type": "eschatology:eclipse_forge",
+  "left": { "item": "eschatology:a_time_crystal" },
+  "right": { "item": "minecraft:lapis_lazuli" },
+  "output": { "item": "eschatology:magic_bullet" },
+  "time": 30
+}

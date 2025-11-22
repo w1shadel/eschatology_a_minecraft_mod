@@ -1,0 +1,7 @@
+{
+  "type": "eschatology:eclipse_forge",
+  "left": { "item": "eschatology:a_time_crystal" },
+  "right": { "item": "minecraft:jungle_log" },
+  "output": { "item": "eschatology:fell_bullet_weapon" },
+  "time": 40
+}

@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/fell_bullet/fell_bullet_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/fell_bullet/fell_bullet_base"
+    }
+  }
+}

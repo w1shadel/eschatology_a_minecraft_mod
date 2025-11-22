@@ -1,0 +1,51 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+      "0": "eschatology:item/empty",
+      "1": "eschatology:item/apocalypse_handeld",
+      "particle": "eschatology:item/empty"
+	},
+	"elements": [
+		{
+			"from": [8.5, -1, -16],
+			"to": [9, 10, 32],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 7]},
+			"faces": {
+				"north": {"uv": [0.25, 6, 0.5, 9], "texture": "#0"},
+				"east": {"uv": [0, 0, 15.9375, 16.125], "rotation": 180, "texture": "#1"},
+				"south": {"uv": [0.5, 6, 0.75, 9], "texture": "#0"},
+				"west": {"uv": [0, 0, 15.84375, 16], "texture": "#1"},
+				"up": {"uv": [0.25, 12, 0, 6], "texture": "#0"},
+				"down": {"uv": [6.25, 0, 6, 6], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [92, 0, 0],
+			"translation": [0, 15.25, 6.25]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [93.75, 0, 0],
+			"translation": [0, 16.5, 6.25]
+		},
+		"firstperson_righthand": {
+			"rotation": [88.25, 0, 0],
+			"translation": [0, 6.25, 0.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [59.75, 0, 0],
+			"translation": [0, 6.25, 0.75]
+		},
+		"ground": {
+			"rotation": [59.25, -0.93, -1.6],
+			"translation": [0, 19.5, 0]
+		},
+		"fixed": {
+			"rotation": [89.99, 51.77, 89.5],
+			"translation": [0, -2.25, -1]
+		}
+	}
+}

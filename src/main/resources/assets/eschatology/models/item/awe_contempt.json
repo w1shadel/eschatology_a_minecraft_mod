@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/awe_contempt/awe_contempt_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/awe_contempt/awe_contempt_base"
+    }
+  }
+}

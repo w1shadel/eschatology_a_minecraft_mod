@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/haetataki/haetataki_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/haetataki/haetataki_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/haetataki/haetataki_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/haetataki/haetataki_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/haetataki/haetataki_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/haetataki/haetataki_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/haetataki/haetataki_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/haetataki/haetataki_base"
+    }
+  }
+}

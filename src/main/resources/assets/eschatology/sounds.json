@@ -1,0 +1,44 @@
+{
+  "black_bool": {
+    "sounds": [
+      "eschatology:music/black_bool"
+    ],
+    "stream": true
+  },
+  "twilight_attack1": {
+    "sounds": [
+      "eschatology:attack_sounds/twilight_attack1"
+    ],
+    "stream": true
+  },
+  "twilight_attack2": {
+    "sounds": [
+      "eschatology:attack_sounds/twilight_attack2"
+    ],
+    "stream": true
+  },
+  "magic_bullet_create": {
+    "sounds": [
+      "eschatology:attack_sounds/magic_bullet_create"
+    ],
+    "stream": true
+  },
+  "magic_bullet_shoot": {
+    "sounds": [
+      "eschatology:attack_sounds/magic_bullet_shoot"
+    ],
+    "stream": true
+  },
+  "buturi_atk_1": {
+    "sounds": [
+      "eschatology:attack_sounds/buturi_atk_1"
+    ],
+    "stream": true
+  },
+  "buturi_atk_2": {
+    "sounds": [
+      "eschatology:attack_sounds/buturi_atk_2"
+    ],
+    "stream": true
+  }
+}

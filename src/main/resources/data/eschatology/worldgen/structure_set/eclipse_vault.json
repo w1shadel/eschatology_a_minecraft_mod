@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "eschatology:eclipse_vault",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 57739068,
+    "spacing": 112,
+    "separation": 70,
+    "type": "minecraft:random_spread"
+  }
+}

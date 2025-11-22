@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/witchs_crest/witchs_crest_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
+    },
+    "firstperson_righthand":{
+      "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/witchs_crest/witchs_crest_base"
+    }
+  }
+}

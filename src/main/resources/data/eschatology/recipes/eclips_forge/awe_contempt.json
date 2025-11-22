@@ -1,0 +1,7 @@
+{
+  "type": "eschatology:eclipse_forge",
+  "left": { "item": "eschatology:a_time_crystal" },
+  "right": { "item": "minecraft:gold_ingot" },
+  "output": { "item": "eschatology:awe_contempt" },
+  "time": 40
+}

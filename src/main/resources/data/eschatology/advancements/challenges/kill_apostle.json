@@ -1,0 +1,49 @@
+{
+  "display": {
+    "icon": {
+      "item": "eschatology:witchs_crest"
+    },
+    "title": {
+      "translate": "advancement.eschatology.kill_apostle_weird"
+    },
+    "description": {
+      "translate": "advancement.eschatology.kill_apostle_weird.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "eschatology:root",
+  "criteria": {
+    "kill_apostle": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "goety:apostle"
+        },
+        "player": {
+          "equipment": {
+            "mainhand": {
+              "items": [
+                "eschatology:witchs_crest"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_apostle"
+    ]
+  ],
+
+  "rewards": {
+    "loot": [
+      "eschatology:rewards/apistle_reward"
+    ],
+    "experience": 500
+  }
+}

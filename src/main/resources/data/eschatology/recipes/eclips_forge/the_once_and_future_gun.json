@@ -1,0 +1,7 @@
+{
+  "type": "eschatology:eclipse_forge",
+  "left": { "item": "eschatology:a_time_crystal" },
+  "right": { "item": "minecraft:iron_ingot" },
+  "output": { "item": "eschatology:the_once_and_future_gun" },
+  "time": 320
+}

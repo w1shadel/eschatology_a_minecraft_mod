@@ -1,0 +1,8 @@
+{
+  "message_id": "white",
+  "exhaustion": 0.1,
+  "scaling": "when_caused_by_living_non_player",
+  "effects": "magic_hurt",
+  "death_message_type": "default",
+  "damage_type": "magic"
+}

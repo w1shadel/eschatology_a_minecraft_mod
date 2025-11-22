@@ -1,0 +1,24 @@
+{
+  "parent": "eschatology:boss/summon_black_bool",
+  "display": {
+    "icon": {
+      "item": "minecraft:nether_star"
+    },
+    "title":{
+      "translate": "advancements.eschatology.boss.kill_black_bool.title"
+    },
+    "description": {
+      "translate": "advancements.eschatology.boss.kill_black_bool.description"
+    },
+    "frame": "challenge",
+    "announce_to_chat": true
+  },
+  "rewards": {
+    "experience": 500
+  },
+  "criteria": {
+    "killed": {
+      "trigger": "eschatology:kill_black_bool"
+    }
+  }
+}

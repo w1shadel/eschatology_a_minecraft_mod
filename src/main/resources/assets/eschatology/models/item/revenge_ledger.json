@@ -1,0 +1,29 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "eschatology:item/revenge_ledger/revenge_ledger_base"
+  },
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_handheld"
+    },
+    "firstperson_righthand": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_handheld"
+    },
+    "thirdperson_lefthand": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_handheld"
+    },
+    "thirdperson_righthand": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_handheld"
+    },
+    "gui": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_base"
+    },
+    "ground": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_base"
+    },
+    "fixed": {
+      "parent": "eschatology:item/revenge_ledger/revenge_ledger_base"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "eschatology:root",
+  "criteria": {
+    "enter_vault": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "eschatology:eclipse_vault"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "show_toast": true,
+    "hidden": false,
+    "frame": "goal",
+    "icon": { "item": "minecraft:amethyst_shard" },
+    "title": { "translate": "advancements.eschatology.eclipse_vault_entry.title" },
+    "description": { "translate": "advancements.eschatology.eclipse_vault_entry.description" }
+  },
+  "requirements": [
+    ["enter_vault"]
+  ]
+}
