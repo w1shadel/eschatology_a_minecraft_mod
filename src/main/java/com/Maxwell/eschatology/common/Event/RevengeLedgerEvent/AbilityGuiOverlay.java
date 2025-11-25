@@ -89,4 +89,5 @@ public class AbilityGuiOverlay {    private static final Queue<Dialogue> dialogu
         if (currentDialogue.isFinished()) {
             currentDialogue = null;
         }
-    }}
+    }
+}

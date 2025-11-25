@@ -1,0 +1,197 @@
+package com.Maxwell.eschatology.Config;
+import net.minecraftforge.common.ForgeConfigSpec;
+public class ModItemsConfig {
+    public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final ForgeConfigSpec SPEC;
+
+    public static final ForgeConfigSpec.IntValue REVENGE_PAUSE_DURATION;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_JUMP_HEIGHT;
+    public static final ForgeConfigSpec.IntValue REVENGE_JUMP_DURATION;
+    public static final ForgeConfigSpec.IntValue REVENGE_HOVER_DURATION;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_DASH_LERP;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE0_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE0_KNOCKBACK_XZ;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE0_KNOCKBACK_Y;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE5_EXPLOSION_RADIUS;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE5_EXPLOSION_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_STAGE5_DAMAGE_RANGE_SQR;
+    public static final ForgeConfigSpec.IntValue REVENGE_STAGE5_BLOCK_DESTROY_RADIUS;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_DASH_TRIGGER_DISTANCE_SQR;
+    public static final ForgeConfigSpec.IntValue REVENGE_DASH_TIMEOUT;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_FALLING_BLOCK_DAMAGE;
+    public static final ForgeConfigSpec.IntValue REVENGE_ADD_REVENGE;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_BASE_EXTRA_DAMAGE_AT_FULL;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_BASE_ATTACK_SPEED_REF;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_TARGET_SEARCH_DIST;
+    public static final ForgeConfigSpec.DoubleValue REVENGE_TARGET_SEARCH_WIDTH;
+
+    public static final ForgeConfigSpec.IntValue WITCH_GAIN_POISONOUS;
+    public static final ForgeConfigSpec.IntValue WITCH_GAIN_RECIPE;
+    public static final ForgeConfigSpec.IntValue WITCH_GAIN_TAG;
+    public static final ForgeConfigSpec.IntValue WITCH_DURATION_PER_LEVEL;
+    public static final ForgeConfigSpec.IntValue WITCH_AMPLIFIER_THRESHOLD_LEVEL;
+    public static final ForgeConfigSpec.DoubleValue WITCH_PENALTY_DAMAGE;
+    public static final ForgeConfigSpec.IntValue WITCH_PENALTY_DURATION;
+    public static final ForgeConfigSpec.DoubleValue WITCH_SELF_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue WITCH_SORN_BASE_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue WITCH_DAMAGE_PER_LEVEL;
+
+    public static final ForgeConfigSpec.IntValue TOAFG_TARGET_RANGE;
+    public static final ForgeConfigSpec.IntValue TOAFG_CHECK_INTERVAL;
+    public static final ForgeConfigSpec.IntValue TOAFG_MAX_TARGETS;
+    public static final ForgeConfigSpec.DoubleValue TOAFG_ATTACK_DAMAGE;
+    public static final ForgeConfigSpec.IntValue TOAFG_PARTICLES_PER_TARGET;
+    public static final ForgeConfigSpec.IntValue TOAFG_TRAIL_COUNT;
+    public static final ForgeConfigSpec.DoubleValue TOAFG_SPAWN_SPREAD_XZ;
+    public static final ForgeConfigSpec.DoubleValue TOAFG_SPAWN_HEIGHT;
+
+    public static final ForgeConfigSpec.DoubleValue EXO_CHARGE_BAR_SCALE;
+    public static final ForgeConfigSpec.IntValue EXO_TEXT_COLOR;
+    public static final ForgeConfigSpec.DoubleValue EXO_BOSS_CHECK_RADIUS;
+    public static final ForgeConfigSpec.IntValue EXO_LOSS_DELAY_TICKS;
+    public static final ForgeConfigSpec.IntValue EXO_MAX_CHARGE;
+    public static final ForgeConfigSpec.IntValue EXO_ACTIVE_DRAIN_INTERVAL;
+    public static final ForgeConfigSpec.IntValue EXO_ACTIVE_DRAIN_AMOUNT;
+    public static final ForgeConfigSpec.IntValue EXO_ACTIVE_HEAL_INTERVAL;
+    public static final ForgeConfigSpec.DoubleValue EXO_ACTIVE_HEAL_AMOUNT;
+    public static final ForgeConfigSpec.IntValue EXO_PASSIVE_CHARGE_AMOUNT;
+    public static final ForgeConfigSpec.IntValue EXO_PASSIVE_DRAIN_AMOUNT;
+
+    public static final ForgeConfigSpec.DoubleValue APOCALYPSE_DAMAGE_MULTIPLIER;
+
+    public static final ForgeConfigSpec.IntValue COUNTER_DAMAGE_INSTANCES;
+    public static final ForgeConfigSpec.IntValue COUNTER_DAMAGE_INTERVAL;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_DAMAGE_AMOUNT;
+    public static final ForgeConfigSpec.IntValue COUNTER_DAMAGE_RADIUS;
+    public static final ForgeConfigSpec.IntValue COUNTER_SHARD_SPAWN_TICK;
+    public static final ForgeConfigSpec.IntValue COUNTER_START_TICK;
+    public static final ForgeConfigSpec.IntValue COUNTER_END_TICK;
+    public static final ForgeConfigSpec.IntValue COUNTER_SHARD_COUNT;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_SHARD_SPREAD_DISTANCE;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_CONTEMPT_DAMAGE_MULT;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_SELF_CONTEMPT_DAMAGE_MULT;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_SWEEP_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue COUNTER_RANGE;
+
+    public static final ForgeConfigSpec.DoubleValue FELL_BASE_DAMAGE;
+    public static final ForgeConfigSpec.IntValue FELL_MAX_LIFE_TICKS;
+    public static final ForgeConfigSpec.DoubleValue FELL_SHARD_DAMAGE;
+    public static final ForgeConfigSpec.IntValue FELL_SHARD_LIFE_TICKS;
+
+    public static final ForgeConfigSpec.IntValue MAGIC_MAX_BULLETS;
+    public static final ForgeConfigSpec.IntValue MAGIC_MIN_CHARGE_TIME;
+    public static final ForgeConfigSpec.DoubleValue MAGIC_BASE_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue MAGIC_CHARGE_DAMAGE_CAP;
+    public static final ForgeConfigSpec.DoubleValue MAGIC_CHARGE_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue MAGIC_ULTRA_SHOT_DAMAGE;
+    public static final ForgeConfigSpec.IntValue MAGIC_COOLDOWN_NORMAL;
+    public static final ForgeConfigSpec.IntValue MAGIC_COOLDOWN_ULTRA;
+    public static final ForgeConfigSpec.IntValue MAGIC_PROJECTILE_LIFE;
+
+    static {
+        BUILDER.push("ModItems_Settings");
+
+        BUILDER.push("RevengeLedger");
+        REVENGE_PAUSE_DURATION = BUILDER.defineInRange("pause_duration", 18, 0, 1000);
+        REVENGE_JUMP_HEIGHT = BUILDER.defineInRange("jump_height", 7.0, 0.0, 100.0);
+        REVENGE_JUMP_DURATION = BUILDER.defineInRange("jump_duration", 16, 0, 1000);
+        REVENGE_HOVER_DURATION = BUILDER.defineInRange("hover_duration", 12, 0, 1000);
+        REVENGE_DASH_LERP = BUILDER.defineInRange("dash_lerp", 0.40, 0.0, 1.0);
+        REVENGE_STAGE0_DAMAGE = BUILDER.defineInRange("stage0_damage", 20.0, 0.0, 10000.0);
+        REVENGE_STAGE0_KNOCKBACK_XZ = BUILDER.defineInRange("stage0_kb_xz", 3.0, 0.0, 100.0);
+        REVENGE_STAGE0_KNOCKBACK_Y = BUILDER.defineInRange("stage0_kb_y", 0.25, 0.0, 100.0);
+        REVENGE_STAGE5_EXPLOSION_RADIUS = BUILDER.defineInRange("stage5_expl_radius", 5.0, 0.0, 100.0);
+        REVENGE_STAGE5_EXPLOSION_DAMAGE = BUILDER.defineInRange("stage5_expl_damage", 1200.0, 0.0, 100000.0);
+        REVENGE_STAGE5_DAMAGE_RANGE_SQR = BUILDER.defineInRange("stage5_damage_range_sq", 16.0, 0.0, 1024.0);
+        REVENGE_STAGE5_BLOCK_DESTROY_RADIUS = BUILDER.defineInRange("stage5_block_radius", 11, 0, 100);
+        REVENGE_DASH_TRIGGER_DISTANCE_SQR = BUILDER.defineInRange("dash_trigger_dist_sq", 6.25, 0.0, 1024.0);
+        REVENGE_DASH_TIMEOUT = BUILDER.defineInRange("dash_timeout", 60, 0, 1000);
+        REVENGE_FALLING_BLOCK_DAMAGE = BUILDER.defineInRange("falling_block_damage", 40.0, 0.0, 10000.0);
+        REVENGE_ADD_REVENGE = BUILDER.defineInRange("add_revenge", 10, 1, 100);
+        REVENGE_BASE_EXTRA_DAMAGE_AT_FULL = BUILDER.defineInRange("base_extra_dmg_full", 8.0, 0.0, 10000.0);
+        REVENGE_BASE_ATTACK_SPEED_REF = BUILDER.defineInRange("base_atk_speed_ref", 4.0, 0.0, 100.0);
+        REVENGE_TARGET_SEARCH_DIST = BUILDER.defineInRange("target_search_dist", 5.0, 0.0, 128.0);
+        REVENGE_TARGET_SEARCH_WIDTH = BUILDER.defineInRange("target_search_width", 2.5, 0.0, 64.0);
+        BUILDER.pop();
+
+        BUILDER.push("WitchsCrest");
+        WITCH_GAIN_POISONOUS = BUILDER.defineInRange("gain_poisonous", 10, 1, 100);
+        WITCH_GAIN_RECIPE = BUILDER.defineInRange("gain_recipe", 5, 1, 100);
+        WITCH_GAIN_TAG = BUILDER.defineInRange("gain_tag", 1, 1, 100);
+        WITCH_DURATION_PER_LEVEL = BUILDER.defineInRange("duration_per_level", 600, 1, 10000);
+        WITCH_AMPLIFIER_THRESHOLD_LEVEL = BUILDER.defineInRange("amp_threshold", 10, 1, 100);
+        WITCH_PENALTY_DAMAGE = BUILDER.defineInRange("penalty_damage", 2.0, 0.0, 1000.0);
+        WITCH_PENALTY_DURATION = BUILDER.defineInRange("penalty_duration", 400, 0, 10000);
+        WITCH_SELF_DAMAGE = BUILDER.defineInRange("self_damage", 1.0, 0.0, 1000.0);
+        WITCH_SORN_BASE_DAMAGE = BUILDER.defineInRange("sorn_base_damage", 6.0, 0.0, 1000.0);
+        WITCH_DAMAGE_PER_LEVEL = BUILDER.defineInRange("damage_per_level", 0.5, 0.0, 1000.0);
+        BUILDER.pop();
+
+        BUILDER.push("TheOnceAndFutureGun");
+        TOAFG_TARGET_RANGE = BUILDER.defineInRange("target_range", 16, 1, 128);
+        TOAFG_CHECK_INTERVAL = BUILDER.defineInRange("check_interval", 20, 1, 1000);
+        TOAFG_MAX_TARGETS = BUILDER.defineInRange("max_targets", 2, 1, 100);
+        TOAFG_ATTACK_DAMAGE = BUILDER.defineInRange("attack_damage", 2.0, 0.0, 1000.0);
+        TOAFG_PARTICLES_PER_TARGET = BUILDER.defineInRange("particles_per_target", 10, 1, 100);
+        TOAFG_TRAIL_COUNT = BUILDER.defineInRange("trail_count", 4, 1, 100);
+        TOAFG_SPAWN_SPREAD_XZ = BUILDER.defineInRange("spawn_spread_xz", 8.0, 0.0, 100.0);
+        TOAFG_SPAWN_HEIGHT = BUILDER.defineInRange("spawn_height", 4.0, 0.0, 100.0);
+        BUILDER.pop();
+
+        BUILDER.push("ExoHeart");
+        EXO_CHARGE_BAR_SCALE = BUILDER.defineInRange("charge_bar_scale", 1.82, 0.0, 10.0);
+        EXO_TEXT_COLOR = BUILDER.defineInRange("text_color", 0x80D0FF, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        EXO_BOSS_CHECK_RADIUS = BUILDER.defineInRange("boss_check_radius", 16.0, 0.0, 256.0);
+        EXO_LOSS_DELAY_TICKS = BUILDER.defineInRange("loss_delay_ticks", 100, 0, 10000);
+        EXO_MAX_CHARGE = BUILDER.defineInRange("max_charge", 100, 1, 1000);
+        EXO_ACTIVE_DRAIN_INTERVAL = BUILDER.defineInRange("active_drain_interval", 1, 1, 1000);
+        EXO_ACTIVE_DRAIN_AMOUNT = BUILDER.defineInRange("active_drain_amount", 1, 1, 100);
+        EXO_ACTIVE_HEAL_INTERVAL = BUILDER.defineInRange("active_heal_interval", 8, 1, 1000);
+        EXO_ACTIVE_HEAL_AMOUNT = BUILDER.defineInRange("active_heal_amount", 1.0, 0.0, 100.0);
+        EXO_PASSIVE_CHARGE_AMOUNT = BUILDER.defineInRange("passive_charge_amount", 1, 1, 100);
+        EXO_PASSIVE_DRAIN_AMOUNT = BUILDER.defineInRange("passive_drain_amount", 1, 1, 100);
+        BUILDER.pop();
+
+        BUILDER.push("Apocalypse");
+        APOCALYPSE_DAMAGE_MULTIPLIER = BUILDER.defineInRange("damage_multiplier", 1.5, 0.0, 100.0);
+        BUILDER.pop();
+
+        BUILDER.push("Counter");
+        COUNTER_DAMAGE_INSTANCES = BUILDER.defineInRange("damage_instances", 50, 1, 1000);
+        COUNTER_DAMAGE_INTERVAL = BUILDER.defineInRange("damage_interval", 1, 1, 100);
+        COUNTER_DAMAGE_AMOUNT = BUILDER.defineInRange("damage_amount", 10.0, 0.0, 1000.0);
+        COUNTER_DAMAGE_RADIUS = BUILDER.defineInRange("damage_radius", 3, 1, 64);
+        COUNTER_SHARD_SPAWN_TICK = BUILDER.defineInRange("shard_spawn_tick", 43, 0, 1000);
+        COUNTER_START_TICK = BUILDER.defineInRange("start_tick", 47, 0, 1000);
+        COUNTER_END_TICK = BUILDER.defineInRange("end_tick", 60, 0, 1000);
+        COUNTER_SHARD_COUNT = BUILDER.defineInRange("shard_count", 42, 0, 1000);
+        COUNTER_SHARD_SPREAD_DISTANCE = BUILDER.defineInRange("shard_spread_dist", 4.0, 0.0, 64.0);
+        COUNTER_CONTEMPT_DAMAGE_MULT = BUILDER.defineInRange("contempt_dmg_mult", 1.5, 0.0, 100.0);
+        COUNTER_SELF_CONTEMPT_DAMAGE_MULT = BUILDER.defineInRange("self_contempt_dmg_mult", 0.3, 0.0, 100.0);
+        COUNTER_SWEEP_DAMAGE = BUILDER.defineInRange("sweep_damage", 120.0, 0.0, 10000.0);
+        COUNTER_RANGE = BUILDER.defineInRange("range", 3.0, 0.0, 64.0);
+        BUILDER.pop();
+
+        BUILDER.push("FellBullet");
+        FELL_BASE_DAMAGE = BUILDER.defineInRange("base_damage", 40.0, 0.0, 10000.0);
+        FELL_MAX_LIFE_TICKS = BUILDER.defineInRange("max_life_ticks", 100, 1, 10000);
+        FELL_SHARD_DAMAGE = BUILDER.defineInRange("shard_damage", 6.0, 0.0, 10000.0);
+        FELL_SHARD_LIFE_TICKS = BUILDER.defineInRange("shard_life_ticks", 20, 1, 1000);
+        BUILDER.pop();
+
+        BUILDER.push("MagicBullet");
+        MAGIC_MAX_BULLETS = BUILDER.defineInRange("max_bullets", 7, 1, 100);
+        MAGIC_MIN_CHARGE_TIME = BUILDER.defineInRange("min_charge_time", 20, 1, 1000);
+        MAGIC_BASE_DAMAGE = BUILDER.defineInRange("base_damage", 20.0, 0.0, 10000.0);
+        MAGIC_CHARGE_DAMAGE_CAP = BUILDER.defineInRange("charge_dmg_cap", 40.0, 0.0, 10000.0);
+        MAGIC_CHARGE_DAMAGE_MULTIPLIER = BUILDER.defineInRange("charge_dmg_mult", 0.25, 0.0, 100.0);
+        MAGIC_ULTRA_SHOT_DAMAGE = BUILDER.defineInRange("ultra_shot_dmg", 100.0, 0.0, 10000.0);
+        MAGIC_COOLDOWN_NORMAL = BUILDER.defineInRange("cooldown_normal", 10, 0, 1000);
+        MAGIC_COOLDOWN_ULTRA = BUILDER.defineInRange("cooldown_ultra", 60, 0, 1000);
+        MAGIC_PROJECTILE_LIFE = BUILDER.defineInRange("projectile_life", 100, 1, 10000);
+        BUILDER.pop();
+
+        BUILDER.pop();
+        SPEC = BUILDER.build();
+    }
+}

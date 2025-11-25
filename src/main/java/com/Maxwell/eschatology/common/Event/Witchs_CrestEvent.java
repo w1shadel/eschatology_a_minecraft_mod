@@ -3,20 +3,18 @@ package com.Maxwell.eschatology.common.Event;
 import com.Maxwell.eschatology.Eschatology;
 import com.Maxwell.eschatology.common.Capability.WitchsCrest.WCAttackLevelProvider;
 import com.Maxwell.eschatology.common.Items.WitchsCrest.Entity.WitchsSorn;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncWCPlayerATKLevelPacket;
 import com.Maxwell.eschatology.register.ModItems;
 import com.Maxwell.eschatology.register.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,13 +22,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -62,29 +58,23 @@ public class Witchs_CrestEvent {
                     });
 
                     applyBeneficialEffects(player, levelGain);
-
                 } else {
-
                     applyPenaltyEffects(player);
                 }
             }
         }
     }
     private static int calculateLevelGain(ItemStack stack, Level level) {
-
         if (stack.is(Items.POISONOUS_POTATO)) {
-            return 10;
+            return ModConstants.WitchsCrest.GAIN_POISONOUS;
         }
-
         if (hasPotatoInRecipe(stack.getItem(), level)) {
-            return 5;
+            return ModConstants.WitchsCrest.GAIN_RECIPE;
         }
-
         if (stack.is(ModTags.Items.POTATOES)) {
-            return 1;
+            return ModConstants.WitchsCrest.GAIN_TAG;
         }
-
-        return 0; 
+        return 0;
     }
     private static boolean hasPotatoInRecipe(Item item, Level level) {
 
@@ -128,10 +118,9 @@ public class Witchs_CrestEvent {
 
 
     private static void applyBeneficialEffects(ServerPlayer player, int levelGain) {
-
-        int duration = 600 * levelGain; 
+        int duration = ModConstants.WitchsCrest.DURATION_PER_LEVEL * levelGain;
         int amplifier = 0;
-        if (levelGain >= 10) amplifier = 1; 
+        if (levelGain >= ModConstants.WitchsCrest.AMPLIFIER_THRESHOLD_LEVEL) amplifier = 1;
 
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, duration, amplifier));
         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, duration, amplifier));
@@ -141,7 +130,7 @@ public class Witchs_CrestEvent {
     }
 
     private static void applyPenaltyEffects(ServerPlayer player) {
-        float penaltyDamage = 2.0F;
+        float penaltyDamage = ModConstants.WitchsCrest.PENALTY_DAMAGE;
         DamageSource penaltySource = player.damageSources().magic();
 
         List<MobEffect> beneficialEffectsToRemove = new ArrayList<>();
@@ -152,7 +141,7 @@ public class Witchs_CrestEvent {
         }
         beneficialEffectsToRemove.forEach(player::removeEffect);
 
-        int duration = 400;
+        int duration = ModConstants.WitchsCrest.PENALTY_DURATION;
         int amplifier = 0;
         player.addEffect(new MobEffectInstance(MobEffects.POISON, duration, amplifier));
         player.addEffect(new MobEffectInstance(MobEffects.WITHER, duration, amplifier));
@@ -166,9 +155,7 @@ public class Witchs_CrestEvent {
     public static void onAttackEntity(AttackEntityEvent event) {
         if (!event.getEntity().level().isClientSide() && event.getEntity().getMainHandItem().is(ModItems.WITCHS_CREST.get())) {
             Player attacker = event.getEntity();
-            float selfDamageAmount = 1.0F;
-            DamageSource selfDamageSource = attacker.damageSources().magic();
-            attacker.hurt(selfDamageSource, selfDamageAmount);
+            attacker.hurt(attacker.damageSources().magic(), ModConstants.WitchsCrest.SELF_DAMAGE);
         }
     }
     @SubscribeEvent
@@ -179,8 +166,8 @@ public class Witchs_CrestEvent {
             attacker.getCapability(WCAttackLevelProvider.PLAYER_ATTACK_LEVEL).ifPresent(level -> {
                 int attackLevel = level.getLevel();
                 if (attackLevel > 0) {
-                    float baseDamage = 6.0F;
-                    float bonusDamage = attackLevel * 0.5f;
+                    float baseDamage = ModConstants.WitchsCrest.SORN_BASE_DAMAGE;
+                    float bonusDamage = attackLevel * ModConstants.WitchsCrest.DAMAGE_PER_LEVEL;
                     event.setAmount(baseDamage + bonusDamage);
                 }
             });
@@ -193,7 +180,7 @@ public class Witchs_CrestEvent {
                     int attackLevel = level.getLevel();
                     if (attackLevel > 0) {
                         float originalDamage = event.getAmount();
-                        float bonusDamage = attackLevel * 0.5f;
+                        float bonusDamage = attackLevel * ModConstants.WitchsCrest.DAMAGE_PER_LEVEL;
                         event.setAmount(originalDamage + bonusDamage);
                     }
                 });

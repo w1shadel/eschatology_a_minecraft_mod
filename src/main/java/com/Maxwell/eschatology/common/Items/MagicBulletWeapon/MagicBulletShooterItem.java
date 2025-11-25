@@ -1,6 +1,6 @@
 package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;
 
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModEntities;
 import com.Maxwell.eschatology.register.ModSounds;
 import net.minecraft.ChatFormatting;

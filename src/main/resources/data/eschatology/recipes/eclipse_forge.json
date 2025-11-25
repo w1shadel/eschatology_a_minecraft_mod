@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    " B ",
+    "DFD"
+  ],
+  "key": {
+    "C": {
+      "item": "eschatology:singularity_core"
+    },
+    "B": {
+      "item": "minecraft:white_carpet"
+    },
+    "D": {
+      "item": "minecraft:blackstone"
+    },
+    "F": {
+      "item": "eschatology:frosted_scrap"
+    }
+  },
+  "result": {
+    "item": "eschatology:eclipse_forge"
+  }
+}

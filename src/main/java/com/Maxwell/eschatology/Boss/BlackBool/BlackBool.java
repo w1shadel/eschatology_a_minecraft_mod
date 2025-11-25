@@ -1,5 +1,6 @@
 package com.Maxwell.eschatology.Boss.BlackBool;
 
+import com.Maxwell.eschatology.Balance.BlackBoolBalance;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.BlackBoolMoveControl;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.SingularityGoal;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamEntity;
@@ -8,7 +9,9 @@ import com.Maxwell.eschatology.Boss.BlackBool.Entities.GravityOrb.GravityOrbEnti
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb.LightOrbEntity;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidLance.VoidLanceEntity;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
+import com.Maxwell.eschatology.Config.ModSoundConfig;
 import com.Maxwell.eschatology.client.GUI.Glitch.GlitchState;
+import com.Maxwell.eschatology.common.Items.Blocks.AltarOfTheEclipse.EclipseManager;
 import com.Maxwell.eschatology.common.MaxwellCustomBossEvent;
 import com.Maxwell.eschatology.common.Network.*;
 import com.Maxwell.eschatology.register.ModItems;
@@ -54,7 +57,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class BlackBool extends Monster {    private static final EntityDataAccessor<Integer> DATA_ATTACK_PHASE = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
+public class BlackBool extends Monster {
+    private static final EntityDataAccessor<Integer> DATA_ATTACK_PHASE = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_DEATH_TICKS = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_IS_PHASE_TWO =
             SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.BOOLEAN);
@@ -72,11 +76,12 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
     private int remainingCharges = 0;
     private int passiveOrbCooldown = 0;
     private boolean hasUsedEventHorizon = false;
-    private boolean isCriticallyEnraged = false; 
-    private boolean isSpawning = true; 
-    private int spawnAnimationTicks = 0; 
-    public boolean isMeleeStance = true; 
-    private int stanceSwitchCooldown = 0; 
+    private boolean isCriticallyEnraged = false;
+    private boolean isSpawning = true;
+    private int spawnAnimationTicks = 0;
+    public boolean isMeleeStance = true;
+    private int stanceSwitchCooldown = 0;
+
     public enum AttackPhase {
         IDLE,
         VOID_WAVE,
@@ -89,7 +94,9 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         LASER,
         EVENT_HORIZON,
         OUTER_HORIZON
-    }    public BlackBool(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    }
+
+    public BlackBool(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new BlackBoolMoveControl(this, 20, true);
         this.bossEvent = new MaxwellCustomBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS, 0);
@@ -98,29 +105,73 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         if (!pLevel.isClientSide) {
-            this.setHealth(1.0F); 
+            this.setHealth(1.0F);
             this.isSpawning = true;
         }
-    }    @Override
+        this.reapplyConfigAttributes();
+    }
+    private void reapplyConfigAttributes() {
+
+        if (this.getAttribute(Attributes.MAX_HEALTH) != null) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BlackBoolBalance.MAX_HEALTH);
+        }
+
+        if (this.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BlackBoolBalance.ATTACK_DAMAGE);
+        }
+
+        if (this.getAttribute(Attributes.ARMOR) != null) {
+            this.getAttribute(Attributes.ARMOR).setBaseValue(BlackBoolBalance.ARMOR);
+        }
+
+        if (this.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
+            this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(BlackBoolBalance.KNOCKBACK_RESISTANCE);
+        }
+
+        if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(BlackBoolBalance.MOVEMENT_SPEED);
+        }
+
+        if (this.getAttribute(Attributes.FLYING_SPEED) != null) {
+            this.getAttribute(Attributes.FLYING_SPEED).setBaseValue(BlackBoolBalance.FLYING_SPEED);
+        }
+        if (this.getAttribute(Attributes.FOLLOW_RANGE) != null) {
+            this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(BlackBoolBalance.FOLLOW_RANGE);
+        }
+        if (this.getAttribute(Attributes.ATTACK_SPEED) != null) {
+            this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(BlackBoolBalance.ATTACK_SPEED);
+        }
+    }
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_ATTACK_PHASE, AttackPhase.IDLE.ordinal());
         this.entityData.define(DATA_DEATH_TICKS, 0);
         this.entityData.define(DATA_IS_PHASE_TWO, false);
         this.entityData.define(DATA_LASER_TARGET_ID, 0);
-    }    public int getLaserTargetId() {
+    }
+
+    public int getLaserTargetId() {
         return this.entityData.get(DATA_LASER_TARGET_ID);
     }
+
     public AttackPhase getCurrentAttackPhase() {
         return AttackPhase.values()[this.entityData.get(DATA_ATTACK_PHASE)];
-    }    public void setCurrentAttackPhase(AttackPhase phase) {
+    }
+
+    public void setCurrentAttackPhase(AttackPhase phase) {
         this.entityData.set(DATA_ATTACK_PHASE, phase.ordinal());
-    }    public int getDeathAnimationTicks() {
+    }
+
+    public int getDeathAnimationTicks() {
         return this.entityData.get(DATA_DEATH_TICKS);
     }
+
     public boolean isPhaseTwo() {
         return this.entityData.get(DATA_IS_PHASE_TWO);
-    }    @Override
+    }
+
+    @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
@@ -128,65 +179,86 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
     }
+
     @Override
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
         return false;
     }
+
     @Override
     protected void tickDeath() {
-        this.entityData.set(DATA_DEATH_TICKS, this.deathAnimationTicks);        final int OUTBURST_END_TICK = BlackBoolBalance.DEATH_PHASE1_OUTBURST_TICKS;
+        this.entityData.set(DATA_DEATH_TICKS, this.deathAnimationTicks);
+        final int OUTBURST_END_TICK = BlackBoolBalance.DEATH_PHASE1_OUTBURST_TICKS;
         final int COLLAPSE_END_TICK = OUTBURST_END_TICK + BlackBoolBalance.DEATH_PHASE2_COLLAPSE_TICKS;
         final int IMPLOSION_END_TICK = COLLAPSE_END_TICK + BlackBoolBalance.DEATH_PHASE3_IMPLOSION_TICKS;
-        final int FINAL_TICK = IMPLOSION_END_TICK + BlackBoolBalance.DEATH_PHASE4_FINAL_TICKS;        this.deathAnimationTicks++;
+        final int FINAL_TICK = IMPLOSION_END_TICK + BlackBoolBalance.DEATH_PHASE4_FINAL_TICKS;
+
+        this.deathAnimationTicks++;
         this.setInvulnerable(true);
         this.getNavigation().stop();
-        this.setDeltaMovement(Vec3.ZERO);        if (!this.level().isClientSide) {
+        this.setDeltaMovement(Vec3.ZERO);
+
+        if (!this.level().isClientSide) {
             if (this.deathAnimationTicks == 1) {
                 this.playSound(SoundEvents.WITHER_HURT, 2.0F, 0.5F);
                 this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 1.5F, 1.2F);
-            }
-            else if (this.deathAnimationTicks > OUTBURST_END_TICK && this.deathAnimationTicks <= COLLAPSE_END_TICK) {
+            } else if (this.deathAnimationTicks > OUTBURST_END_TICK && this.deathAnimationTicks <= COLLAPSE_END_TICK) {
                 if (this.deathAnimationTicks == OUTBURST_END_TICK + 1) {
                     this.playSound(SoundEvents.WARDEN_HEARTBEAT, 3.0F, 0.5F);
                 }
                 AABB pullArea = this.getBoundingBox().inflate(BlackBoolBalance.DEATH_PULL_AREA_RADIUS);
                 List<Player> nearbyPlayers = this.level().getEntitiesOfClass(Player.class, pullArea);
-                for(Player player : nearbyPlayers) {
-                    if (player.isCreative() || player.isSpectator()) continue;                    Vec3 pullDir = this.position().subtract(player.position()).normalize();
-                    float collapseProgress = (float)(this.deathAnimationTicks - OUTBURST_END_TICK) / (BlackBoolBalance.DEATH_PHASE2_COLLAPSE_TICKS);
+                for (Player player : nearbyPlayers) {
+                    if (player.isCreative() || player.isSpectator()) continue;
+                    ModMessages.sendToPlayer(new SyncGlitchEffectPacket(0.0f), (ServerPlayer) player);
+                    Vec3 pullDir = this.position().subtract(player.position()).normalize();
+                    float collapseProgress = (float) (this.deathAnimationTicks - OUTBURST_END_TICK) / (BlackBoolBalance.DEATH_PHASE2_COLLAPSE_TICKS);
                     float strength = (1.0F - collapseProgress) * BlackBoolBalance.DEATH_PULL_STRENGTH;
                     player.setDeltaMovement(player.getDeltaMovement().add(pullDir.scale(strength)));
                     player.hurtMarked = true;
                 }
-            }
-            else if (this.deathAnimationTicks > COLLAPSE_END_TICK && this.deathAnimationTicks <= IMPLOSION_END_TICK) {
+            } else if (this.deathAnimationTicks > COLLAPSE_END_TICK && this.deathAnimationTicks <= IMPLOSION_END_TICK) {
                 if (this.deathAnimationTicks == COLLAPSE_END_TICK + 1) {
                     this.playSound(SoundEvents.END_PORTAL_SPAWN, 2.0F, 1.0F);
                     this.playSound(SoundEvents.GLASS_BREAK, 1.5F, 1.5F);
                 }
-            }            if (this.deathAnimationTicks >= FINAL_TICK) {
+            }
+
+            if (this.deathAnimationTicks >= FINAL_TICK) {
                 this.dropExperience();
                 this.dropAllDeathLoot(this.getLastDamageSource() != null ? this.getLastDamageSource() : this.damageSources().generic());
+
                 if (!this.level().isClientSide) {
                     for (int i = 0; i < 4; i++) {
                         ItemStack crystal = new ItemStack(ModItems.A_TIME_CRYSTAL.get());
                         this.spawnAtLocation(crystal, 0.5F);
                     }
+                    int ingotCount = 1 + this.random.nextInt(3);
+                    this.spawnAtLocation(new ItemStack(ModItems.SINGULARITC_INGOT.get(), ingotCount), 0.5F);
+                    if (this.random.nextFloat() < BlackBoolBalance.SING_CORE_PERCENT) {
+                        this.spawnAtLocation(new ItemStack(ModItems.SINGULARITY_CORE.get()), 0.5F);
+                    }
+
                     ServerLevel serverLevel = (ServerLevel) this.level();
                     serverLevel.sendParticles(ParticleTypes.END_ROD,
                             this.getX(), this.getY() + 1.0, this.getZ(),
-                            60, 1.5, 1.5, 1.5, 0.02);                    serverLevel.playSound(null, this.blockPosition(),
+                            60, 1.5, 1.5, 1.5, 0.02);
+                    serverLevel.playSound(null, this.blockPosition(),
                             SoundEvents.AMETHYST_CLUSTER_BREAK, this.getSoundSource(),
                             2.0F, 0.8F);
                     serverLevel.playSound(null, this.blockPosition(),
                             SoundEvents.END_PORTAL_SPAWN, this.getSoundSource(),
                             1.5F, 1.1F);
                 }
+
+                GlitchState.forcedGlitchIntensity = 0.0f;
                 ModMessages.sendToAll(new SyncEclipseStatePacket(false));
                 this.remove(RemovalReason.KILLED);
             }
         }
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         if (this.deathAnimationTicks > 0) {
             this.tickDeath();
@@ -194,16 +266,19 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         }
         super.tick();
         this.setNoGravity(true);
-        this.orbitTick++;        if (!this.level().isClientSide) {
+        this.orbitTick++;
+        if (!this.level().isClientSide) {
             if (this.getCurrentAttackPhase() != AttackPhase.LASER) {
                 captureNearbyProjectiles();
             }
             applyContactDamage();
         }
     }
+
     public float getHealthPercent() {
         return this.getHealth() / this.getMaxHealth();
     }
+
     public int getCooldownTicksByHealth(int baseCooldown) {
         float healthPercent = this.getHealthPercent();
         if (healthPercent < BlackBoolBalance.PHASE_TWO_HP_THRESHOLD) {
@@ -211,6 +286,7 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         }
         return (int) (baseCooldown * (0.5f + healthPercent));
     }
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -224,42 +300,53 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         this.goalSelector.addGoal(8, new RandomFlyGoal(this));
         this.targetSelector.addGoal(1, new FindNearestPlayerGoal(this));
     }
+
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());        if (this.isSpawning) {
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        if (this.isSpawning) {
             this.spawnAnimationTicks++;
             this.getNavigation().stop();
-            this.setDeltaMovement(Vec3.ZERO);            float progress = (float)this.spawnAnimationTicks / BlackBoolBalance.SPAWN_ANIMATION_DURATION_TICKS;
+            this.setDeltaMovement(Vec3.ZERO);
+            float progress = (float) this.spawnAnimationTicks / BlackBoolBalance.SPAWN_ANIMATION_DURATION_TICKS;
             float currentHealth = Mth.lerp(progress, 1.0F, this.getMaxHealth());
-            this.setHealth(currentHealth);            if (this.level() instanceof ServerLevel serverLevel) {
+            this.setHealth(currentHealth);
+            if (this.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, this.getRandomX(1.5), this.getRandomY(), this.getRandomZ(1.5), 1, 0, 0, 0, 0);
-            }            if (this.spawnAnimationTicks >= BlackBoolBalance.SPAWN_ANIMATION_DURATION_TICKS) {
+            }
+            if (this.spawnAnimationTicks >= BlackBoolBalance.SPAWN_ANIMATION_DURATION_TICKS) {
                 this.isSpawning = false;
                 this.setHealth(this.getMaxHealth());
                 this.playSound(SoundEvents.WITHER_SPAWN, 2.0F, 1.0F);
             }
             return;
-        }        if (this.chargeCooldown > 0) this.chargeCooldown--;
+        }
+        if (this.chargeCooldown > 0) this.chargeCooldown--;
         if (this.gravityOrbCooldown > 0) this.gravityOrbCooldown--;
         if (this.barrageCooldown > 0) this.barrageCooldown--;
         if (this.voidwavecooldown > 0) this.voidwavecooldown--;
         if (this.singularityCooldown > 0) this.singularityCooldown--;
         if (this.laserCooldown > 0) this.laserCooldown--;
-        if (this.passiveOrbCooldown > 0) this.passiveOrbCooldown--;        LivingEntity target = this.getTarget();
+        if (this.passiveOrbCooldown > 0) this.passiveOrbCooldown--;
+        LivingEntity target = this.getTarget();
         if (target == null || !target.isAlive()) {
             if (!this.onGround()) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0, -0.04, 0));
             }
             return;
-        }        this.getLookControl().setLookAt(target, 30.0F, 30.0F);        if (this.stanceSwitchCooldown > 0) {
+        }
+        this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+        if (this.stanceSwitchCooldown > 0) {
             this.stanceSwitchCooldown--;
         } else {
             double distanceToTarget = this.distanceToSqr(target);
             boolean shouldBeMelee = distanceToTarget < BlackBoolBalance.STANCE_SWITCH_MELEE_RANGE_SQ;
-            boolean shouldBeRanged = distanceToTarget > BlackBoolBalance.STANCE_SWITCH_RANGED_RANGE_SQ;            if ((shouldBeMelee && !this.isMeleeStance) || (shouldBeRanged && this.isMeleeStance)) {
+            boolean shouldBeRanged = distanceToTarget > BlackBoolBalance.STANCE_SWITCH_RANGED_RANGE_SQ;
+            if ((shouldBeMelee && !this.isMeleeStance) || (shouldBeRanged && this.isMeleeStance)) {
                 this.isMeleeStance = !this.isMeleeStance;
-                this.stanceSwitchCooldown = BlackBoolBalance.STANCE_SWITCH_COOLDOWN_MIN + this.random.nextInt(BlackBoolBalance.STANCE_SWITCH_COOLDOWN_RANDOM);                if (!this.isMeleeStance) {
+                this.stanceSwitchCooldown = BlackBoolBalance.STANCE_SWITCH_COOLDOWN_MIN + this.random.nextInt(BlackBoolBalance.STANCE_SWITCH_COOLDOWN_RANDOM);
+                if (!this.isMeleeStance) {
                     Vec3 backOffVec = this.position().vectorTo(target.position()).multiply(-1, 0, -1).normalize().scale(1.5D);
                     this.setDeltaMovement(this.getDeltaMovement().add(backOffVec));
                 }
@@ -267,46 +354,56 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                 this.isMeleeStance = !this.isMeleeStance;
                 this.stanceSwitchCooldown = BlackBoolBalance.STANCE_SWITCH_FORCED_COOLDOWN_MIN + this.random.nextInt(BlackBoolBalance.STANCE_SWITCH_FORCED_COOLDOWN_RANDOM);
             }
-        }        if (this.getCurrentAttackPhase() == AttackPhase.IDLE) {
+        }
+        if (this.getCurrentAttackPhase() == AttackPhase.IDLE) {
             double idealDistance;
-            double moveSpeedScale;            if (this.isMeleeStance) {
+            double moveSpeedScale;
+            if (this.isMeleeStance) {
                 idealDistance = BlackBoolBalance.MELEE_STANCE_IDEAL_DISTANCE;
                 moveSpeedScale = BlackBoolBalance.MELEE_STANCE_SPEED_SCALE;
             } else {
                 idealDistance = BlackBoolBalance.RANGED_STANCE_IDEAL_DISTANCE;
                 moveSpeedScale = BlackBoolBalance.RANGED_STANCE_SPEED_SCALE;
-            }            double deadZone = 1.0D;
+            }
+            double deadZone = 1.0D;
             Vec3 directionToTarget = this.position().vectorTo(target.position());
             double distance = directionToTarget.horizontalDistance();
             double targetY = target.getEyeY();
             double currentVerticalSpeed = this.getDeltaMovement().y;
             double targetVerticalSpeed = Mth.clamp((targetY - this.getY()) * 0.1, -0.3D, 0.3D);
-            double smoothedVerticalSpeed = Mth.lerp(0.2, currentVerticalSpeed, targetVerticalSpeed);            Vec3 horizontalDelta;
+            double smoothedVerticalSpeed = Mth.lerp(0.2, currentVerticalSpeed, targetVerticalSpeed);
+            Vec3 horizontalDelta;
             if (distance > idealDistance + deadZone) {
                 horizontalDelta = directionToTarget.multiply(1.0, 0, 1.0).normalize().scale(moveSpeedScale);
             } else if (distance < idealDistance - deadZone) {
                 horizontalDelta = directionToTarget.multiply(1.0, 0, 1.0).normalize().scale(-moveSpeedScale * 0.5);
             } else {
                 horizontalDelta = Vec3.ZERO;
-            }            Vec3 finalDelta = this.getDeltaMovement().multiply(0.90, 0.98, 0.90).add(horizontalDelta.x, 0, horizontalDelta.z);
-            finalDelta = new Vec3(finalDelta.x, smoothedVerticalSpeed, finalDelta.z);            double maxSpeed = this.getAttributeValue(Attributes.FLYING_SPEED);
+            }
+            Vec3 finalDelta = this.getDeltaMovement().multiply(0.90, 0.98, 0.90).add(horizontalDelta.x, 0, horizontalDelta.z);
+            finalDelta = new Vec3(finalDelta.x, smoothedVerticalSpeed, finalDelta.z);
+            double maxSpeed = this.getAttributeValue(Attributes.FLYING_SPEED);
             if (finalDelta.lengthSqr() > maxSpeed * maxSpeed) {
                 finalDelta = finalDelta.normalize().scale(maxSpeed);
             }
             this.setDeltaMovement(finalDelta);
-        }        float healthPercent = this.getHealthPercent();        if (healthPercent <= BlackBoolBalance.CRITICAL_ENRAGE_HP_THRESHOLD && !this.isCriticallyEnraged) {
+        }
+        float healthPercent = this.getHealthPercent();
+        if (healthPercent <= BlackBoolBalance.CRITICAL_ENRAGE_HP_THRESHOLD && !this.isCriticallyEnraged) {
             this.isCriticallyEnraged = true;
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, 0, false, false, true));
             this.playSound(SoundEvents.WITHER_DEATH, 2.0F, 1.0F);
             if (this.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(ParticleTypes.EXPLOSION_EMITTER, this.getX(), this.getY(0.5), this.getZ(), 2, 1.0, 1.0, 1.0, 0.0);
             }
-        }        if (this.tickCount % 20 == 0) {
+        }
+        if (this.tickCount % 20 == 0) {
             float desiredIntensity = getDesiredIntensity(healthPercent);
-            for (ServerPlayer player : ((ServerLevel)this.level()).getChunkSource().chunkMap.getPlayers(new ChunkPos(this.blockPosition()), false)) {
+            for (ServerPlayer player : ((ServerLevel) this.level()).getChunkSource().chunkMap.getPlayers(new ChunkPos(this.blockPosition()), false)) {
                 ModMessages.sendToPlayer(new SyncGlitchEffectPacket(desiredIntensity), player);
             }
-        }        if (this.passiveOrbCooldown <= 0) {
+        }
+        if (this.passiveOrbCooldown <= 0) {
             spawnOrbFromSky(target);
             if (healthPercent <= BlackBoolBalance.LANCE_SPAWN_START_HP_THRESHOLD && this.random.nextFloat() < (BlackBoolBalance.LANCE_SPAWN_START_HP_THRESHOLD - healthPercent)) {
                 spawnLanceFromSky(target);
@@ -314,6 +411,7 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.passiveOrbCooldown = BlackBoolBalance.PASSIVE_ORB_COOLDOWN_BASE + (int) (BlackBoolBalance.PASSIVE_ORB_COOLDOWN_BASE * healthPercent);
         }
     }
+
     public boolean canStartNewAttack() {
         if (this.isSpawning || this.getCurrentAttackPhase() != AttackPhase.IDLE) {
             return true;
@@ -321,8 +419,10 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         LivingEntity target = this.getTarget();
         return target == null || !target.isAlive();
     }
+
     private float getDesiredIntensity(float healthPercent) {
-        float desiredIntensity;        if (GlitchState.forcedGlitchIntensity > 0.0f) {
+        float desiredIntensity;
+        if (GlitchState.forcedGlitchIntensity > 0.0f) {
             desiredIntensity = GlitchState.forcedGlitchIntensity;
         } else {
             if (healthPercent <= BlackBoolBalance.PHASE_TWO_HP_THRESHOLD && this.isAlive()) {
@@ -334,39 +434,52 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
         desiredIntensity = Mth.clamp(desiredIntensity, 0.0f, 1.0f);
         return desiredIntensity;
     }
+
     private void spawnOrbFromSky(LivingEntity target) {
         RandomSource random = this.getRandom();
         double offsetX = (random.nextDouble() - 0.5) * 30.0;
         double offsetZ = (random.nextDouble() - 0.5) * 30.0;
-        Vec3 spawnPos = target.position().add(offsetX, 20.0, offsetZ);        LightOrbEntity orb = new LightOrbEntity(this.level(),this,target);
+        Vec3 spawnPos = target.position().add(offsetX, 20.0, offsetZ);
+        LightOrbEntity orb = new LightOrbEntity(this.level(), this, target);
         orb.setPos(spawnPos);
         orb.setDeltaMovement(0, -0.5, 0);
         this.level().addFreshEntity(orb);
-    }    private void spawnLanceFromSky(LivingEntity target) {
+    }
+
+    private void spawnLanceFromSky(LivingEntity target) {
         RandomSource random = this.getRandom();
         double offsetX = (random.nextDouble() - 0.5) * 30.0;
         double offsetZ = (random.nextDouble() - 0.5) * 30.0;
-        BlockPos targetPos = target.blockPosition().offset((int)offsetX, 0, (int)offsetZ);        BlockPos groundPos = new BlockPos(targetPos.getX(), (int) target.getY(), targetPos.getZ());
-        while(this.level().isEmptyBlock(groundPos) && groundPos.getY() > this.level().getMinBuildHeight()){
+        BlockPos targetPos = target.blockPosition().offset((int) offsetX, 0, (int) offsetZ);
+        BlockPos groundPos = new BlockPos(targetPos.getX(), (int) target.getY(), targetPos.getZ());
+        while (this.level().isEmptyBlock(groundPos) && groundPos.getY() > this.level().getMinBuildHeight()) {
             groundPos = groundPos.below();
-        }        VoidLanceEntity lance = new VoidLanceEntity(this.level(), this);
+        }
+        VoidLanceEntity lance = new VoidLanceEntity(this.level(), this);
         lance.setPos(groundPos.getX() + 0.5, groundPos.getY() + 25, groundPos.getZ() + 0.5);
         lance.setTargetPosition(groundPos);
         this.level().addFreshEntity(lance);
-    }    private void applyContactDamage() {
-        List<LivingEntity> touchingEntities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());        for (LivingEntity entity : touchingEntities) {
+    }
+
+    private void applyContactDamage() {
+        List<LivingEntity> touchingEntities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
+        for (LivingEntity entity : touchingEntities) {
             if (entity != this && !this.isAlliedTo(entity)) {
                 entity.invulnerableTime = 0;
                 float contactDamage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE) * BlackBoolBalance.CONTACT_DAMAGE_RATIO;
                 entity.hurt(this.damageSources().mobAttack(this), contactDamage);
             }
         }
-    }    private void captureNearbyProjectiles() {
+    }
+
+    private void captureNearbyProjectiles() {
         if (this.getPassengers().size() >= BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
             return;
-        }        AABB scanBox = this.getBoundingBox().inflate(BlackBoolBalance.PROJECTILE_CAPTURE_RADIUS);
+        }
+        AABB scanBox = this.getBoundingBox().inflate(BlackBoolBalance.PROJECTILE_CAPTURE_RADIUS);
         List<Projectile> projectiles = this.level().getEntitiesOfClass(Projectile.class, scanBox,
-                (projectile) -> projectile.getOwner() != this && !projectile.isVehicle());        for (Projectile p : projectiles) {
+                (projectile) -> projectile.getOwner() != this && !projectile.isVehicle());
+        for (Projectile p : projectiles) {
             if (this.getPassengers().size() < BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
                 p.setDeltaMovement(Vec3.ZERO);
                 p.startRiding(this, true);
@@ -375,13 +488,16 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             }
         }
     }
+
     private int damageCapTicks = 0;
     private float damageThisTick = 0.0F;
+
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.deathAnimationTicks > 0 || this.isInvulnerable() || this.isSpawning) {
             return false;
-        }        if (this.damageCapTicks == this.tickCount) {
+        }
+        if (this.damageCapTicks == this.tickCount) {
             if (this.damageThisTick >= BlackBoolBalance.DAMAGE_CAP_PER_TICK) {
                 return super.hurt(pSource, pAmount * BlackBoolBalance.DAMAGE_CAP_REDUCTION_RATIO);
             }
@@ -400,9 +516,12 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             }
         }
         return super.hurt(pSource, pAmount);
-    }    @Override
+    }
+
+    @Override
     public void die(DamageSource pCause) {
-        if (this.deathAnimationTicks > 0) return;        if (pCause.getEntity() instanceof ServerPlayer player) {
+        if (this.deathAnimationTicks > 0) return;
+        if (pCause.getEntity() instanceof ServerPlayer player) {
             ModTriggers.KILL_BLACK_BOOL.trigger(player);
         }
         super.die(pCause);
@@ -411,50 +530,65 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.bossEvent.setVisible(false);
         }
         if (!this.level().isClientSide) {
-            for (ServerPlayer player : ((ServerLevel)this.level()).getChunkSource().chunkMap.getPlayers(new ChunkPos(this.blockPosition()), false)) {
-                ModMessages.sendToPlayer(new SyncGlitchEffectPacket(0.0f), player);
+            for (ServerPlayer player : ((ServerLevel) this.level()).getChunkSource().chunkMap.getPlayers(new ChunkPos(this.blockPosition()), false)) {
                 ModMessages.sendToPlayer(new PlayBossMusicPacket((ResourceLocation) null), player);
             }
-            GlitchState.forcedGlitchIntensity = 0.0f;
         }
     }
+
     @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
         if (!this.level().isClientSide) {
-            for (ServerPlayer player : ((ServerLevel)this.level()).players()) {
+            for (ServerPlayer player : ((ServerLevel) this.level()).players()) {
                 ModMessages.sendToPlayer(new SyncGlitchEffectPacket(0.0f), player);
                 ModMessages.sendToPlayer(new PlayBossMusicPacket((ResourceLocation) null), player);
             }
         }
     }
+
     @Override
     public void positionRider(Entity pPassenger, MoveFunction pCallback) {
         if (!this.hasPassenger(pPassenger)) {
             return;
-        }        List<Entity> passengers = this.getPassengers();
+        }
+        List<Entity> passengers = this.getPassengers();
         int passengerIndex = passengers.indexOf(pPassenger);
-        if (passengerIndex < 0) return;        float orbitDistance = 2.5F;
+        if (passengerIndex < 0) return;
+        float orbitDistance = 2.5F;
         float orbitSpeed = 5.0F;
         float verticalOffset = this.getBbHeight() * 0.5F;
-        int totalPassengers = passengers.size();        float angleOffset = (360.0F / totalPassengers) * passengerIndex;
+        int totalPassengers = passengers.size();
+        float angleOffset = (360.0F / totalPassengers) * passengerIndex;
         float currentAngle = (this.orbitTick * orbitSpeed + angleOffset) % 360.0F;
-        double angleRad = Math.toRadians(currentAngle);        double newX = this.getX() + Math.cos(angleRad) * orbitDistance;
+        double angleRad = Math.toRadians(currentAngle);
+        double newX = this.getX() + Math.cos(angleRad) * orbitDistance;
         double newY = this.getY() + verticalOffset;
-        double newZ = this.getZ() + Math.sin(angleRad) * orbitDistance;        pCallback.accept(pPassenger, newX, newY, newZ);
-    }    @Override
+        double newZ = this.getZ() + Math.sin(angleRad) * orbitDistance;
+        pCallback.accept(pPassenger, newX, newY, newZ);
+    }
+
+    @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
         this.bossEvent.addPlayer(player);
         if (this.isAlive()) {
-            ModMessages.sendToPlayer(new PlayBossMusicPacket(ModSounds.MUSIC_BLACK_BOOL.get().getLocation()), player);
+            ResourceLocation musicId = ModSoundConfig.getSound(ModSoundConfig.MUSIC_BLACK_BOOL).getLocation();
+            ModMessages.sendToPlayer(
+                    new PlayBossMusicPacket(musicId),
+                    player
+            );
         }
-    }    @Override
+    }
+
+    @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
         this.bossEvent.removePlayer(player);
         ModMessages.sendToPlayer(new PlayBossMusicPacket((ResourceLocation) null), player);
-    }    public static AttributeSupplier.Builder createAttributes() {
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, BlackBoolBalance.MAX_HEALTH)
                 .add(Attributes.MOVEMENT_SPEED, BlackBoolBalance.MOVEMENT_SPEED)
@@ -464,17 +598,27 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                 .add(Attributes.KNOCKBACK_RESISTANCE, BlackBoolBalance.KNOCKBACK_RESISTANCE)
                 .add(Attributes.ARMOR, BlackBoolBalance.ARMOR)
                 .add(Attributes.FLYING_SPEED, BlackBoolBalance.FLYING_SPEED);
-    }    static class RandomFlyGoal extends Goal {
-        private final BlackBool mob;        public RandomFlyGoal(BlackBool pMob) {
+    }
+
+    static class RandomFlyGoal extends Goal {
+        private final BlackBool mob;
+
+        public RandomFlyGoal(BlackBool pMob) {
             this.mob = pMob;
-        }        @Override
+        }
+
+        @Override
         public boolean canUse() {
             if (this.mob.getCurrentAttackPhase() == AttackPhase.LASER) return false;
             return this.mob.getTarget() == null && !this.mob.getMoveControl().hasWanted();
-        }        @Override
+        }
+
+        @Override
         public boolean canContinueToUse() {
             return false;
-        }        @Override
+        }
+
+        @Override
         public void start() {
             RandomSource random = this.mob.getRandom();
             double d = BlackBoolBalance.RANDOM_FLY_RADIUS;
@@ -485,61 +629,86 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.mob.getMoveControl().setWantedPosition(targetX, targetY, targetZ, 1.0D);
         }
     }
+
     static class FindNearestPlayerGoal extends Goal {
         private final BlackBool mob;
-        private Player targetPlayer;        public FindNearestPlayerGoal(BlackBool mob) {
+        private Player targetPlayer;
+
+        public FindNearestPlayerGoal(BlackBool mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Goal.Flag.TARGET));
-        }        @Override
+        }
+
+        @Override
         public boolean canUse() {
             if (this.mob.getCurrentAttackPhase() == AttackPhase.LASER || this.mob.isSpawning) return false;
             if (this.mob.getTarget() != null && this.mob.getTarget().isAlive()) {
                 return false;
-            }            List<? extends Player> players = this.mob.level().players();
+            }
+            List<? extends Player> players = this.mob.level().players();
             Player closestPlayer = null;
-            double closestDistanceSq = -1.0D;            for (Player player : players) {
-                if (player.isCreative() || player.isSpectator()) continue;                double distanceSq = this.mob.distanceToSqr(player);
+            double closestDistanceSq = -1.0D;
+            for (Player player : players) {
+                if (player.isCreative() || player.isSpectator()) continue;
+                double distanceSq = this.mob.distanceToSqr(player);
                 double searchDistance = this.mob.getAttributeValue(Attributes.FOLLOW_RANGE);
-                if (distanceSq > searchDistance * searchDistance) continue;                if (closestDistanceSq == -1.0D || distanceSq < closestDistanceSq) {
+                if (distanceSq > searchDistance * searchDistance) continue;
+                if (closestDistanceSq == -1.0D || distanceSq < closestDistanceSq) {
                     closestDistanceSq = distanceSq;
                     closestPlayer = player;
                 }
-            }            if (closestPlayer != null) {
+            }
+            if (closestPlayer != null) {
                 this.targetPlayer = closestPlayer;
                 return true;
             }
             return false;
-        }        @Override
+        }
+
+        @Override
         public void start() {
             this.mob.setTarget(this.targetPlayer);
             super.start();
-        }        @Override
+        }
+
+        @Override
         public boolean canContinueToUse() {
             return false;
         }
-    }    static class ChargeAttackGoal extends Goal {
+    }
+
+    static class ChargeAttackGoal extends Goal {
         private final BlackBool mob;
         private LivingEntity target;
         private int chargeTicks;
         private Vec3 chargeDirection;
         private Vec3 startPosition;
         private final Set<LivingEntity> hitEntities = new HashSet<>();
+
         private enum Phase {PREPARING, CHARGING, COOLDOWN}
-        private Phase phase = Phase.COOLDOWN;        public ChargeAttackGoal(BlackBool mob) {
+
+        private Phase phase = Phase.COOLDOWN;
+
+        public ChargeAttackGoal(BlackBool mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
+
         @Override
         public boolean canContinueToUse() {
             return (this.target != null && this.target.isAlive()) && (this.phase != Phase.COOLDOWN || this.mob.remainingCharges > 0);
-        }        @Override
+        }
+
+        @Override
         public boolean canUse() {
             if (this.mob.canStartNewAttack()) return false;
             this.target = this.mob.getTarget();
             if (this.target == null) return false;
             double distanceSq = this.mob.distanceToSqr(this.target);
             return this.mob.chargeCooldown <= 0 && distanceSq > BlackBoolBalance.CHARGE_MIN_DISTANCE_SQ && distanceSq < BlackBoolBalance.CHARGE_MAX_DISTANCE_SQ;
-        }        @Override
+        }
+
+        @Override
         public void start() {
             this.mob.chargeCooldown = this.mob.getCooldownTicksByHealth(BlackBoolBalance.CHARGE_COOLDOWN_BASE);
             if (this.mob.remainingCharges <= 0) {
@@ -551,18 +720,21 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.chargeTicks = 0;
             this.hitEntities.clear();
             this.mob.getNavigation().stop();
-        }        @Override
+        }
+
+        @Override
         public void stop() {
-            this.mob.setDeltaMovement(Vec3.ZERO);            if (this.phase == Phase.CHARGING) {
+            this.mob.setDeltaMovement(Vec3.ZERO);
+            if (this.phase == Phase.CHARGING) {
                 if (!this.mob.level().isClientSide) {
                     for (int i = 0; i < 3; i++) {
                         double angle = this.mob.random.nextDouble() * 2.0 * Math.PI;
                         double distance = 4.0 + this.mob.random.nextDouble() * 3.0;
                         double offsetX = Math.cos(angle) * distance;
                         double offsetZ = Math.sin(angle) * distance;
-                        BlockPos targetPos = this.mob.blockPosition().offset((int)offsetX, 0, (int)offsetZ);
+                        BlockPos targetPos = this.mob.blockPosition().offset((int) offsetX, 0, (int) offsetZ);
                         BlockPos groundPos = new BlockPos(targetPos.getX(), (int) this.mob.getY(), targetPos.getZ());
-                        while(this.mob.level().isEmptyBlock(groundPos) && groundPos.getY() > this.mob.level().getMinBuildHeight()){
+                        while (this.mob.level().isEmptyBlock(groundPos) && groundPos.getY() > this.mob.level().getMinBuildHeight()) {
                             groundPos = groundPos.below();
                         }
                         VoidLanceEntity lance = new VoidLanceEntity(this.mob.level(), this.mob);
@@ -577,33 +749,39 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                 this.mob.playSound(SoundEvents.GENERIC_EXPLODE, 2.0F, 1.0F);
                 AABB area = this.mob.getBoundingBox().inflate(BlackBoolBalance.CHARGE_END_EXPLOSION_RADIUS);
                 List<Player> players = this.mob.level().getEntitiesOfClass(Player.class, area);
-                for(Player player : players) {
+                for (Player player : players) {
                     if (player.isCreative() || player.isSpectator()) continue;
                     Vec3 knockbackDir = player.position().subtract(this.mob.position()).normalize();
                     player.knockback(BlackBoolBalance.CHARGE_END_EXPLOSION_KNOCKBACK, -knockbackDir.x, -knockbackDir.z);
-                    player.hurt(this.mob.damageSources().mobAttack(this.mob), (float)this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE) * BlackBoolBalance.CHARGE_END_EXPLOSION_DAMAGE_RATIO);
+                    player.hurt(this.mob.damageSources().mobAttack(this.mob), (float) this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE) * BlackBoolBalance.CHARGE_END_EXPLOSION_DAMAGE_RATIO);
                 }
-                if(this.mob.level() instanceof ServerLevel serverLevel) {
+                if (this.mob.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.EXPLOSION, this.mob.getX(), this.mob.getY(0.5), this.mob.getZ(), 5, 2.0, 0.5, 2.0, 0.0);
                 }
-            }            this.mob.remainingCharges--;            if (this.mob.remainingCharges > 0 && this.target != null && this.target.isAlive()) {
+            }
+            this.mob.remainingCharges--;
+            if (this.mob.remainingCharges > 0 && this.target != null && this.target.isAlive()) {
                 this.start();
             } else {
                 this.mob.setCurrentAttackPhase(AttackPhase.IDLE);
                 this.phase = Phase.COOLDOWN;
             }
-        }        @Override
+        }
+
+        @Override
         public void tick() {
             if (this.target == null || !this.target.isAlive()) {
                 this.mob.remainingCharges = 0;
                 this.stop();
                 return;
             }
-            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);            switch (this.phase) {
+            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+            switch (this.phase) {
                 case PREPARING:
                     this.chargeTicks++;
                     Vec3 prepPos = this.target.position().subtract(this.mob.position()).normalize().scale(-12.0D).add(this.target.position());
-                    this.mob.getNavigation().moveTo(prepPos.x, this.target.getY() + 2.0, prepPos.z, 1.5D);                    if (this.chargeTicks >= BlackBoolBalance.CHARGE_PREPARATION_TICKS) {
+                    this.mob.getNavigation().moveTo(prepPos.x, this.target.getY() + 2.0, prepPos.z, 1.5D);
+                    if (this.chargeTicks >= BlackBoolBalance.CHARGE_PREPARATION_TICKS) {
                         this.chargeDirection = this.target.getEyePosition().subtract(this.mob.getEyePosition()).normalize();
                         this.mob.playSound(SoundEvents.ENDER_DRAGON_GROWL, 2.0F, 1.2F);
                         this.startPosition = this.mob.position();
@@ -611,11 +789,13 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                         this.chargeTicks = 0;
                         this.mob.getNavigation().stop();
                     }
-                    break;                case CHARGING:
+                    break;
+                case CHARGING:
                     this.chargeTicks++;
                     Vec3 velocity = this.chargeDirection.scale(BlackBoolBalance.CHARGE_SPEED);
                     this.mob.move(MoverType.SELF, velocity);
-                    this.mob.setDeltaMovement(velocity);                    AABB chargeHitbox = this.mob.getBoundingBox().inflate(1.0D, 0.5D, 1.0D);
+                    this.mob.setDeltaMovement(velocity);
+                    AABB chargeHitbox = this.mob.getBoundingBox().inflate(1.0D, 0.5D, 1.0D);
                     List<LivingEntity> nearbyEntities = this.mob.level().getEntitiesOfClass(LivingEntity.class, chargeHitbox);
                     for (LivingEntity entity : nearbyEntities) {
                         if (entity != this.mob && !this.mob.isAlliedTo(entity) && !this.hitEntities.contains(entity)) {
@@ -641,16 +821,21 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                     if (timedOut || maxDistanceReached || this.mob.horizontalCollision) {
                         this.stop();
                     }
-                    break;                case COOLDOWN:
+                    break;
+                case COOLDOWN:
                     break;
             }
         }
     }
+
     static class ShootGravityOrbGoal extends Goal {
         private final BlackBool mob;
-        private int chargeUpTicks;        public ShootGravityOrbGoal(BlackBool mob) {
+        private int chargeUpTicks;
+
+        public ShootGravityOrbGoal(BlackBool mob) {
             this.mob = mob;
         }
+
         @Override
         public boolean canUse() {
             if (this.mob.canStartNewAttack()) return false;
@@ -660,6 +845,7 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                     !this.mob.isMeleeStance &&
                     this.mob.distanceToSqr(target) > BlackBoolBalance.GRAVITY_ORB_MIN_DISTANCE_SQ;
         }
+
         @Override
         public void start() {
             this.mob.gravityOrbCooldown = this.mob.getCooldownTicksByHealth(BlackBoolBalance.GRAVITY_ORB_COOLDOWN_BASE);
@@ -667,10 +853,12 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.mob.setCurrentAttackPhase(AttackPhase.GRAVITY_ORB);
             this.mob.getNavigation().stop();
         }
+
         @Override
         public boolean canContinueToUse() {
             return this.chargeUpTicks < BlackBoolBalance.GRAVITY_ORB_CHARGE_UP_TICKS && this.mob.getTarget() != null;
         }
+
         @Override
         public void stop() {
             this.mob.setCurrentAttackPhase(AttackPhase.IDLE);
@@ -682,27 +870,37 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                 this.mob.isMeleeStance = true;
                 this.mob.stanceSwitchCooldown = BlackBoolBalance.STANCE_SWITCH_FORCED_COOLDOWN_MIN + this.mob.random.nextInt(BlackBoolBalance.STANCE_SWITCH_FORCED_COOLDOWN_RANDOM);
             }
-        }        @Override
+        }
+
+        @Override
         public void tick() {
-            if(this.mob.getTarget() == null) return;
+            if (this.mob.getTarget() == null) return;
             this.mob.getLookControl().setLookAt(this.mob.getTarget());
             this.mob.getNavigation().stop();
-            this.chargeUpTicks++;            if (this.mob.level().isClientSide) {
+            this.chargeUpTicks++;
+            if (this.mob.level().isClientSide) {
                 Vec3 lookVec = this.mob.getLookAngle();
                 Vec3 particlePos = this.mob.position().add(lookVec.scale(2.0D)).add(0, 1.5, 0);
                 this.mob.level().addParticle(ParticleTypes.WITCH, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
             }
         }
     }
+
     static class BarrageAttackGoal extends Goal {
         private final BlackBool mob;
         private int chargeUpTicks;
         private int firingTicks;
+
         private enum Phase {IDLE, CHARGING, FIRING}
-        private Phase phase = Phase.IDLE;        public BarrageAttackGoal(BlackBool mob) {
+
+        private Phase phase = Phase.IDLE;
+
+        public BarrageAttackGoal(BlackBool mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Goal.Flag.LOOK));
-        }        @Override
+        }
+
+        @Override
         public boolean canUse() {
             if (this.mob.canStartNewAttack()) return false;
             LivingEntity target = this.mob.getTarget();
@@ -710,10 +908,14 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             return this.mob.barrageCooldown <= 0 &&
                     !this.mob.isMeleeStance &&
                     this.mob.distanceToSqr(target) > BlackBoolBalance.BARRAGE_MIN_DISTANCE_SQ;
-        }        @Override
+        }
+
+        @Override
         public boolean canContinueToUse() {
             return (this.phase != Phase.IDLE) && this.mob.getTarget() != null && this.mob.getTarget().isAlive();
-        }        @Override
+        }
+
+        @Override
         public void start() {
             this.phase = Phase.CHARGING;
             this.mob.setCurrentAttackPhase(AttackPhase.BARRAGE);
@@ -721,35 +923,46 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.firingTicks = 0;
             this.mob.barrageCooldown = this.mob.getCooldownTicksByHealth(BlackBoolBalance.BARRAGE_COOLDOWN_BASE);
             this.mob.getNavigation().stop();
-        }        @Override
+        }
+
+        @Override
         public void stop() {
             this.phase = Phase.IDLE;
             this.mob.setCurrentAttackPhase(AttackPhase.IDLE);
-        }        @Override
+        }
+
+        @Override
         public void tick() {
             LivingEntity target = this.mob.getTarget();
             if (target == null) {
                 this.stop();
                 return;
-            }            this.mob.getLookControl().setLookAt(target);            if (this.phase == Phase.CHARGING) {
+            }
+            this.mob.getLookControl().setLookAt(target);
+            if (this.phase == Phase.CHARGING) {
                 this.chargeUpTicks++;
                 if (this.chargeUpTicks >= BlackBoolBalance.BARRAGE_CHARGE_UP_TICKS) {
                     this.phase = Phase.FIRING;
                 }
             } else if (this.phase == Phase.FIRING) {
-                this.firingTicks++;                boolean isEnraged = this.mob.getHealthPercent() <= BlackBoolBalance.PHASE_TWO_HP_THRESHOLD;
+                this.firingTicks++;
+                boolean isEnraged = this.mob.getHealthPercent() <= BlackBoolBalance.PHASE_TWO_HP_THRESHOLD;
                 int duration = isEnraged ? BlackBoolBalance.BARRAGE_DURATION_ENRAGED : BlackBoolBalance.BARRAGE_DURATION_NORMAL;
-                int fireRate = isEnraged ? BlackBoolBalance.BARRAGE_FIRE_RATE_ENRAGED : BlackBoolBalance.BARRAGE_FIRE_RATE_NORMAL;                if (this.firingTicks % fireRate == 0) {
+                int fireRate = isEnraged ? BlackBoolBalance.BARRAGE_FIRE_RATE_ENRAGED : BlackBoolBalance.BARRAGE_FIRE_RATE_NORMAL;
+                if (this.firingTicks % fireRate == 0) {
                     boolean rightSide = this.firingTicks % (fireRate * 2) == 0;
                     fireBarrageShot(target, rightSide);
-                }                if (this.firingTicks >= duration) {
+                }
+                if (this.firingTicks >= duration) {
                     this.stop();
                 }
             }
-        }        private void fireBarrageShot(LivingEntity target, boolean rightSide) {
+        }
+
+        private void fireBarrageShot(LivingEntity target, boolean rightSide) {
             this.mob.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, 1.5F);
             Vec3 hardpoint = new Vec3(rightSide ? -2.0D : 2.0D, 1.5D, 0.5D);
-            hardpoint = hardpoint.yRot(-this.mob.yBodyRot * ((float)Math.PI / 180F));
+            hardpoint = hardpoint.yRot(-this.mob.yBodyRot * ((float) Math.PI / 180F));
             Vec3 spawnPos = this.mob.position().add(hardpoint);
             Vec3 targetSideOffset = target.getLookAngle().cross(new Vec3(0, 1, 0)).normalize().scale(rightSide ? 3.0D : -3.0D);
             Vec3 aimPos = target.getEyePosition().add(targetSideOffset);
@@ -760,11 +973,15 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.mob.level().addFreshEntity(orb);
         }
     }
+
     static class LaserAttackGoal extends Goal {
         private final BlackBool mob;
-        private int chargeUpTicks = 0;        public LaserAttackGoal(BlackBool mob) {
+        private int chargeUpTicks = 0;
+
+        public LaserAttackGoal(BlackBool mob) {
             this.mob = mob;
         }
+
         @Override
         public boolean canUse() {
             if (this.mob.canStartNewAttack()) return false;
@@ -772,6 +989,7 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                     this.mob.laserCooldown <= 0 &&
                     this.mob.getHealthPercent() <= BlackBoolBalance.LASER_HP_THRESHOLD;
         }
+
         @Override
         public void start() {
             this.mob.laserCooldown = this.mob.getCooldownTicksByHealth(BlackBoolBalance.LASER_COOLDOWN_BASE);
@@ -779,10 +997,14 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             this.mob.setCurrentAttackPhase(BlackBool.AttackPhase.LASER);
             this.mob.getNavigation().stop();
             this.mob.playSound(SoundEvents.ENDER_DRAGON_GROWL, 3.0F, 1.5F);
-        }        @Override
+        }
+
+        @Override
         public boolean canContinueToUse() {
             return this.chargeUpTicks < BlackBoolBalance.LASER_CHARGE_UP_TICKS && this.mob.getTarget() != null && this.mob.getTarget().isAlive();
-        }        @Override
+        }
+
+        @Override
         public void stop() {
             if (this.chargeUpTicks >= BlackBoolBalance.LASER_CHARGE_UP_TICKS) {
                 LivingEntity target = this.mob.getTarget();
@@ -798,7 +1020,9 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                 }
             }
             this.mob.setCurrentAttackPhase(BlackBool.AttackPhase.IDLE);
-        }        @Override
+        }
+
+        @Override
         public void tick() {
             this.chargeUpTicks++;
             LivingEntity target = this.mob.getTarget();
@@ -807,30 +1031,39 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             }
         }
     }
+
     static class EventHorizonGoal extends Goal {
         private final BlackBool mob;
         private int castTime = 0;
+
         public EventHorizonGoal(BlackBool mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }        @Override
+        }
+
+        @Override
         public boolean canUse() {
             return !this.mob.hasUsedEventHorizon &&
                     this.mob.getHealthPercent() > BlackBoolBalance.EVENT_HORIZON_HP_THRESHOLD &&
                     this.mob.getTarget() != null;
         }
+
         @Override
         public boolean canContinueToUse() {
             return this.castTime < BlackBoolBalance.EVENT_HORIZON_CAST_TIME_TICKS;
-        }        @Override
+        }
+
+        @Override
         public void start() {
             this.castTime = 0;
-            this.mob.hasUsedEventHorizon  = true;
+            this.mob.hasUsedEventHorizon = true;
             this.mob.setCurrentAttackPhase(AttackPhase.IDLE);
             this.mob.getNavigation().stop();
             this.mob.setInvulnerable(true);
             this.mob.playSound(SoundEvents.WITHER_SPAWN, 2.0F, 0.8F);
-        }        @Override
+        }
+
+        @Override
         public void tick() {
             this.castTime++;
             if (this.mob.getTarget() != null) {
@@ -845,7 +1078,9 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
                     this.mob.level().addParticle(ParticleTypes.REVERSE_PORTAL, px, this.mob.getRandomY(), pz, 0, 0, 0);
                 }
             }
-        }        @Override
+        }
+
+        @Override
         public void stop() {
             this.mob.setInvulnerable(false);
             if (!this.mob.level().isClientSide && this.castTime >= BlackBoolBalance.EVENT_HORIZON_CAST_TIME_TICKS) {
@@ -855,30 +1090,46 @@ public class BlackBool extends Monster {    private static final EntityDataAcces
             }
         }
     }
+
     static class FindRevenantGoal extends Goal {
         private final BlackBool mob;
-        private LivingEntity target;        public FindRevenantGoal(BlackBool mob) {
+        private LivingEntity target;
+
+        public FindRevenantGoal(BlackBool mob) {
             this.mob = mob;
             this.setFlags(EnumSet.of(Goal.Flag.TARGET));
-        }        @Override
-        public boolean canUse() {            if (this.mob.isSpawning || this.mob.getCurrentAttackPhase() != AttackPhase.IDLE) return false;            if (this.mob.getTarget() instanceof ExoWither revenant && revenant.isAlive()) {
+        }
+
+        @Override
+        public boolean canUse() {
+            if (this.mob.isSpawning || this.mob.getCurrentAttackPhase() != AttackPhase.IDLE) return false;
+            if (this.mob.getTarget() instanceof ExoWither revenant && revenant.isAlive()) {
                 return false;
-            }            List<ExoWither> revenants = this.mob.level().getEntitiesOfClass(
+            }
+            List<ExoWither> revenants = this.mob.level().getEntitiesOfClass(
                     ExoWither.class,
                     this.mob.getBoundingBox().inflate(BlackBoolBalance.REVENANT_DETECT_RADIUS)
-            );            if (!revenants.isEmpty()) {
-                this.target = revenants.get(0); 
+            );
+            if (!revenants.isEmpty()) {
+                this.target = revenants.get(0);
                 return true;
-            }            return false;
-        }        @Override
+            }
+            return false;
+        }
+
+        @Override
         public void start() {
             this.mob.setTarget(this.target);
-            this.mob.playSound(SoundEvents.WITHER_SPAWN, 3.0F, 0.6F); 
+            this.mob.playSound(SoundEvents.WITHER_SPAWN, 3.0F, 0.6F);
             super.start();
-        }        @Override
+        }
+
+        @Override
         public boolean canContinueToUse() {
             return this.target != null && this.target.isAlive();
-        }        @Override
+        }
+
+        @Override
         public void stop() {
             this.target = null;
         }

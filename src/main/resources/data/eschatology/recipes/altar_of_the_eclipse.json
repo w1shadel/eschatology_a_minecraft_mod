@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BAB",
+    "DCD",
+    "DDD"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:ender_eye"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "minecraft:gilded_blackstone"
+    },
+    "D": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "eschatology:altar_of_the_eclipse"
+  }
+}

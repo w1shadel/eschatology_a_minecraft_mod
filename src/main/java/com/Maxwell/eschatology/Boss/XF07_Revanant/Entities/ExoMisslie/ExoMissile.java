@@ -2,7 +2,7 @@ package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoMisslie;
 
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostStrikeField.FrostFieldEntity;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
-import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherBalance;
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;

@@ -1,5 +1,5 @@
 package com.Maxwell.eschatology.common.Event.RevengeLedgerEvent;import com.Maxwell.eschatology.Eschatology;
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncRLAbilityGuiPacket;
 import net.minecraft.core.BlockPos;
@@ -22,11 +22,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;@Mod.EventBusSubscriber(modid = Eschatology.MODID)
 public class AbilityTickHandler {
-    private static final int PAUSE_DURATION_TICKS = 18;
-    private static final double JUMP_HEIGHT = 7;
-    private static final int JUMP_DURATION_TICKS = 16;
-    private static final int HOVER_DURATION_TICKS = 12;
-    private static final double DASH_LERP_FACTOR = 0.40;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -101,7 +96,7 @@ public class AbilityTickHandler {
             case 3:
                 player.setDeltaMovement(0, 0, 0);
                 player.teleportTo(player.getX(), player.getY(), player.getZ());
-                if (timer > HOVER_DURATION_TICKS) {
+                if (timer > ModConstants.Revenge.HOVER_DURATION) {
                     data.putInt("revenge_skill_stage", 4);
                     data.putInt("revenge_skill_timer", 0);
                 }

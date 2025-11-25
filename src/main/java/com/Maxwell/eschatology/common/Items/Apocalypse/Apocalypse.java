@@ -1,5 +1,6 @@
 package com.Maxwell.eschatology.common.Items.Apocalypse;
 
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModDamageTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -40,7 +41,7 @@ public class Apocalypse extends SwordItem {
         super.hurtEnemy(pStack, pTarget, pAttacker);
         Level level = pTarget.level();
         double totalAttackDamage = pAttacker.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float extraDamageAmount = (float) totalAttackDamage * 1.5F;
+        float extraDamageAmount = (float) totalAttackDamage * ModConstants.Apocalypse.DAMAGE_MULTIPLIER;
         Registry<DamageType> damageTypeRegistry = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);        for (int i = 0; i < 4; i++) {
             pTarget.invulnerableTime = 0;
             DamageSource damageSource = switch (i) {

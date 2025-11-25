@@ -1,6 +1,6 @@
 package com.Maxwell.eschatology.common.Items.FellBullet.Entity;
 
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;

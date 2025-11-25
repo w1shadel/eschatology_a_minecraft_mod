@@ -3,7 +3,7 @@ package com.Maxwell.eschatology.Boss.XF07_Revanant.AI;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Animation.ExoWitherAnimationTicks;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoMisslie.ExoMissile;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
-import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherBalance;
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;

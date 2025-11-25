@@ -2,7 +2,7 @@ package com.Maxwell.eschatology.Boss.XF07_Revanant.AI;
 
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamEntity;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
-import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherBalance;
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;

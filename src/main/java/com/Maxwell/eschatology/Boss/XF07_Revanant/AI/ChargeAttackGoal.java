@@ -1,7 +1,7 @@
 package com.Maxwell.eschatology.Boss.XF07_Revanant.AI;
 
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
-import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherBalance;
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;

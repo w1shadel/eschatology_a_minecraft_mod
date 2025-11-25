@@ -1,6 +1,6 @@
 package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;
 
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PNW",
+    "HCH",
+    "RNG"
+  ],
+  "key": {
+    "C": { "item": "eschatology:singularity_core" },
+    "H": { "item": "eschatology:frozen_exoheart" },
+    "N": { "item": "minecraft:netherite_block" },
+
+    "P": { "item": "eschatology:apocalypse" },
+    "W": { "item": "eschatology:awe_contempt" },
+    "R": { "item": "eschatology:revenge_ledger" },
+    "G": { "item": "eschatology:the_once_and_future_gun" }
+  },
+  "result": {
+    "item": "eschatology:haetataki"
+  }
+}

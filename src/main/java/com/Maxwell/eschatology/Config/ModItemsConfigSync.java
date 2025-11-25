@@ -1,0 +1,105 @@
+package com.Maxwell.eschatology.Config;
+
+import com.Maxwell.eschatology.Balance.ModConstants;
+import com.Maxwell.eschatology.Eschatology;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+
+@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class ModItemsConfigSync {
+
+    @SubscribeEvent
+    public static void onModConfigEvent(ModConfigEvent event) {
+        if (event.getConfig().getSpec() == ModItemsConfig.SPEC) {
+            bakeConfig();
+        }
+    }
+
+    private static void bakeConfig() {
+
+        ModConstants.Revenge.PAUSE_DURATION = ModItemsConfig.REVENGE_PAUSE_DURATION.get();
+        ModConstants.Revenge.JUMP_HEIGHT = ModItemsConfig.REVENGE_JUMP_HEIGHT.get();
+        ModConstants.Revenge.JUMP_DURATION = ModItemsConfig.REVENGE_JUMP_DURATION.get();
+        ModConstants.Revenge.HOVER_DURATION = ModItemsConfig.REVENGE_HOVER_DURATION.get();
+        ModConstants.Revenge.DASH_LERP = ModItemsConfig.REVENGE_DASH_LERP.get();
+        ModConstants.Revenge.STAGE0_DAMAGE = ModItemsConfig.REVENGE_STAGE0_DAMAGE.get().floatValue();
+        ModConstants.Revenge.STAGE0_KNOCKBACK_XZ = ModItemsConfig.REVENGE_STAGE0_KNOCKBACK_XZ.get();
+        ModConstants.Revenge.STAGE0_KNOCKBACK_Y = ModItemsConfig.REVENGE_STAGE0_KNOCKBACK_Y.get();
+        ModConstants.Revenge.STAGE5_EXPLOSION_RADIUS = ModItemsConfig.REVENGE_STAGE5_EXPLOSION_RADIUS.get().floatValue();
+        ModConstants.Revenge.STAGE5_EXPLOSION_DAMAGE = ModItemsConfig.REVENGE_STAGE5_EXPLOSION_DAMAGE.get().floatValue();
+        ModConstants.Revenge.STAGE5_DAMAGE_RANGE_SQR = ModItemsConfig.REVENGE_STAGE5_DAMAGE_RANGE_SQR.get();
+        ModConstants.Revenge.STAGE5_BLOCK_DESTROY_RADIUS = ModItemsConfig.REVENGE_STAGE5_BLOCK_DESTROY_RADIUS.get();
+        ModConstants.Revenge.DASH_TRIGGER_DISTANCE_SQR = ModItemsConfig.REVENGE_DASH_TRIGGER_DISTANCE_SQR.get();
+        ModConstants.Revenge.DASH_TIMEOUT = ModItemsConfig.REVENGE_DASH_TIMEOUT.get();
+        ModConstants.Revenge.FALLING_BLOCK_DAMAGE = ModItemsConfig.REVENGE_FALLING_BLOCK_DAMAGE.get().floatValue();
+        ModConstants.Revenge.ADD_REVENGE = ModItemsConfig.REVENGE_ADD_REVENGE.get();
+        ModConstants.Revenge.BASE_EXTRA_DAMAGE_AT_FULL = ModItemsConfig.REVENGE_BASE_EXTRA_DAMAGE_AT_FULL.get();
+        ModConstants.Revenge.BASE_ATTACK_SPEED_REF = ModItemsConfig.REVENGE_BASE_ATTACK_SPEED_REF.get();
+        ModConstants.Revenge.TARGET_SEARCH_DIST = ModItemsConfig.REVENGE_TARGET_SEARCH_DIST.get();
+        ModConstants.Revenge.TARGET_SEARCH_WIDTH = ModItemsConfig.REVENGE_TARGET_SEARCH_WIDTH.get();
+
+        ModConstants.WitchsCrest.GAIN_POISONOUS = ModItemsConfig.WITCH_GAIN_POISONOUS.get();
+        ModConstants.WitchsCrest.GAIN_RECIPE = ModItemsConfig.WITCH_GAIN_RECIPE.get();
+        ModConstants.WitchsCrest.GAIN_TAG = ModItemsConfig.WITCH_GAIN_TAG.get();
+        ModConstants.WitchsCrest.DURATION_PER_LEVEL = ModItemsConfig.WITCH_DURATION_PER_LEVEL.get();
+        ModConstants.WitchsCrest.AMPLIFIER_THRESHOLD_LEVEL = ModItemsConfig.WITCH_AMPLIFIER_THRESHOLD_LEVEL.get();
+        ModConstants.WitchsCrest.PENALTY_DAMAGE = ModItemsConfig.WITCH_PENALTY_DAMAGE.get().floatValue();
+        ModConstants.WitchsCrest.PENALTY_DURATION = ModItemsConfig.WITCH_PENALTY_DURATION.get();
+        ModConstants.WitchsCrest.SELF_DAMAGE = ModItemsConfig.WITCH_SELF_DAMAGE.get().floatValue();
+        ModConstants.WitchsCrest.SORN_BASE_DAMAGE = ModItemsConfig.WITCH_SORN_BASE_DAMAGE.get().floatValue();
+        ModConstants.WitchsCrest.DAMAGE_PER_LEVEL = ModItemsConfig.WITCH_DAMAGE_PER_LEVEL.get().floatValue();
+
+        ModConstants.TOaFG.TARGET_RANGE = ModItemsConfig.TOAFG_TARGET_RANGE.get();
+        ModConstants.TOaFG.CHECK_INTERVAL = ModItemsConfig.TOAFG_CHECK_INTERVAL.get();
+        ModConstants.TOaFG.MAX_TARGETS = ModItemsConfig.TOAFG_MAX_TARGETS.get();
+        ModConstants.TOaFG.ATTACK_DAMAGE = ModItemsConfig.TOAFG_ATTACK_DAMAGE.get().floatValue();
+        ModConstants.TOaFG.PARTICLES_PER_TARGET = ModItemsConfig.TOAFG_PARTICLES_PER_TARGET.get();
+        ModConstants.TOaFG.TRAIL_COUNT = ModItemsConfig.TOAFG_TRAIL_COUNT.get();
+        ModConstants.TOaFG.SPAWN_SPREAD_XZ = ModItemsConfig.TOAFG_SPAWN_SPREAD_XZ.get();
+        ModConstants.TOaFG.SPAWN_HEIGHT = ModItemsConfig.TOAFG_SPAWN_HEIGHT.get();
+
+        ModConstants.ExoHeart.CHARGE_BAR_SCALE = ModItemsConfig.EXO_CHARGE_BAR_SCALE.get().floatValue();
+        ModConstants.ExoHeart.TEXT_COLOR = ModItemsConfig.EXO_TEXT_COLOR.get();
+        ModConstants.ExoHeart.BOSS_CHECK_RADIUS = ModItemsConfig.EXO_BOSS_CHECK_RADIUS.get();
+        ModConstants.ExoHeart.LOSS_DELAY_TICKS = ModItemsConfig.EXO_LOSS_DELAY_TICKS.get();
+        ModConstants.ExoHeart.MAX_CHARGE = ModItemsConfig.EXO_MAX_CHARGE.get();
+        ModConstants.ExoHeart.ACTIVE_DRAIN_INTERVAL = ModItemsConfig.EXO_ACTIVE_DRAIN_INTERVAL.get();
+        ModConstants.ExoHeart.ACTIVE_DRAIN_AMOUNT = ModItemsConfig.EXO_ACTIVE_DRAIN_AMOUNT.get();
+        ModConstants.ExoHeart.ACTIVE_HEAL_INTERVAL = ModItemsConfig.EXO_ACTIVE_HEAL_INTERVAL.get();
+        ModConstants.ExoHeart.ACTIVE_HEAL_AMOUNT = ModItemsConfig.EXO_ACTIVE_HEAL_AMOUNT.get().floatValue();
+        ModConstants.ExoHeart.PASSIVE_CHARGE_AMOUNT = ModItemsConfig.EXO_PASSIVE_CHARGE_AMOUNT.get();
+        ModConstants.ExoHeart.PASSIVE_DRAIN_AMOUNT = ModItemsConfig.EXO_PASSIVE_DRAIN_AMOUNT.get();
+
+        ModConstants.Apocalypse.DAMAGE_MULTIPLIER = ModItemsConfig.APOCALYPSE_DAMAGE_MULTIPLIER.get().floatValue();
+
+        ModConstants.Counter.DAMAGE_INSTANCES = ModItemsConfig.COUNTER_DAMAGE_INSTANCES.get();
+        ModConstants.Counter.DAMAGE_INTERVAL = ModItemsConfig.COUNTER_DAMAGE_INTERVAL.get();
+        ModConstants.Counter.DAMAGE_AMOUNT = ModItemsConfig.COUNTER_DAMAGE_AMOUNT.get().floatValue();
+        ModConstants.Counter.DAMAGE_RADIUS = ModItemsConfig.COUNTER_DAMAGE_RADIUS.get();
+        ModConstants.Counter.SHARD_SPAWN_TICK = ModItemsConfig.COUNTER_SHARD_SPAWN_TICK.get();
+        ModConstants.Counter.START_TICK = ModItemsConfig.COUNTER_START_TICK.get();
+        ModConstants.Counter.END_TICK = ModItemsConfig.COUNTER_END_TICK.get();
+        ModConstants.Counter.SHARD_COUNT = ModItemsConfig.COUNTER_SHARD_COUNT.get();
+        ModConstants.Counter.SHARD_SPREAD_DISTANCE = ModItemsConfig.COUNTER_SHARD_SPREAD_DISTANCE.get();
+        ModConstants.Counter.CONTEMPT_DAMAGE_MULT = ModItemsConfig.COUNTER_CONTEMPT_DAMAGE_MULT.get().floatValue();
+        ModConstants.Counter.SELF_CONTEMPT_DAMAGE_MULT = ModItemsConfig.COUNTER_SELF_CONTEMPT_DAMAGE_MULT.get().floatValue();
+        ModConstants.Counter.SWEEP_DAMAGE = ModItemsConfig.COUNTER_SWEEP_DAMAGE.get().floatValue();
+        ModConstants.Counter.RANGE = ModItemsConfig.COUNTER_RANGE.get();
+
+        ModConstants.FellBullet.BASE_DAMAGE = ModItemsConfig.FELL_BASE_DAMAGE.get().floatValue();
+        ModConstants.FellBullet.MAX_LIFE_TICKS = ModItemsConfig.FELL_MAX_LIFE_TICKS.get();
+        ModConstants.FellBullet.SHARD_DAMAGE = ModItemsConfig.FELL_SHARD_DAMAGE.get().floatValue();
+        ModConstants.FellBullet.SHARD_LIFE_TICKS = ModItemsConfig.FELL_SHARD_LIFE_TICKS.get();
+
+        ModConstants.MagicBullet.MAX_BULLETS = ModItemsConfig.MAGIC_MAX_BULLETS.get();
+        ModConstants.MagicBullet.MIN_CHARGE_TIME = ModItemsConfig.MAGIC_MIN_CHARGE_TIME.get();
+        ModConstants.MagicBullet.BASE_DAMAGE = ModItemsConfig.MAGIC_BASE_DAMAGE.get().floatValue();
+        ModConstants.MagicBullet.CHARGE_DAMAGE_CAP = ModItemsConfig.MAGIC_CHARGE_DAMAGE_CAP.get().floatValue();
+        ModConstants.MagicBullet.CHARGE_DAMAGE_MULTIPLIER = ModItemsConfig.MAGIC_CHARGE_DAMAGE_MULTIPLIER.get().floatValue();
+        ModConstants.MagicBullet.ULTRA_SHOT_DAMAGE = ModItemsConfig.MAGIC_ULTRA_SHOT_DAMAGE.get().floatValue();
+        ModConstants.MagicBullet.COOLDOWN_NORMAL = ModItemsConfig.MAGIC_COOLDOWN_NORMAL.get();
+        ModConstants.MagicBullet.COOLDOWN_ULTRA = ModItemsConfig.MAGIC_COOLDOWN_ULTRA.get();
+        ModConstants.MagicBullet.PROJECTILE_LIFE = ModItemsConfig.MAGIC_PROJECTILE_LIFE.get();
+    }
+}

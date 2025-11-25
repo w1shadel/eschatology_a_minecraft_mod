@@ -2,8 +2,17 @@
   "black_bool": {
     "sounds": [
       "eschatology:music/black_bool"
+
     ],
-    "stream": true
+    "stream": true,
+    "volume": 1.0
+  },
+  "exo_wither": {
+    "sounds": [
+      "eschatology:music/toxic_wisdom"
+    ],
+    "stream": true,
+    "volume": 1.0
   },
   "twilight_attack1": {
     "sounds": [

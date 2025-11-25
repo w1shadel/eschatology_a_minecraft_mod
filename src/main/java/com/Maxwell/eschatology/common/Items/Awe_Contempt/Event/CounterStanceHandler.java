@@ -2,7 +2,7 @@ package com.Maxwell.eschatology.common.Items.Awe_Contempt.Event;
 
 import com.Maxwell.eschatology.Eschatology;
 import com.Maxwell.eschatology.common.Items.FellBullet.Entity.FellBulletShardEntity;
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SpawnCounterParticlesPacket;
 import com.Maxwell.eschatology.register.ModEffects;

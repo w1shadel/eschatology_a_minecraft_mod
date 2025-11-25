@@ -1,7 +1,7 @@
 package com.Maxwell.eschatology.common.Items.FellBullet.Entity;
 
 import com.Maxwell.eschatology.common.Items.Awe_Contempt.Event.CounterStanceHandler;
-import com.Maxwell.eschatology.common.ModConstants;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.StartAnimationPacket;
 import com.Maxwell.eschatology.register.ModEntities;

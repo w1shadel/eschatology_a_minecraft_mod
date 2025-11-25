@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HEH",
+    "ISI",
+    "NNN"
+  ],
+  "key": {
+    "H": {
+      "item": "eschatology:frozen_exoheart"
+    },
+    "E": {
+      "item": "eschatology:singularity_core"
+    },
+    "I": {
+      "item": "eschatology:singularitc_ingot"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    },
+    "N": {
+      "item": "eschatology:frosted_scrap"
+    }
+  },
+  "result": {
+    "item": "eschatology:demond"
+  }
+}

@@ -10,6 +10,8 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Eschatology.MODID);
     public static final RegistryObject<SoundEvent> MUSIC_BLACK_BOOL =
             registerSoundEvent("black_bool");
+    public static final RegistryObject<SoundEvent> MUSIC_EXO_WITHER =
+            registerSoundEvent("exo_wither");
     public static final RegistryObject<SoundEvent> TWILIGHT_ATK1 =
             registerSoundEvent("twilight_attack1");
     public static final RegistryObject<SoundEvent> TWILIGHT_ATK2 =

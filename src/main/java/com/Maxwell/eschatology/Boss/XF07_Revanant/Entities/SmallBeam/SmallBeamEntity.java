@@ -1,4 +1,4 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.SmallBeam;import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherBalance;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.SmallBeam;import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;

@@ -14,10 +14,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -26,8 +28,13 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class EFBlock extends BaseEntityBlock {
-    public EFBlock(Properties properties) {
-        super(properties);
+    public EFBlock(Properties strength) {
+        super(Properties.of()
+                .mapColor(MapColor.METAL) 
+                .strength(35.0F, 1200.0F) 
+                .requiresCorrectToolForDrops() 
+                .sound(SoundType.NETHERITE_BLOCK) 
+                .noOcclusion()); 
     }
     @Override
     @Nullable

@@ -1,5 +1,6 @@
 package com.Maxwell.eschatology.common.helper;
 
+import com.Maxwell.eschatology.Balance.ModConstants;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -12,8 +13,8 @@ public class DamageHelper {
     public static void dealAweContemptDamage(ServerPlayer player) {
         Level level = player.level();
 
-        double range = 3.0;
-        float damage = 120.0f;
+        double range = ModConstants.Counter.RANGE;
+        float damage = ModConstants.Counter.SWEEP_DAMAGE;
 
         Vec3 look = player.getLookAngle().normalize();
 

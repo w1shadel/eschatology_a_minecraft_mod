@@ -1,6 +1,7 @@
 package com.Maxwell.eschatology.common.Event;
 
 import com.Maxwell.eschatology.Eschatology;
+import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +31,7 @@ public class TOaFGTickHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && !event.player.level().isClientSide() && event.player.tickCount % 20 == 0) {
+        if (event.phase == TickEvent.Phase.END && !event.player.level().isClientSide() && event.player.tickCount % ModConstants.TOaFG.CHECK_INTERVAL == 0) {
             Player player = event.player;
 
             boolean hasGun = CuriosApi.getCuriosHelper()
@@ -39,25 +40,21 @@ public class TOaFGTickHandler {
 
             if (hasGun) {
                 Level level = player.level();
-                AABB searchArea = new AABB(player.blockPosition()).inflate(TARGET_RANGE);
+                AABB searchArea = new AABB(player.blockPosition()).inflate(ModConstants.TOaFG.TARGET_RANGE);
                 List<Monster> nearbyMonsters = level.getEntitiesOfClass(Monster.class, searchArea, monster ->
                         monster.isAlive() && monster.isAttackable() && !monster.isSpectator()
                 );
 
-                if (nearbyMonsters.isEmpty()) {
-                    return;
-                }
+                if (nearbyMonsters.isEmpty()) return;
 
                 Collections.shuffle(nearbyMonsters);
-                int targetCount = Math.min(nearbyMonsters.size(), 2);
+                int targetCount = Math.min(nearbyMonsters.size(), ModConstants.TOaFG.MAX_TARGETS);
 
                 for (int i = 0; i < targetCount; i++) {
                     Monster target = nearbyMonsters.get(i);
-
                     spawnParticlesAroundTarget((ServerLevel) level, target);
-
                     DamageSource damageSource = player.damageSources().indirectMagic(player, player);
-                    target.hurt(damageSource, ATTACK_DAMAGE);
+                    target.hurt(damageSource, ModConstants.TOaFG.ATTACK_DAMAGE);
                 }
             }
         }

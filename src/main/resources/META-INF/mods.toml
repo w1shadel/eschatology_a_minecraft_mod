@@ -65,6 +65,12 @@ description='''${mod_description}'''
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+[[dependencies.${mod_id}]]
+modId="playeranimator"
+mandatory=true
+versionRange="[1,)"
+ordering="AFTER"
+side="BOTH"
 [[accessTransformer]]
 value="META-INF/accesstransformer.cfg"
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

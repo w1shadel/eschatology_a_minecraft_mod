@@ -1,0 +1,146 @@
+package com.Maxwell.eschatology.Balance;
+
+public class ExoWitherBalance {
+    public static double MAX_HEALTH = 950.0;
+    public static double ATTACK_DAMAGE = 20.0;
+    public static double MOVEMENT_SPEED = 0.35;
+    public static double FLYING_SPEED = 0.45;
+    public static double FOLLOW_RANGE = 48.0;
+    public static double ARMOR = 0;
+    public static double ARMOR_TOUGHNESS = 0;
+
+    public static int CHARGE_COOLDOWN_BASE = 140;
+    public static int MISSILE_ATTACK_COOLDOWN_BASE = 120;
+    public static int SIMPLE_LASER_COOLDOWN_BASE = 80;
+    public static int LASER_BEAM_COOLDOWN_BASE = 200;
+    public static int MORTAR_BARRAGE_COOLDOWN_BASE = 50;
+    public static int EXO_SKULL_ATTACK_COOLDOWN = 120;
+
+    public static int BLACKBOOL_DETECT_RADIUS = 32;
+    public static int SHIELD_INITIAL_HEALTH = 10;
+    public static double SHIELD_DEPLOY_HP_THRESHOLD = 0.75;
+    public static double ENRAGE_HP_THRESHOLD = 0.5;
+
+    public static double PROJECTILE_SPEED = 1.4;
+    public static double SMALL_LASER_PROJECTILE_SPEED = 1.5;
+    public static float SMALL_LASER_DAMAGE_RATIO = 0.4f;
+    public static float EXO_SKULL_DIRECT_DAMAGE_RATIO = 0.6f;
+    public static float EXO_SKULL_EXPLOSION_DAMAGE_RATIO = 0.4f;
+
+    public static double IDEAL_DISTANCE_TO_TARGET = 2;
+    public static double MOVE_SPEED_SCALE = 0.4;
+    public static double HOVER_Y_AMPLITUDE = 0.5;
+    public static double HOVER_Y_SPEED = 0.05;
+    public static double Y_ADJUST_SPEED = 0.1;
+    public static double Y_CLAMP = 0.5;
+
+    public static int PASSIVE_ATTACK_INTERVAL_TICKS = 100;
+    public static float PASSIVE_SMALL_BEAM_DAMAGE = 6.0f;
+    public static float PASSIVE_EXO_SKULL_DIRECT_DAMAGE = 10.0f;
+    public static float PASSIVE_EXO_SKULL_EXPLOSION_DAMAGE = 6.0f;
+    public static float PASSIVE_SKULL_SPAWN_CHANCE = 0.25f;
+
+    public static int ENRAGE_PARTICLE_COUNT = 30;
+    public static int SHIELD_BREAK_PARTICLE_COUNT = 40;
+    public static int SHIELD_DEPLOY_PARTICLE_COUNT = 50;
+    public static float SOUND_VOLUME_DEFAULT = 2.0F;
+    public static float SOUND_PITCH_DEFAULT = 1.0F;
+
+    public static int CHARGE_PREPARE_DURATION_TICKS = 25;
+    public static int CHARGE_MAX_DURATION_TICKS = 80;
+    public static int CHARGE_MAX_COLLISIONS = 3;
+    public static double CHARGE_INITIAL_SPEED = 1.2;
+    public static double CHARGE_LEAD_PREDICTION_FACTOR = 8.0;
+    public static double CHARGE_BLOCK_BREAK_RADIUS = 1.0;
+    public static float CHARGE_PENETRATION_DAMAGE_RATIO = 0.8f;
+    public static float CHARGE_SHOCKWAVE_DAMAGE_RATIO = 0.7f;
+    public static double CHARGE_SHOCKWAVE_RADIUS = 4.0;
+    public static float CHARGE_SHOCKWAVE_KNOCKBACK = 1.2f;
+    public static double CHARGE_SPEED_REDUCTION_ON_HIT = 0.3;
+    public static double CHARGE_HITBOX_INFLATE_XZ = 1.2;
+    public static double CHARGE_HITBOX_INFLATE_Y = 0.5;
+
+    public static double CHARGE_MIN_DIST_SQ_NORMAL = 36.0;
+    public static double CHARGE_MAX_DIST_SQ_NORMAL = 400.0;
+    public static double CHARGE_MIN_DIST_SQ_ENRAGED = 9.0;
+    public static double CHARGE_MAX_DIST_SQ_ENRAGED = 144.0;
+    public static double CHARGE_CANCEL_DIST_SQ = 121.0;
+
+    public static int LASER_BEAM_CHARGE_UP_TICKS = 25;
+    public static int LASER_BEAM_FIRE_DURATION_TICKS = 75;
+    public static int LASER_BEAM_TOTAL_DURATION_TICKS = 160;
+    public static float LASER_BEAM_DAMAGE = 6.0f;
+
+    public static double MISSILE_MIN_DIST_SQ = 100.0;
+    public static int MISSILE_COUNT_PER_SIDE = 6;
+    public static int MISSILE_FIRE_INTERVAL_NORMAL = 5;
+    public static int MISSILE_FIRE_INTERVAL_ENRAGED = 3;
+    public static double MISSILE_SPAWN_SIDE_OFFSET = 2.5;
+    public static double MISSILE_SPAWN_RANDOM_OFFSET = 2.0;
+    public static double MISSILE_INITIAL_VERTICAL_SPEED = 0.8;
+
+    public static double MORTAR_MIN_DIST_SQ = 144.0;
+    public static int MORTAR_PREPARE_DURATION_TICKS = 40;
+    public static int MORTAR_FIRE_INTERVAL_TICKS = 6;
+    public static int MORTAR_TOTAL_SHOTS = 10;
+    public static double MORTAR_INDICATOR_RADIUS = 3.0;
+    public static double MORTAR_IMPACT_RANDOM_RADIUS = 5.0;
+    public static double MORTAR_IMPACT_AREA_SIZE = 2.0;
+    public static float MORTAR_DAMAGE_RATIO = 0.5f;
+
+    public static int SIMPLE_LASER_START_TICK_NORMAL = 15;
+    public static int SIMPLE_LASER_END_TICK_NORMAL = 55;
+    public static int SIMPLE_LASER_FIRE_INTERVAL_NORMAL = 4;
+    public static int SIMPLE_LASER_START_TICK_ENRAGED = 10;
+    public static int SIMPLE_LASER_END_TICK_ENRAGED = 60;
+    public static int SIMPLE_LASER_FIRE_INTERVAL_ENRAGED = 2;
+
+    public static float EXO_MISSILE_BASE_DAMAGE = 6.0f;
+    public static float EXO_MISSILE_SPLIT_DAMAGE_RATIO = 0.5f;
+    public static float EXO_MISSILE_SPLIT_MIN_DAMAGE = 2.0f;
+    public static int EXO_MISSILE_MAX_LIFE = 200;
+    public static double EXO_MISSILE_INITIAL_SPEED_SCALE = 0.6;
+    public static double EXO_MISSILE_MIN_SPEED = 0.6;
+    public static double EXO_MISSILE_MAX_SPEED = 1.6;
+    public static double EXO_MISSILE_ACCELERATION_FACTOR = 0.05;
+    public static double EXO_MISSILE_TURN_LERP_FACTOR = 0.15;
+    public static float EXO_MISSILE_EXPLOSION_DAMAGE_MULTIPLIER = 1.2f;
+    public static double EXO_MISSILE_EXPLOSION_RADIUS_XZ = 2.5;
+    public static double EXO_MISSILE_EXPLOSION_RADIUS_Y_BELOW = 1.0;
+    public static double EXO_MISSILE_EXPLOSION_RADIUS_Y_ABOVE = 2.0;
+    public static int EXO_MISSILE_SPLIT_COUNT = 2;
+    public static float EXO_MISSILE_SPLIT_YAW_OFFSET = 0.25f;
+    public static double EXO_MISSILE_SPLIT_VERTICAL_OFFSET = 0.15;
+    public static double EXO_MISSILE_SPLIT_SPEED_SCALE = 0.9;
+    public static int EXO_MISSILE_FREEZING_STRIKE_DURATION = 60;
+
+    public static float EXO_SKULL_DIRECT_DAMAGE = 8.0f;
+    public static float EXO_SKULL_EXPLOSION_DAMAGE = 4.0f;
+    public static int EXO_SKULL_MAX_LIFE = 120;
+    public static double EXO_SKULL_SPEED_SCALE = 0.8;
+    public static double EXO_SKULL_TURN_LERP_FACTOR = 0.08;
+    public static double EXO_SKULL_TARGET_HEIGHT_OFFSET = 0.4;
+    public static float EXO_SKULL_BASE_EXPLOSION_RADIUS = 2.5f;
+    public static float EXO_SKULL_LIFESPAN_RADIUS_SCALE = 0.5f;
+    public static int EXO_SKULL_FREEZING_STRIKE_DURATION_DIRECT = 80;
+    public static int EXO_SKULL_FREEZING_STRIKE_DURATION_EXPLOSION = 100;
+    public static int EXO_SKULL_FREEZING_STRIKE_AMPLIFIER_EXPLOSION = 1;
+
+    public static int FROST_FIELD_DURATION = 100;
+    public static float FROST_FIELD_RADIUS = 3.0f;
+    public static int FROST_FIELD_EFFECT_INTERVAL = 10;
+    public static int FROST_FIELD_EFFECT_BASE_DURATION = 60;
+    public static int FROST_FIELD_EFFECT_DURATION_INCREASE = 20;
+    public static int FROST_FIELD_EFFECT_MAX_DURATION = 100;
+    public static int FROST_FIELD_EFFECT_MAX_AMPLIFIER = 9;
+
+    public static float SMALL_BEAM_BASE_DAMAGE = 5.0f;
+    public static int SMALL_BEAM_MAX_LIFE = 40;
+    public static int SMALL_BEAM_ENRAGED_PIERCE_COUNT = 2;
+    public static int SMALL_BEAM_EFFECT_BASE_DURATION = 40;
+    public static int SMALL_BEAM_EFFECT_DAMAGE_DURATION_MULTIPLIER = 6;
+    public static int SMALL_BEAM_EFFECT_AMPLIFIER_NORMAL = 0;
+    public static int SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED = 1;
+
+    public static float FROZEN_EXOHEART_PERCENT = 0.05f;
+}
