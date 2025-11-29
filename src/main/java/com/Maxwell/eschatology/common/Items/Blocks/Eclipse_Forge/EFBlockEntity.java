@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;
-
-import com.Maxwell.eschatology.common.Network.ModMessages;
+package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncWorkbenchDataPacket;
 import com.Maxwell.eschatology.register.EclipseForge.EFRecipe;
 import com.Maxwell.eschatology.register.EclipseForge.EFRecipeType;
@@ -19,11 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
-
-public class EFBlockEntity extends BlockEntity implements MenuProvider {
+import org.jetbrains.annotations.Nullable;import java.util.Optional;public class EFBlockEntity extends BlockEntity implements MenuProvider {
     public static final int SLOT_LEFT = 0;
     public static final int SLOT_RIGHT = 1;
     public static final int SLOT_CENTER = 2;    private boolean isAnimating = false;
@@ -67,7 +61,7 @@ public class EFBlockEntity extends BlockEntity implements MenuProvider {
                     )
             );
         }
-    }    
+    }
     public void clientUpdateFromServer(int ticks, boolean animating, ItemStack left, ItemStack right) {
         this.animationTicks = ticks;
         this.isAnimating = animating;

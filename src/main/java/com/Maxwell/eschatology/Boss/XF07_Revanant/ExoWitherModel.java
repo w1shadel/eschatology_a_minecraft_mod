@@ -10,9 +10,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-@SuppressWarnings("removal")
+import net.minecraftforge.api.distmarker.OnlyIn;@SuppressWarnings("removal")
 @OnlyIn(Dist.CLIENT)
 public class ExoWitherModel extends HierarchicalModel<ExoWither> {	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Eschatology.MODID, "exowithermodel"), "main");
 	private final ModelPart root;

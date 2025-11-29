@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;
-
-import com.Maxwell.eschatology.Balance.ModConstants;
+package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;import com.Maxwell.eschatology.Balance.ModConstants;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -9,26 +7,16 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-
-import java.util.HashSet;
+import net.minecraft.world.phys.Vec3;import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-
-public class MagicBullet extends Projectile {
+import java.util.UUID;public class MagicBullet extends Projectile {
     private final Set<UUID> hitEntities = new HashSet<>();
     private int life = 0;
-    private float damage = ModConstants.MagicBullet.BASE_DAMAGE;
-
-    public MagicBullet(EntityType<? extends Projectile> type, Level level) {
+    private float damage = ModConstants.MagicBullet.BASE_DAMAGE;    public MagicBullet(EntityType<? extends Projectile> type, Level level) {
         super(type, level);
-    }
-
-    public void setDamage(float damage) {
+    }    public void setDamage(float damage) {
         this.damage = damage;
-    }
-
-    @Override
+    }    @Override
     public void tick() {
         super.tick();
         if (this.life++ > ModConstants.MagicBullet.PROJECTILE_LIFE) {
@@ -52,17 +40,13 @@ public class MagicBullet extends Projectile {
         if (this.level().isClientSide) {
             this.level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
-    }
-
-    @Override
+    }    @Override
     protected boolean canHitEntity(Entity entity) {
         if (entity.isSpectator() || !entity.isAlive() || !entity.isPickable()) {
             return false;
         }
         return !this.hitEntities.contains(entity.getUUID());
-    }
-
-    @Override
+    }    @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level().isClientSide && hitResult instanceof EntityHitResult entityHitResult) {
@@ -71,13 +55,9 @@ public class MagicBullet extends Projectile {
                 target.hurt(this.level().damageSources().magic(), this.damage);
             }
         }
-    }
-
-    @Override
+    }    @Override
     protected void defineSynchedData() {
-    }
-
-    @Override
+    }    @Override
     public boolean isNoGravity() {
         return true;
     }

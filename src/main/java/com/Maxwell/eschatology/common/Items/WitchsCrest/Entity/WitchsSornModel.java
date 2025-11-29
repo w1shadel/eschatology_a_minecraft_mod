@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.WitchsCrest.Entity;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Items.WitchsCrest.Entity;import com.Maxwell.eschatology.Eschatology;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;

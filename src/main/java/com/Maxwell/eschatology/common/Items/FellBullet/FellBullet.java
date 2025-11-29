@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.FellBullet;
-
-import com.Maxwell.eschatology.common.Items.FellBullet.Entity.FellBulletEntity;
+package com.Maxwell.eschatology.common.Items.FellBullet;import com.Maxwell.eschatology.common.Items.FellBullet.Entity.FellBulletEntity;
 import com.Maxwell.eschatology.register.ModEntities;
 import com.Maxwell.eschatology.register.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -15,19 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
-
-import javax.annotation.Nullable;
+import org.joml.Vector3f;import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 public class FellBullet extends SwordItem {
-    private static final int MIN_CHARGE_TIME = 15;
-
-    public FellBullet(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+    private static final int MIN_CHARGE_TIME = 15;    public FellBullet(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
-    }
-
-    @Override
+    }    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         player.startUsingItem(hand);
@@ -50,9 +42,7 @@ public class FellBullet extends SwordItem {
             bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 4.0F, 0.5F);
             level.addFreshEntity(bullet);       player.getCooldowns().addCooldown(this, 20);
         }
-    }
-
-    @Override
+    }    @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
     }

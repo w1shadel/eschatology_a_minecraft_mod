@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.client;
-
-import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolModel;
+package com.Maxwell.eschatology.client;import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolModel;
 import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolRenderer;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EmptyRenderer;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamRenderer;
@@ -19,6 +17,7 @@ import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoMisslie.ExoMissile
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoMisslie.ExoMissileRenderer;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull.ExoSkullModel;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull.ExoSkullRenderer;
+import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostLaser.FrostLaserRenderer;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.SmallBeam.SmallBeamRenderer;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherModel;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWitherRenderer;
@@ -58,6 +57,7 @@ public class ModClientEvents {    @SubscribeEvent
         event.registerEntityRenderer(ModEntities.EVENT_HORIZON_CONTROLLER.get(), EventHorizonControllerRenderer::new);
         event.registerEntityRenderer(ModEntities.EXO_WITHER.get(), ExoWitherRenderer::new);
         event.registerEntityRenderer(ModEntities.SMALL_BEAM.get(), SmallBeamRenderer::new);
+        event.registerEntityRenderer(ModEntities.FROST_LASER.get(), FrostLaserRenderer::new);
         event.registerEntityRenderer(ModEntities.EXO_MISSILE.get(), ExoMissileRenderer::new);
         event.registerEntityRenderer(ModEntities.FROST_FIELD.get(), EmptyRenderer::new);
         event.registerEntityRenderer(ModEntities.EXO_SKULL.get(), ExoSkullRenderer::new);

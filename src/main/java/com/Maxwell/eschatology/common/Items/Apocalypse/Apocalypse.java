@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.Apocalypse;
-
-import com.Maxwell.eschatology.Balance.ModConstants;
+package com.Maxwell.eschatology.common.Items.Apocalypse;import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModDamageTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -14,12 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
-public class Apocalypse extends SwordItem {
+import net.minecraft.world.level.Level;import javax.annotation.Nullable;
+import java.util.List;public class Apocalypse extends SwordItem {
     public Apocalypse(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }

@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Event.RevengeLedgerEvent;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Event.RevengeLedgerEvent;import com.Maxwell.eschatology.Eschatology;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,12 +7,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+import net.minecraftforge.fml.common.Mod;import java.util.LinkedList;
+import java.util.Queue;@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class AbilityGuiOverlay {    private static final Queue<Dialogue> dialogueQueue = new LinkedList<>();
     private static Dialogue currentDialogue = null;    private static boolean guiVisible = true;    private static class Dialogue {
         final Component text;

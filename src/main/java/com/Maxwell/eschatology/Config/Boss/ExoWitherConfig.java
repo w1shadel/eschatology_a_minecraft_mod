@@ -1,32 +1,20 @@
-package com.Maxwell.eschatology.Config.Boss;
-
-import net.minecraftforge.common.ForgeConfigSpec;
-
-public class ExoWitherConfig {
+package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.ForgeConfigSpec;public class ExoWitherConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec SPEC;
-
-    public static final ForgeConfigSpec.DoubleValue MAX_HEALTH;
+    public static final ForgeConfigSpec SPEC;    public static final ForgeConfigSpec.DoubleValue MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue ATTACK_DAMAGE;
     public static final ForgeConfigSpec.DoubleValue MOVEMENT_SPEED;
     public static final ForgeConfigSpec.DoubleValue FLYING_SPEED;
     public static final ForgeConfigSpec.DoubleValue FOLLOW_RANGE;
     public static final ForgeConfigSpec.IntValue BLACKBOOL_DETECT_RADIUS;
     public static final ForgeConfigSpec.DoubleValue ARMOR;
-    public static final ForgeConfigSpec.DoubleValue ARMOR_TOUGHNESS;
-
-    public static final ForgeConfigSpec.IntValue CHARGE_COOLDOWN_BASE;
+    public static final ForgeConfigSpec.DoubleValue ARMOR_TOUGHNESS;    public static final ForgeConfigSpec.IntValue CHARGE_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue MISSILE_ATTACK_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue SIMPLE_LASER_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue LASER_BEAM_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue MORTAR_BARRAGE_COOLDOWN_BASE;
-    public static final ForgeConfigSpec.IntValue EXO_SKULL_ATTACK_COOLDOWN;
-
-    public static final ForgeConfigSpec.IntValue SHIELD_INITIAL_HEALTH;
+    public static final ForgeConfigSpec.IntValue EXO_SKULL_ATTACK_COOLDOWN;    public static final ForgeConfigSpec.IntValue SHIELD_INITIAL_HEALTH;
     public static final ForgeConfigSpec.DoubleValue SHIELD_DEPLOY_HP_THRESHOLD;
-    public static final ForgeConfigSpec.DoubleValue ENRAGE_HP_THRESHOLD;
-
-    public static final ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
+    public static final ForgeConfigSpec.DoubleValue ENRAGE_HP_THRESHOLD;    public static final ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static final ForgeConfigSpec.DoubleValue SMALL_LASER_PROJECTILE_SPEED;
     public static final ForgeConfigSpec.DoubleValue SMALL_LASER_DAMAGE_RATIO;
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_DIRECT_DAMAGE_RATIO;
@@ -36,15 +24,11 @@ public class ExoWitherConfig {
     public static final ForgeConfigSpec.DoubleValue HOVER_Y_AMPLITUDE;
     public static final ForgeConfigSpec.DoubleValue HOVER_Y_SPEED;
     public static final ForgeConfigSpec.DoubleValue Y_ADJUST_SPEED;
-    public static final ForgeConfigSpec.DoubleValue Y_CLAMP;
-
-    public static final ForgeConfigSpec.IntValue PASSIVE_ATTACK_INTERVAL_TICKS;
+    public static final ForgeConfigSpec.DoubleValue Y_CLAMP;    public static final ForgeConfigSpec.IntValue PASSIVE_ATTACK_INTERVAL_TICKS;
     public static final ForgeConfigSpec.DoubleValue PASSIVE_SMALL_BEAM_DAMAGE;
     public static final ForgeConfigSpec.DoubleValue PASSIVE_EXO_SKULL_DIRECT_DAMAGE;
     public static final ForgeConfigSpec.DoubleValue PASSIVE_EXO_SKULL_EXPLOSION_DAMAGE;
-    public static final ForgeConfigSpec.DoubleValue PASSIVE_SKULL_SPAWN_CHANCE;
-
-    public static final ForgeConfigSpec.IntValue CHARGE_PREPARE_DURATION_TICKS;
+    public static final ForgeConfigSpec.DoubleValue PASSIVE_SKULL_SPAWN_CHANCE;    public static final ForgeConfigSpec.IntValue CHARGE_PREPARE_DURATION_TICKS;
     public static final ForgeConfigSpec.IntValue CHARGE_MAX_DURATION_TICKS;
     public static final ForgeConfigSpec.IntValue CHARGE_MAX_COLLISIONS;
     public static final ForgeConfigSpec.DoubleValue CHARGE_INITIAL_SPEED;
@@ -61,38 +45,28 @@ public class ExoWitherConfig {
     public static final ForgeConfigSpec.DoubleValue CHARGE_MAX_DIST_SQ_NORMAL;
     public static final ForgeConfigSpec.DoubleValue CHARGE_MIN_DIST_SQ_ENRAGED;
     public static final ForgeConfigSpec.DoubleValue CHARGE_MAX_DIST_SQ_ENRAGED;
-    public static final ForgeConfigSpec.DoubleValue CHARGE_CANCEL_DIST_SQ;
-
-    public static final ForgeConfigSpec.IntValue LASER_BEAM_CHARGE_UP_TICKS;
+    public static final ForgeConfigSpec.DoubleValue CHARGE_CANCEL_DIST_SQ;    public static final ForgeConfigSpec.IntValue LASER_BEAM_CHARGE_UP_TICKS;
     public static final ForgeConfigSpec.IntValue LASER_BEAM_FIRE_DURATION_TICKS;
     public static final ForgeConfigSpec.IntValue LASER_BEAM_TOTAL_DURATION_TICKS;
-    public static final ForgeConfigSpec.DoubleValue LASER_BEAM_DAMAGE;
-
-    public static final ForgeConfigSpec.DoubleValue MISSILE_MIN_DIST_SQ;
+    public static final ForgeConfigSpec.DoubleValue LASER_BEAM_DAMAGE;    public static final ForgeConfigSpec.DoubleValue MISSILE_MIN_DIST_SQ;
     public static final ForgeConfigSpec.IntValue MISSILE_COUNT_PER_SIDE;
     public static final ForgeConfigSpec.IntValue MISSILE_FIRE_INTERVAL_NORMAL;
     public static final ForgeConfigSpec.IntValue MISSILE_FIRE_INTERVAL_ENRAGED;
     public static final ForgeConfigSpec.DoubleValue MISSILE_SPAWN_SIDE_OFFSET;
     public static final ForgeConfigSpec.DoubleValue MISSILE_SPAWN_RANDOM_OFFSET;
-    public static final ForgeConfigSpec.DoubleValue MISSILE_INITIAL_VERTICAL_SPEED;
-
-    public static final ForgeConfigSpec.DoubleValue MORTAR_MIN_DIST_SQ;
+    public static final ForgeConfigSpec.DoubleValue MISSILE_INITIAL_VERTICAL_SPEED;    public static final ForgeConfigSpec.DoubleValue MORTAR_MIN_DIST_SQ;
     public static final ForgeConfigSpec.IntValue MORTAR_PREPARE_DURATION_TICKS;
     public static final ForgeConfigSpec.IntValue MORTAR_FIRE_INTERVAL_TICKS;
     public static final ForgeConfigSpec.IntValue MORTAR_TOTAL_SHOTS;
     public static final ForgeConfigSpec.DoubleValue MORTAR_INDICATOR_RADIUS;
     public static final ForgeConfigSpec.DoubleValue MORTAR_IMPACT_RANDOM_RADIUS;
     public static final ForgeConfigSpec.DoubleValue MORTAR_IMPACT_AREA_SIZE;
-    public static final ForgeConfigSpec.DoubleValue MORTAR_DAMAGE_RATIO;
-
-    public static final ForgeConfigSpec.IntValue SIMPLE_LASER_START_TICK_NORMAL;
+    public static final ForgeConfigSpec.DoubleValue MORTAR_DAMAGE_RATIO;    public static final ForgeConfigSpec.IntValue SIMPLE_LASER_START_TICK_NORMAL;
     public static final ForgeConfigSpec.IntValue SIMPLE_LASER_END_TICK_NORMAL;
     public static final ForgeConfigSpec.IntValue SIMPLE_LASER_FIRE_INTERVAL_NORMAL;
     public static final ForgeConfigSpec.IntValue SIMPLE_LASER_START_TICK_ENRAGED;
     public static final ForgeConfigSpec.IntValue SIMPLE_LASER_END_TICK_ENRAGED;
-    public static final ForgeConfigSpec.IntValue SIMPLE_LASER_FIRE_INTERVAL_ENRAGED;
-
-    public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_BASE_DAMAGE;
+    public static final ForgeConfigSpec.IntValue SIMPLE_LASER_FIRE_INTERVAL_ENRAGED;    public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_BASE_DAMAGE;
     public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_SPLIT_DAMAGE_RATIO;
     public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_SPLIT_MIN_DAMAGE;
     public static final ForgeConfigSpec.IntValue EXO_MISSILE_MAX_LIFE;
@@ -109,9 +83,7 @@ public class ExoWitherConfig {
     public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_SPLIT_YAW_OFFSET;
     public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_SPLIT_VERTICAL_OFFSET;
     public static final ForgeConfigSpec.DoubleValue EXO_MISSILE_SPLIT_SPEED_SCALE;
-    public static final ForgeConfigSpec.IntValue EXO_MISSILE_FREEZING_STRIKE_DURATION;
-
-    public static final ForgeConfigSpec.DoubleValue EXO_SKULL_DIRECT_DAMAGE;
+    public static final ForgeConfigSpec.IntValue EXO_MISSILE_FREEZING_STRIKE_DURATION;    public static final ForgeConfigSpec.DoubleValue EXO_SKULL_DIRECT_DAMAGE;
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_EXPLOSION_DAMAGE;
     public static final ForgeConfigSpec.IntValue EXO_SKULL_MAX_LIFE;
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_SPEED_SCALE;
@@ -121,30 +93,20 @@ public class ExoWitherConfig {
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_LIFESPAN_RADIUS_SCALE;
     public static final ForgeConfigSpec.IntValue EXO_SKULL_FREEZING_STRIKE_DURATION_DIRECT;
     public static final ForgeConfigSpec.IntValue EXO_SKULL_FREEZING_STRIKE_DURATION_EXPLOSION;
-    public static final ForgeConfigSpec.IntValue EXO_SKULL_FREEZING_STRIKE_AMPLIFIER_EXPLOSION;
-
-    public static final ForgeConfigSpec.IntValue FROST_FIELD_DURATION;
+    public static final ForgeConfigSpec.IntValue EXO_SKULL_FREEZING_STRIKE_AMPLIFIER_EXPLOSION;    public static final ForgeConfigSpec.IntValue FROST_FIELD_DURATION;
     public static final ForgeConfigSpec.DoubleValue FROST_FIELD_RADIUS;
     public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_INTERVAL;
     public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_BASE_DURATION;
     public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_DURATION_INCREASE;
     public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_MAX_DURATION;
-    public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_MAX_AMPLIFIER;
-
-    public static final ForgeConfigSpec.DoubleValue SMALL_BEAM_BASE_DAMAGE;
+    public static final ForgeConfigSpec.IntValue FROST_FIELD_EFFECT_MAX_AMPLIFIER;    public static final ForgeConfigSpec.DoubleValue SMALL_BEAM_BASE_DAMAGE;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_MAX_LIFE;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_ENRAGED_PIERCE_COUNT;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_BASE_DURATION;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_DAMAGE_DURATION_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_NORMAL;
-    public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED;
-
-    public static final ForgeConfigSpec.DoubleValue FROZEN_EXOHEART_PERCENT;
-
-    static {
-        BUILDER.push("ExoWither_Settings");
-
-        BUILDER.push("BaseStats");
+    public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED;    public static final ForgeConfigSpec.DoubleValue FROZEN_EXOHEART_PERCENT;    static {
+        BUILDER.push("ExoWither_Settings");        BUILDER.push("BaseStats");
         MAX_HEALTH = BUILDER.defineInRange("max_health", 950.0, 1.0, 100000.0);
         ATTACK_DAMAGE = BUILDER.defineInRange("attack_damage", 20.0, 0.0, 1000.0);
         MOVEMENT_SPEED = BUILDER.defineInRange("movement_speed", 0.35, 0.0, 10.0);
@@ -153,24 +115,18 @@ public class ExoWitherConfig {
         ARMOR = BUILDER.defineInRange("armor", 0, 0.0, 1024);
         ARMOR_TOUGHNESS = BUILDER.defineInRange("armor_toughness", 0, 0.0, 1024);
         BLACKBOOL_DETECT_RADIUS = BUILDER.defineInRange("blackbool_detect_radius", 32, 0, 256);
-        BUILDER.pop();
-
-        BUILDER.push("Cooldowns");
+        BUILDER.pop();        BUILDER.push("Cooldowns");
         CHARGE_COOLDOWN_BASE = BUILDER.defineInRange("charge_cd", 140, 0, 10000);
         MISSILE_ATTACK_COOLDOWN_BASE = BUILDER.defineInRange("missile_cd", 120, 0, 10000);
         SIMPLE_LASER_COOLDOWN_BASE = BUILDER.defineInRange("simple_laser_cd", 80, 0, 10000);
         LASER_BEAM_COOLDOWN_BASE = BUILDER.defineInRange("laser_beam_cd", 200, 0, 10000);
         MORTAR_BARRAGE_COOLDOWN_BASE = BUILDER.defineInRange("mortar_cd", 50, 0, 10000);
         EXO_SKULL_ATTACK_COOLDOWN = BUILDER.defineInRange("exo_skull_cd", 120, 0, 10000);
-        BUILDER.pop();
-
-        BUILDER.push("ShieldAndThresholds");
+        BUILDER.pop();        BUILDER.push("ShieldAndThresholds");
         SHIELD_INITIAL_HEALTH = BUILDER.defineInRange("shield_initial_hp", 10, 0, 1000);
         SHIELD_DEPLOY_HP_THRESHOLD = BUILDER.defineInRange("shield_deploy_hp", 0.75, 0.0, 1.0);
         ENRAGE_HP_THRESHOLD = BUILDER.defineInRange("enrage_hp", 0.5, 0.0, 1.0);
-        BUILDER.pop();
-
-        BUILDER.push("MovementAndMisc");
+        BUILDER.pop();        BUILDER.push("MovementAndMisc");
         PROJECTILE_SPEED = BUILDER.defineInRange("projectile_speed", 1.4, 0.0, 10.0);
         SMALL_LASER_PROJECTILE_SPEED = BUILDER.defineInRange("small_laser_speed", 1.5, 0.0, 10.0);
         SMALL_LASER_DAMAGE_RATIO = BUILDER.defineInRange("small_laser_dmg_ratio", 0.4, 0.0, 10.0);
@@ -182,17 +138,13 @@ public class ExoWitherConfig {
         HOVER_Y_SPEED = BUILDER.defineInRange("hover_speed", 0.05, 0.0, 5.0);
         Y_ADJUST_SPEED = BUILDER.defineInRange("y_adjust_speed", 0.1, 0.0, 5.0);
         Y_CLAMP = BUILDER.defineInRange("y_clamp", 0.5, 0.0, 10.0);
-        BUILDER.pop();
-
-        BUILDER.push("PassiveAbilities");
+        BUILDER.pop();        BUILDER.push("PassiveAbilities");
         PASSIVE_ATTACK_INTERVAL_TICKS = BUILDER.defineInRange("passive_interval", 100, 0, 10000);
         PASSIVE_SMALL_BEAM_DAMAGE = BUILDER.defineInRange("passive_beam_dmg", 6.0, 0.0, 1000.0);
         PASSIVE_EXO_SKULL_DIRECT_DAMAGE = BUILDER.defineInRange("passive_skull_direct_dmg", 10.0, 0.0, 1000.0);
         PASSIVE_EXO_SKULL_EXPLOSION_DAMAGE = BUILDER.defineInRange("passive_skull_explosion_dmg", 6.0, 0.0, 1000.0);
         PASSIVE_SKULL_SPAWN_CHANCE = BUILDER.defineInRange("passive_skull_chance", 0.25, 0.0, 1.0);
-        BUILDER.pop();
-
-        BUILDER.push("ChargeAttack");
+        BUILDER.pop();        BUILDER.push("ChargeAttack");
         CHARGE_PREPARE_DURATION_TICKS = BUILDER.defineInRange("charge_prep_ticks", 25, 0, 200);
         CHARGE_MAX_DURATION_TICKS = BUILDER.defineInRange("charge_max_ticks", 80, 0, 200);
         CHARGE_MAX_COLLISIONS = BUILDER.defineInRange("charge_max_collisions", 3, 0, 100);
@@ -211,16 +163,12 @@ public class ExoWitherConfig {
         CHARGE_MIN_DIST_SQ_ENRAGED = BUILDER.defineInRange("charge_min_dist_sq_enraged", 9.0, 0.0, 1024.0);
         CHARGE_MAX_DIST_SQ_ENRAGED = BUILDER.defineInRange("charge_max_dist_sq_enraged", 144.0, 0.0, 1024.0);
         CHARGE_CANCEL_DIST_SQ = BUILDER.defineInRange("charge_cancel_dist_sq", 121.0, 0.0, 1024.0);
-        BUILDER.pop();
-
-        BUILDER.push("LaserBeam");
+        BUILDER.pop();        BUILDER.push("LaserBeam");
         LASER_BEAM_CHARGE_UP_TICKS = BUILDER.defineInRange("beam_charge_ticks", 25, 0, 200);
         LASER_BEAM_FIRE_DURATION_TICKS = BUILDER.defineInRange("beam_fire_ticks", 75, 0, 200);
         LASER_BEAM_TOTAL_DURATION_TICKS = BUILDER.defineInRange("beam_total_ticks", 160, 0, 1000);
         LASER_BEAM_DAMAGE = BUILDER.defineInRange("beam_damage", 6.0, 0.0, 1000.0);
-        BUILDER.pop();
-
-        BUILDER.push("MissileAttack");
+        BUILDER.pop();        BUILDER.push("MissileAttack");
         MISSILE_MIN_DIST_SQ = BUILDER.defineInRange("missile_min_dist_sq", 100.0, 0.0, 1024.0);
         MISSILE_COUNT_PER_SIDE = BUILDER.defineInRange("missile_count_side", 6, 1, 64);
         MISSILE_FIRE_INTERVAL_NORMAL = BUILDER.defineInRange("missile_interval_normal", 5, 1, 100);
@@ -228,9 +176,7 @@ public class ExoWitherConfig {
         MISSILE_SPAWN_SIDE_OFFSET = BUILDER.defineInRange("missile_offset_side", 2.5, 0.0, 10.0);
         MISSILE_SPAWN_RANDOM_OFFSET = BUILDER.defineInRange("missile_offset_random", 2.0, 0.0, 10.0);
         MISSILE_INITIAL_VERTICAL_SPEED = BUILDER.defineInRange("missile_init_v_speed", 0.8, 0.0, 10.0);
-        BUILDER.pop();
-
-        BUILDER.push("MortarAttack");
+        BUILDER.pop();        BUILDER.push("MortarAttack");
         MORTAR_MIN_DIST_SQ = BUILDER.defineInRange("mortar_min_dist_sq", 144.0, 0.0, 1024.0);
         MORTAR_PREPARE_DURATION_TICKS = BUILDER.defineInRange("mortar_prep_ticks", 40, 0, 200);
         MORTAR_FIRE_INTERVAL_TICKS = BUILDER.defineInRange("mortar_fire_interval", 6, 1, 100);
@@ -239,18 +185,14 @@ public class ExoWitherConfig {
         MORTAR_IMPACT_RANDOM_RADIUS = BUILDER.defineInRange("mortar_impact_radius", 5.0, 0.0, 64.0);
         MORTAR_IMPACT_AREA_SIZE = BUILDER.defineInRange("mortar_area_size", 2.0, 0.0, 32.0);
         MORTAR_DAMAGE_RATIO = BUILDER.defineInRange("mortar_dmg_ratio", 0.5, 0.0, 10.0);
-        BUILDER.pop();
-
-        BUILDER.push("SimpleLaser");
+        BUILDER.pop();        BUILDER.push("SimpleLaser");
         SIMPLE_LASER_START_TICK_NORMAL = BUILDER.defineInRange("simple_laser_start_normal", 15, 0, 200);
         SIMPLE_LASER_END_TICK_NORMAL = BUILDER.defineInRange("simple_laser_end_normal", 55, 0, 200);
         SIMPLE_LASER_FIRE_INTERVAL_NORMAL = BUILDER.defineInRange("simple_laser_interval_normal", 4, 1, 100);
         SIMPLE_LASER_START_TICK_ENRAGED = BUILDER.defineInRange("simple_laser_start_enraged", 10, 0, 200);
         SIMPLE_LASER_END_TICK_ENRAGED = BUILDER.defineInRange("simple_laser_end_enraged", 60, 0, 200);
         SIMPLE_LASER_FIRE_INTERVAL_ENRAGED = BUILDER.defineInRange("simple_laser_interval_enraged", 2, 1, 100);
-        BUILDER.pop();
-
-        BUILDER.push("ExoMissileProjectile");
+        BUILDER.pop();        BUILDER.push("ExoMissileProjectile");
         EXO_MISSILE_BASE_DAMAGE = BUILDER.defineInRange("exomissile_base_dmg", 6.0, 0.0, 1000.0);
         EXO_MISSILE_SPLIT_DAMAGE_RATIO = BUILDER.defineInRange("exomissile_split_ratio", 0.5, 0.0, 10.0);
         EXO_MISSILE_SPLIT_MIN_DAMAGE = BUILDER.defineInRange("exomissile_min_dmg", 2.0, 0.0, 1000.0);
@@ -269,9 +211,7 @@ public class ExoWitherConfig {
         EXO_MISSILE_SPLIT_VERTICAL_OFFSET = BUILDER.defineInRange("exomissile_split_v_offset", 0.15, 0.0, 10.0);
         EXO_MISSILE_SPLIT_SPEED_SCALE = BUILDER.defineInRange("exomissile_split_speed_scale", 0.9, 0.0, 10.0);
         EXO_MISSILE_FREEZING_STRIKE_DURATION = BUILDER.defineInRange("exomissile_freeze_duration", 60, 0, 10000);
-        BUILDER.pop();
-
-        BUILDER.push("ExoSkullProjectile");
+        BUILDER.pop();        BUILDER.push("ExoSkullProjectile");
         EXO_SKULL_DIRECT_DAMAGE = BUILDER.defineInRange("skull_direct_dmg", 8.0, 0.0, 1000.0);
         EXO_SKULL_EXPLOSION_DAMAGE = BUILDER.defineInRange("skull_expl_dmg", 4.0, 0.0, 1000.0);
         EXO_SKULL_MAX_LIFE = BUILDER.defineInRange("skull_max_life", 120, 0, 10000);
@@ -283,9 +223,7 @@ public class ExoWitherConfig {
         EXO_SKULL_FREEZING_STRIKE_DURATION_DIRECT = BUILDER.defineInRange("skull_freeze_direct", 80, 0, 10000);
         EXO_SKULL_FREEZING_STRIKE_DURATION_EXPLOSION = BUILDER.defineInRange("skull_freeze_expl", 100, 0, 10000);
         EXO_SKULL_FREEZING_STRIKE_AMPLIFIER_EXPLOSION = BUILDER.defineInRange("skull_freeze_amp", 1, 0, 255);
-        BUILDER.pop();
-
-        BUILDER.push("Effects");
+        BUILDER.pop();        BUILDER.push("Effects");
         FROST_FIELD_DURATION = BUILDER.defineInRange("frost_duration", 100, 0, 10000);
         FROST_FIELD_RADIUS = BUILDER.defineInRange("frost_radius", 3.0, 0.0, 32.0);
         FROST_FIELD_EFFECT_INTERVAL = BUILDER.defineInRange("frost_interval", 10, 1, 1000);
@@ -293,9 +231,7 @@ public class ExoWitherConfig {
         FROST_FIELD_EFFECT_DURATION_INCREASE = BUILDER.defineInRange("frost_duration_inc", 20, 0, 10000);
         FROST_FIELD_EFFECT_MAX_DURATION = BUILDER.defineInRange("frost_max_duration", 100, 0, 10000);
         FROST_FIELD_EFFECT_MAX_AMPLIFIER = BUILDER.defineInRange("frost_max_amp", 9, 0, 255);
-        BUILDER.pop();
-
-        BUILDER.push("SmallBeam");
+        BUILDER.pop();        BUILDER.push("SmallBeam");
         SMALL_BEAM_BASE_DAMAGE = BUILDER.defineInRange("beam_base_dmg", 5.0, 0.0, 1000.0);
         SMALL_BEAM_MAX_LIFE = BUILDER.defineInRange("beam_max_life", 40, 0, 10000);
         SMALL_BEAM_ENRAGED_PIERCE_COUNT = BUILDER.defineInRange("beam_pierce_count", 2, 0, 100);
@@ -303,13 +239,9 @@ public class ExoWitherConfig {
         SMALL_BEAM_EFFECT_DAMAGE_DURATION_MULTIPLIER = BUILDER.defineInRange("beam_effect_duration_mult", 6, 0, 100);
         SMALL_BEAM_EFFECT_AMPLIFIER_NORMAL = BUILDER.defineInRange("beam_effect_amp_normal", 0, 0, 255);
         SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED = BUILDER.defineInRange("beam_effect_amp_enraged", 1, 0, 255);
-        BUILDER.pop();
-
-        BUILDER.push("Drops");
+        BUILDER.pop();        BUILDER.push("Drops");
         FROZEN_EXOHEART_PERCENT = BUILDER.defineInRange("heart_drop_percent", 0.05, 0.0, 1.0);
-        BUILDER.pop();
-
-        BUILDER.pop();
+        BUILDER.pop();        BUILDER.pop();
         SPEC = BUILDER.build();
     }
 }

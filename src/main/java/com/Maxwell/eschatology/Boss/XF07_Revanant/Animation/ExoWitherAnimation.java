@@ -3,9 +3,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-@OnlyIn(Dist.CLIENT)
+import net.minecraftforge.api.distmarker.OnlyIn;@OnlyIn(Dist.CLIENT)
 public class ExoWitherAnimation {
 	public static final AnimationDefinition SPAWN = AnimationDefinition.Builder.withLength(4.5F)
 		.addAnimation("face_front", new AnimationChannel(AnimationChannel.Targets.SCALE, 

@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.EventHorizon;
-
-import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.EventHorizon;import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb.LightOrbEntity;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
@@ -16,12 +14,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
-
-import java.util.List;
-import java.util.UUID;
-
-public class EventHorizonControllerEntity extends Entity {
+import net.minecraftforge.network.NetworkHooks;import java.util.List;
+import java.util.UUID;public class EventHorizonControllerEntity extends Entity {
     private UUID ownerUUID;
     private BlackBool owner;    private static final double ARENA_RADIUS = 64.0;
     private int orbCooldown = 0;    public EventHorizonControllerEntity(EntityType<?> pEntityType, Level pLevel) {
@@ -29,7 +23,7 @@ public class EventHorizonControllerEntity extends Entity {
         this.noCulling = true;
         this.noPhysics = true;
     }    public EventHorizonControllerEntity(Level pLevel, BlackBool owner) {
-        this(ModEntities.EVENT_HORIZON_CONTROLLER.get(), pLevel); 
+        this(ModEntities.EVENT_HORIZON_CONTROLLER.get(), pLevel);
         this.setOwner(owner);
         this.setPos(owner.position());
     }    public void setOwner(BlackBool owner) {
@@ -40,7 +34,7 @@ public class EventHorizonControllerEntity extends Entity {
         return true;
     }    @Override
     public void tick() {
-        if (this.level().isClientSide) {            if (this.tickCount % 2 == 0) { 
+        if (this.level().isClientSide) {            if (this.tickCount % 2 == 0) {
                 for (int i = 0; i < 360; i += 5) {
                     double angle = Math.toRadians(i);
                     double x = this.getX() + ARENA_RADIUS * Math.cos(angle);
@@ -52,11 +46,11 @@ public class EventHorizonControllerEntity extends Entity {
                 }
             }
         } else {            if (owner == null || !owner.isAlive()) {
-                this.discard(); 
+                this.discard();
                 return;
             }            if (this.orbCooldown-- <= 0) {
                 spawnOrbFromBoundary();
-                this.orbCooldown = 60 + this.random.nextInt(40); 
+                this.orbCooldown = 60 + this.random.nextInt(40);
             }            List<Player> players = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(ARENA_RADIUS + 20.0));
             for (Player player : players) {
                 if (player.isCreative() || player.isSpectator()) continue;                double distanceSqFromCenter = player.distanceToSqr(this.position());                if (distanceSqFromCenter > ARENA_RADIUS * ARENA_RADIUS) {

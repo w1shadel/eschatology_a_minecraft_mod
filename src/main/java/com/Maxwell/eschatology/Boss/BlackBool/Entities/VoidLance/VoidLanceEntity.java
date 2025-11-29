@@ -15,7 +15,9 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;public class VoidLanceEntity extends Projectile {
     private static final EntityDataAccessor<BlockPos> DATA_TARGET_POS = SynchedEntityData.defineId(VoidLanceEntity.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Boolean> DATA_SHOULD_CREATE_RIFT = SynchedEntityData.defineId(VoidLanceEntity.class, EntityDataSerializers.BOOLEAN);    private static final EntityDataAccessor<Integer> DATA_FALL_DELAY = SynchedEntityData.defineId(VoidLanceEntity.class, EntityDataSerializers.INT);    private boolean hasSearchedTarget = false;     public VoidLanceEntity(EntityType<? extends VoidLanceEntity> pEntityType, Level pLevel) {
+    private static final EntityDataAccessor<Boolean> DATA_SHOULD_CREATE_RIFT = SynchedEntityData.defineId(VoidLanceEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DATA_FALL_DELAY = SynchedEntityData.defineId(VoidLanceEntity.class, EntityDataSerializers.INT);
+    private boolean hasSearchedTarget = false;    public VoidLanceEntity(EntityType<? extends VoidLanceEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
     }    public VoidLanceEntity(Level pLevel, LivingEntity pOwner) {
@@ -24,7 +26,8 @@ import net.minecraft.world.phys.Vec3;public class VoidLanceEntity extends Projec
     }    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_TARGET_POS, BlockPos.ZERO);
-        this.entityData.define(DATA_SHOULD_CREATE_RIFT, false);        this.entityData.define(DATA_FALL_DELAY, 0);
+        this.entityData.define(DATA_SHOULD_CREATE_RIFT, false);
+        this.entityData.define(DATA_FALL_DELAY, 0);
     }    public void setFallDelay(int ticks) {
         this.entityData.set(DATA_FALL_DELAY, ticks);
     }    public int getFallDelay() {
@@ -39,26 +42,38 @@ import net.minecraft.world.phys.Vec3;public class VoidLanceEntity extends Projec
         return this.entityData.get(DATA_TARGET_POS);
     }    @Override
     public void tick() {
-        super.tick();        if (this.tickCount > 200) {
+        super.tick();
+        if (this.tickCount > 200) {
             this.discard();
             return;
-        }        int fallDelay = this.getFallDelay();
-        if (fallDelay > 0) {            this.setDeltaMovement(Vec3.ZERO);            if (!this.level().isClientSide) {
+        }
+        int fallDelay = this.getFallDelay();
+        if (fallDelay > 0) {
+            this.setDeltaMovement(Vec3.ZERO);
+            if (!this.level().isClientSide) {
                 this.setFallDelay(fallDelay - 1);
-            }            if (this.level().isClientSide) {
+            }
+            if (this.level().isClientSide) {
                 drawTargetCircle();
             }
             return;
-        }        if (!this.hasSearchedTarget && !this.level().isClientSide) {
+        }
+        if (!this.hasSearchedTarget && !this.level().isClientSide) {
             BlockPos groundPos = this.level().getHeightmapPos(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, this.blockPosition());
             this.setTargetPosition(groundPos);
             this.hasSearchedTarget = true;
-        }        BlockPos targetPos = getTargetPosition();
-        if (this.level().isClientSide) {            drawTargetCircle();
-        } else {            if(targetPos.equals(BlockPos.ZERO)) return;            Vec3 currentPos = this.position();
-            Vec3 targetVec = Vec3.atBottomCenterOf(targetPos);            if (currentPos.distanceToSqr(targetVec) < 1.0 || currentPos.y < targetVec.y) {
+        }
+        BlockPos targetPos = getTargetPosition();
+        if (this.level().isClientSide) {
+            drawTargetCircle();
+        } else {
+            if (targetPos.equals(BlockPos.ZERO)) return;
+            Vec3 currentPos = this.position();
+            Vec3 targetVec = Vec3.atBottomCenterOf(targetPos);
+            if (currentPos.distanceToSqr(targetVec) < 1.0 || currentPos.y < targetVec.y) {
                 this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 1.2F);
-                this.playSound(SoundEvents.WITHER_HURT, 1.0F, 1.0F);                if(this.level() instanceof ServerLevel serverLevel) {
+                this.playSound(SoundEvents.WITHER_HURT, 1.0F, 1.0F);
+                if (this.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.EXPLOSION, targetVec.x, targetVec.y, targetVec.z, 5, 0.5, 0.5, 0.5, 0);
                 }
                 if (this.shouldCreateRift() && this.getOwner() instanceof LivingEntity owner) {
@@ -84,8 +99,7 @@ import net.minecraft.world.phys.Vec3;public class VoidLanceEntity extends Projec
                 this.level().addParticle(ParticleTypes.WITCH, x, targetPos.getY() + 0.1, z, 0, 0, 0);
             }
         }
-    }
-    @Override
+    }    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.contains("shouldCreateRift")) {
             this.setShouldCreateRift(pCompound.getBoolean("shouldCreateRift"));

@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Capability.WitchsCrest;
-
-import net.minecraft.core.Direction;
+package com.Maxwell.eschatology.common.Capability.WitchsCrest;import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -8,11 +6,7 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-
-public class WCAttackLevelProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {    public static final Capability<WCAttackLevel> PLAYER_ATTACK_LEVEL =
+import org.jetbrains.annotations.NotNull;import javax.annotation.Nullable;public class WCAttackLevelProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {    public static final Capability<WCAttackLevel> PLAYER_ATTACK_LEVEL =
             CapabilityManager.get(new CapabilityToken<>() {});    private WCAttackLevel attackLevel = null;
     private final LazyOptional<WCAttackLevel> optional = LazyOptional.of(this::createPlayerAttackLevel);    private WCAttackLevel createPlayerAttackLevel() {
         if (this.attackLevel == null) {

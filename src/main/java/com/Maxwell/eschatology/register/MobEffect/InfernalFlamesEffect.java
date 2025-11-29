@@ -2,14 +2,15 @@ package com.Maxwell.eschatology.register.MobEffect;import net.minecraft.world.da
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;public class InfernalFlamesEffect extends MobEffect {
-    public InfernalFlamesEffect() {        super(MobEffectCategory.HARMFUL, 0xFF4500);
+    public InfernalFlamesEffect() {
+        super(MobEffectCategory.BENEFICIAL, 0xFF4500);
     }    @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity.level().getGameTime() % 10 == 0) {
-            DamageSource infernalDamage = pLivingEntity.damageSources().magic();
+            DamageSource infernalDamage = pLivingEntity.damageSources().outOfBorder();
             float damage = 1.0F + (2.0F * pAmplifier);
-pLivingEntity.hurtTime = 0;
-pLivingEntity.invulnerableTime = 0;
+            pLivingEntity.hurtTime = 0;
+            pLivingEntity.invulnerableTime = 0;
             pLivingEntity.hurt(infernalDamage, damage);
         }
         pLivingEntity.setSecondsOnFire(1);

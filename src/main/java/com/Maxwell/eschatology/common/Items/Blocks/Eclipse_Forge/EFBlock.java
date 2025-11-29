@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;
-
-import net.minecraft.core.BlockPos;
+package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -23,11 +21,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-
-import javax.annotation.Nullable;
-
-public class EFBlock extends BaseEntityBlock {
+import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;public class EFBlock extends BaseEntityBlock {
     public EFBlock(Properties strength) {
         super(Properties.of()
                 .mapColor(MapColor.METAL) 

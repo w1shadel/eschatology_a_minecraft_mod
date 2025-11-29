@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items;
-
-import com.Maxwell.eschatology.common.Capability.RevengeLegder.RevengeData;
+package com.Maxwell.eschatology.common.Items;import com.Maxwell.eschatology.common.Capability.RevengeLegder.RevengeData;
 import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncRLAbilityGuiPacket;
@@ -21,34 +19,24 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-
-import javax.annotation.Nullable;
+import net.minecraft.world.phys.Vec3;import javax.annotation.Nullable;
 import java.util.Comparator;
-import java.util.List;
-
-public class RevengeLedgerItem extends SwordItem {
+import java.util.List;public class RevengeLedgerItem extends SwordItem {
     public RevengeLedgerItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
         super(tier, attackDamageModifier, attackSpeedModifier, properties);
-    }
-
-    @Override
+    }    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof Player player && !player.level().isClientSide && target.getPersistentData().getBoolean("RevengeMarked")) {
             int gaugeBeforeHit = RevengeData.getGauge(player);
             double extraDamage = computeExtraDamage(player, gaugeBeforeHit);
             if (extraDamage > 0.0) {
                 target.hurt(player.level().damageSources().playerAttack(player), (float) extraDamage);
-            }
-
-            RevengeData.addGauge(player, ModConstants.Revenge.ADD_REVENGE);
+            }            RevengeData.addGauge(player, ModConstants.Revenge.ADD_REVENGE);
             ModMessages.sendToPlayer(new SyncRevengeGaugePacket(RevengeData.getGauge(player)), (ServerPlayer) player);
             target.getPersistentData().remove("RevengeMarked");
         }
         return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
+    }    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             if (RevengeData.isMaxGauge(player) && !player.getPersistentData().getBoolean("revenge_skill_active")) {
@@ -76,9 +64,7 @@ public class RevengeLedgerItem extends SwordItem {
             }
         }
         return InteractionResultHolder.pass(player.getItemInHand(hand));
-    }
-
-    private static double computeExtraDamage(Player player, int gauge) {
+    }    private static double computeExtraDamage(Player player, int gauge) {
         final int MAX_GAUGE = RevengeData.MAX_GAUGE;
         double ratio = Math.max(0.0D, Math.min(1.0D, (double) gauge / (double) MAX_GAUGE));
         double attackSpeed = player.getAttributeValue(Attributes.ATTACK_SPEED);
@@ -89,9 +75,7 @@ public class RevengeLedgerItem extends SwordItem {
     @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
-    }
-
-    @Override
+    }    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("item.eschatology.revenge_ledger.desc").withStyle(ChatFormatting.DARK_PURPLE));
         pTooltipComponents.add(Component.translatable("item.eschatology.revenge_ledger.desc2").withStyle(ChatFormatting.BLUE));

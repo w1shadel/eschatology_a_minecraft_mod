@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.GravityOrb;
-
-import com.Maxwell.eschatology.register.ModEffects;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.GravityOrb;import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,18 +18,17 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
-
-import javax.annotation.Nullable;
+import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
-
-public class GravityOrbEntity extends Entity {    private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
+import java.util.UUID;public class GravityOrbEntity extends Entity {
+    private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_PHASE = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);    private LivingEntity owner;
+    private static final EntityDataAccessor<Integer> DATA_PHASE = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
+    private LivingEntity owner;
     private UUID ownerUUID;
     private LivingEntity target;
-    private UUID targetUUID;    private int lifeTicks = 0;    private enum Phase { TRAVELING, PULLING }    public GravityOrbEntity(EntityType<?> pEntityType, Level pLevel) {
+    private UUID targetUUID;
+    private int lifeTicks = 0;    private enum Phase {TRAVELING, PULLING}    public GravityOrbEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
     }    public GravityOrbEntity(Level pLevel, LivingEntity pOwner, LivingEntity pTarget) {
@@ -45,17 +42,22 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
         this.entityData.define(DATA_OWNER_ID, 0);
         this.entityData.define(DATA_TARGET_ID, 0);
         this.entityData.define(DATA_PHASE, Phase.TRAVELING.ordinal());
-    }    private Phase getPhase() {        return Phase.values()[this.entityData.get(DATA_PHASE)];
-    }    private void setPhase(Phase phase) {        if (getPhase() != phase && !this.level().isClientSide) {
+    }    private Phase getPhase() {
+        return Phase.values()[this.entityData.get(DATA_PHASE)];
+    }    private void setPhase(Phase phase) {
+        if (getPhase() != phase && !this.level().isClientSide) {
             this.entityData.set(DATA_PHASE, phase.ordinal());
         }
     }    @Override
     public void tick() {
         super.tick();
-        this.lifeTicks++;        if (this.lifeTicks > 400) { 
+        this.lifeTicks++;
+        if (this.lifeTicks > 400) {
             this.discard();
             return;
-        }        Phase currentPhase = getPhase();        if (this.level().isClientSide) {
+        }
+        Phase currentPhase = getPhase();
+        if (this.level().isClientSide) {
             if (getPhase() == Phase.TRAVELING) {
                 this.setPos(this.getX() + this.getDeltaMovement().x, this.getY() + this.getDeltaMovement().y, this.getZ() + this.getDeltaMovement().z);
             }
@@ -73,12 +75,14 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
                     this.level().addParticle(ParticleTypes.PORTAL, px, this.getY(), pz, toCenter.x, 0, toCenter.z);
                 }
             }
-        }        if (!this.level().isClientSide) {
+        }
+        if (!this.level().isClientSide) {
             LivingEntity currentOwner = getOwner();
             if (currentOwner == null || !currentOwner.isAlive()) {
                 this.discard();
                 return;
-            }            switch (currentPhase) {
+            }
+            switch (currentPhase) {
                 case TRAVELING:
                     LivingEntity currentTarget = getTarget();
                     if (currentTarget != null && currentTarget.isAlive()) {
@@ -91,11 +95,13 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
                     if (this.lifeTicks > 80) {
                         this.startPullingPhase();
                     }
-                    break;                case PULLING:
-                    if (this.lifeTicks < 160) { 
+                    break;
+                case PULLING:
+                    if (this.lifeTicks < 160) {
                         float pullRadius = 12.0F;
                         AABB pullBox = this.getBoundingBox().inflate(pullRadius);
-                        List<LivingEntity> entitiesToPull = this.level().getEntitiesOfClass(LivingEntity.class, pullBox);                        for (LivingEntity entity : entitiesToPull) {
+                        List<LivingEntity> entitiesToPull = this.level().getEntitiesOfClass(LivingEntity.class, pullBox);
+                        for (LivingEntity entity : entitiesToPull) {
                             if (!entity.is(currentOwner) && !currentOwner.isAlliedTo(entity)) {
                                 double distanceFactor = 1.0 - (entity.distanceTo(this) / pullRadius);
                                 entity.fallDistance = 0.0F;
@@ -104,21 +110,25 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
                                 Vec3 currentDelta = entity.getDeltaMovement();
                                 entity.setDeltaMovement(
                                         currentDelta.x + horizontalPullDir.x * pullStrength,
-                                        currentDelta.y, 
+                                        currentDelta.y,
                                         currentDelta.z + horizontalPullDir.z * pullStrength
                                 );
-                                entity.fallDistance = 0.0F;                                entity.addEffect(new MobEffectInstance(ModEffects.GRAVITY_BOUND.get(), 20, 0, false, false, true));                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 2, false, false, true));                                if (this.lifeTicks % 10 == 0) {
+                                entity.fallDistance = 0.0F;
+                                entity.addEffect(new MobEffectInstance(ModEffects.GRAVITY_BOUND.get(), 20, 0, false, false, true));
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 2, false, false, true));
+                                if (this.lifeTicks % 10 == 0) {
                                     float dotDamage = (float) currentOwner.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.1F;
                                     entity.hurt(this.damageSources().mobAttack(currentOwner), dotDamage);
                                 }
                             }
                         }
-                    } else {                        float explosionDamage = (float) currentOwner.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F;
+                    } else {
+                        float explosionDamage = (float) currentOwner.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2.0F;
                         AABB explosionArea = this.getBoundingBox().inflate(6.0D);
                         List<LivingEntity> affectedEntities = this.level().getEntitiesOfClass(LivingEntity.class, explosionArea);
                         for (LivingEntity entity : affectedEntities) {
                             if (!entity.is(currentOwner) && !currentOwner.isAlliedTo(entity)) {
-                                entity.hurt(this.damageSources().mobAttack( currentOwner), explosionDamage);
+                                entity.hurt(this.damageSources().outOfBorder(), explosionDamage);
                             }
                         }
                         if (this.level() instanceof ServerLevel serverLevel) {
@@ -128,13 +138,13 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
                     }
                     break;
             }
-        }    }    
-    private void startPullingPhase() {
+        }
+    }    private void startPullingPhase() {
         if (getPhase() == Phase.TRAVELING) {
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.5F, 0.8F);
             this.setDeltaMovement(Vec3.ZERO);
             this.setPhase(Phase.PULLING);
-            this.lifeTicks = 0; 
+            this.lifeTicks = 0;
         }
     }    public void setOwner(@Nullable LivingEntity pOwner) {
         if (pOwner != null) {
@@ -147,10 +157,16 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
         if (this.owner != null && this.owner.isAlive()) return this.owner;
         if (this.level() instanceof ServerLevel sLevel && this.ownerUUID != null) {
             Entity entity = sLevel.getEntity(this.ownerUUID);
-            if (entity instanceof LivingEntity) { this.owner = (LivingEntity) entity; return this.owner; }
+            if (entity instanceof LivingEntity) {
+                this.owner = (LivingEntity) entity;
+                return this.owner;
+            }
         } else if (this.level().isClientSide) {
             Entity entity = this.level().getEntity(this.entityData.get(DATA_OWNER_ID));
-            if (entity instanceof LivingEntity) { this.owner = (LivingEntity) entity; return this.owner; }
+            if (entity instanceof LivingEntity) {
+                this.owner = (LivingEntity) entity;
+                return this.owner;
+            }
         }
         return null;
     }    public void setTarget(@Nullable LivingEntity pTarget) {
@@ -164,10 +180,16 @@ public class GravityOrbEntity extends Entity {    private static final EntityDat
         if (this.target != null && this.target.isAlive()) return this.target;
         if (this.level() instanceof ServerLevel sLevel && this.targetUUID != null) {
             Entity entity = sLevel.getEntity(this.targetUUID);
-            if (entity instanceof LivingEntity) { this.target = (LivingEntity) entity; return this.target; }
+            if (entity instanceof LivingEntity) {
+                this.target = (LivingEntity) entity;
+                return this.target;
+            }
         } else if (this.level().isClientSide) {
             Entity entity = this.level().getEntity(this.entityData.get(DATA_TARGET_ID));
-            if (entity instanceof LivingEntity) { this.target = (LivingEntity) entity; return this.target; }
+            if (entity instanceof LivingEntity) {
+                this.target = (LivingEntity) entity;
+                return this.target;
+            }
         }
         return null;
     }    @Override

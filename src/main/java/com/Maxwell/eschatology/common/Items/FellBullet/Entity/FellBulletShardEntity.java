@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.FellBullet.Entity;
-
-import com.Maxwell.eschatology.Balance.ModConstants;
+package com.Maxwell.eschatology.common.Items.FellBullet.Entity;import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModEffects;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,9 +10,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-
-public class FellBulletShardEntity extends Projectile {
+import net.minecraft.world.phys.Vec3;public class FellBulletShardEntity extends Projectile {
     public float BASE_DAMAGE = ModConstants.FellBullet.SHARD_DAMAGE;
     public FellBulletShardEntity(EntityType<? extends Projectile> type, Level level) { super(type, level); }    public FellBulletShardEntity(EntityType<? extends Projectile> type, Level level, LivingEntity owner) {
         super(type, level);

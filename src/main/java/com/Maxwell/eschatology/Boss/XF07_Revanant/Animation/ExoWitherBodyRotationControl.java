@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Animation;
-
-import net.minecraft.util.Mth;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Animation;import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 public class ExoWitherBodyRotationControl extends BodyRotationControl {

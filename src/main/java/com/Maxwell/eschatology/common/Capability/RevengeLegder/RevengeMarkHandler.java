@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Capability.RevengeLegder;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Capability.RevengeLegder;import com.Maxwell.eschatology.Eschatology;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncRevengeGaugePacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,9 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID,bus = Mod.EventBusSubscriber.Bus.FORGE)
+import net.minecraftforge.fml.common.Mod;@Mod.EventBusSubscriber(modid = Eschatology.MODID,bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RevengeMarkHandler {    @SubscribeEvent
     public static void onPlayerHurt(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;        DamageSource source = event.getSource();

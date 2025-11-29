@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.client.GUI.Bossbar;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.client.GUI.Bossbar;import com.Maxwell.eschatology.Eschatology;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -9,9 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.BossEvent;
-import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
-
-import java.util.HashMap;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;import java.util.HashMap;
 import java.util.Map;
 @SuppressWarnings("removal")
 public class MaxwellCustomBossBar {

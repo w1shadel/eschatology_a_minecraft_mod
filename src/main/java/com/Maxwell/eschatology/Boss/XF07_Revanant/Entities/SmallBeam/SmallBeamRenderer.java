@@ -33,7 +33,7 @@ public class SmallBeamRenderer extends EntityRenderer<SmallBeamEntity> {    priv
         Matrix3f matrix3f2 = rotatedPose.normal();
         drawQuad(vertexConsumer, matrix4f2, matrix3f2, packedLight, beamWidth);        poseStack.popPose();        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }    private static void drawQuad(VertexConsumer consumer, Matrix4f pose, Matrix3f normal, int light, float halfWidth) {
-        float halfHeight = halfWidth * 4.0f; 
+        float halfHeight = halfWidth * 4.0f;
         consumer.vertex(pose, -halfWidth, -halfHeight, 0.0F)
                 .color(255, 255, 255, 255)
                 .uv(0, 1)

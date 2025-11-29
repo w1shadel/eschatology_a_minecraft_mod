@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge.Client;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge.Client;import com.Maxwell.eschatology.Eschatology;
 import com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge.EFBlockEntity;
 import com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge.EFMenu;
 import com.Maxwell.eschatology.common.Network.ModMessages;

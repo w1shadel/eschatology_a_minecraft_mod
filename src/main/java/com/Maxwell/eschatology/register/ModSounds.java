@@ -17,20 +17,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> TWILIGHT_ATK2 =
             registerSoundEvent("twilight_attack2");
     public static final RegistryObject<SoundEvent> MAGIC_BULLET_CREATE =
-            registerSoundEvent("magic_bullet_create");
-
-    public static final RegistryObject<SoundEvent> MAGIC_BULLET_SHOOT =
-            registerSoundEvent("magic_bullet_shoot");
-
-    public static final RegistryObject<SoundEvent> BUTURI_ATK_1 =
-            registerSoundEvent("buturi_atk_1");
-
-
-    public static final RegistryObject<SoundEvent> BUTURI_ATK_2 =
-            registerSoundEvent("buturi_atk_2");
-
-
-    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
+            registerSoundEvent("magic_bullet_create");    public static final RegistryObject<SoundEvent> MAGIC_BULLET_SHOOT =
+            registerSoundEvent("magic_bullet_shoot");    public static final RegistryObject<SoundEvent> BUTURI_ATK_1 =
+            registerSoundEvent("buturi_atk_1");    public static final RegistryObject<SoundEvent> BUTURI_ATK_2 =
+            registerSoundEvent("buturi_atk_2");    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = new ResourceLocation(Eschatology.MODID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }

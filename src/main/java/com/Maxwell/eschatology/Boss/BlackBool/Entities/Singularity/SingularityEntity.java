@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.Singularity;
-
-import com.Maxwell.eschatology.register.ModEntities;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.Singularity;import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -11,12 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
-import java.util.UUID;
-
-public class SingularityEntity extends Entity {    private transient LivingEntity owner;
+import net.minecraft.world.phys.Vec3;import java.util.List;
+import java.util.UUID;public class SingularityEntity extends Entity {    private transient LivingEntity owner;
     private UUID ownerUUID;
     private int lifeTime = 140; 
     private float pullRadius = 12.0f;

@@ -41,9 +41,7 @@ public class EclipseEffectManager {    private static boolean eclipseActive = fa
         RenderSystem.enableCull();
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
-    }
-
-    public static void renderCustomSun(PoseStack poseStack, float partialTick) {
+    }    public static void renderCustomSun(PoseStack poseStack, float partialTick) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, BLACK_SUN_TEXTURE);        poseStack.pushPose();        poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(Minecraft.getInstance().level.getSunAngle(partialTick) * 360.0F));        Matrix4f matrix = poseStack.last().pose();

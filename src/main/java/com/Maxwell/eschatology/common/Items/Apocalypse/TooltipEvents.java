@@ -1,17 +1,11 @@
-package com.Maxwell.eschatology.common.Items.Apocalypse;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Items.Apocalypse;import com.Maxwell.eschatology.Eschatology;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.awt.*;
-import java.util.ListIterator;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+import net.minecraftforge.fml.common.Mod;import java.awt.*;
+import java.util.ListIterator;@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipEvents {    @SubscribeEvent
     public static void onTooltipModify(ItemTooltipEvent event) {
         if (!(event.getItemStack().getItem() instanceof Apocalypse)) {

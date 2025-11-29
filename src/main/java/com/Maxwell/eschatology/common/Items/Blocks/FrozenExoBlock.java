@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.Blocks;
-
-import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
+package com.Maxwell.eschatology.common.Items.Blocks;import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -22,13 +20,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
-
-public class FrozenExoBlock extends Block {
-
-    public FrozenExoBlock() {
+import net.minecraft.world.phys.Vec3;import java.util.List;public class FrozenExoBlock extends Block {    public FrozenExoBlock() {
         super(Properties.copy(Blocks.ICE)
                 .mapColor(MapColor.ICE)
                 .strength(-1.0F, 3600000.0F)
@@ -40,14 +32,10 @@ public class FrozenExoBlock extends Block {
     @Override
     public PushReaction getPistonPushReaction(BlockState pState) {
         return PushReaction.BLOCK;
-    }
-
-    @Override
+    }    @Override
     public boolean isRandomlyTicking(BlockState state) {
         return true;
-    }
-
-    @Override
+    }    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         boolean nearHeat = false;
         for (BlockPos nearby : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
@@ -60,14 +48,10 @@ public class FrozenExoBlock extends Block {
         if (nearHeat) {
             meltAndAwaken(level, pos);
         }
-    }
-
-    @Override
+    }    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos,
                                  Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack item = player.getItemInHand(hand);
-
-        if (item.is(Items.FLINT_AND_STEEL)) {
+        ItemStack item = player.getItemInHand(hand);        if (item.is(Items.FLINT_AND_STEEL)) {
             if (!level.isClientSide) {
                 level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 item.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
@@ -82,22 +66,12 @@ public class FrozenExoBlock extends Block {
             }
         }
         return InteractionResult.SUCCESS;
-    }
-
-    private void meltAndAwaken(ServerLevel level, BlockPos pos) {
-
-        level.removeBlock(pos, false);
-
-        level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.2F, 0.6F);
-        level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.4F);
-
-        for (int i = 0; i < 25; i++) {
+    }    private void meltAndAwaken(ServerLevel level, BlockPos pos) {        level.removeBlock(pos, false);        level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.2F, 0.6F);
+        level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.4F);        for (int i = 0; i < 25; i++) {
             level.sendParticles(net.minecraft.core.particles.ParticleTypes.SNOWFLAKE,
                     pos.getX() + 0.5, pos.getY() + 0.7, pos.getZ() + 0.5,
                     1, 0.3, 0.4, 0.3, 0.02);
-        }
-
-        AABB area = new AABB(pos).inflate(1.5);
+        }        AABB area = new AABB(pos).inflate(1.5);
         List<ExoWither> list = level.getEntitiesOfClass(ExoWither.class, area);
         if (!list.isEmpty()) {
             for (ExoWither exo : list) {

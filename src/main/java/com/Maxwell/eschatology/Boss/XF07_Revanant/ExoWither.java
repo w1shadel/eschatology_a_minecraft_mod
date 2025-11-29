@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant;
-
-import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+package com.Maxwell.eschatology.Boss.XF07_Revanant;import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.AI.*;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Animation.ExoWitherAnimationTicks;
@@ -49,12 +47,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
-import java.util.List;
-
-public class ExoWither extends Monster {
+import org.jetbrains.annotations.Nullable;import java.util.EnumSet;
+import java.util.List;public class ExoWither extends Monster {
     public enum AttackPhase {
         NONE,
         CHARGE,
@@ -104,24 +98,20 @@ public class ExoWither extends Monster {
         this.xpReward = 50;
         this.reapplyConfigAttributes();
     }
-    private void reapplyConfigAttributes() {
 
+    private void reapplyConfigAttributes() {
         if (this.getAttribute(Attributes.MAX_HEALTH) != null) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(ExoWitherBalance.MAX_HEALTH);
         }
-
         if (this.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(ExoWitherBalance.ATTACK_DAMAGE);
         }
-
         if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(ExoWitherBalance.MOVEMENT_SPEED);
         }
-
         if (this.getAttribute(Attributes.FLYING_SPEED) != null) {
             this.getAttribute(Attributes.FLYING_SPEED).setBaseValue(ExoWitherBalance.FLYING_SPEED);
         }
-
         if (this.getAttribute(Attributes.FOLLOW_RANGE) != null) {
             this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(ExoWitherBalance.FOLLOW_RANGE);
         }
@@ -132,6 +122,7 @@ public class ExoWither extends Monster {
             this.getAttribute(Attributes.ARMOR).setBaseValue(ExoWitherBalance.ARMOR);
         }
     }
+
     @Override
     protected BodyRotationControl createBodyControl() {
         return new ExoWitherBodyRotationControl(this);
@@ -174,7 +165,9 @@ public class ExoWither extends Monster {
         this.goalSelector.addGoal(3, this.missileAttackGoal);
         this.goalSelector.addGoal(3, this.simpleLaserAttackGoal);
         this.targetSelector.addGoal(0, new FindBlackBoolGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(0, new FindBlackBoolGoal(this));
+        this.targetSelector.addGoal(0, new FindBlackBoolGoal(this));
+        this.targetSelector.addGoal(1, new HarbingerIgnoringHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -244,22 +237,17 @@ public class ExoWither extends Monster {
             this.fireGlacialSkulls(target);
             this.exoskullAttackCooldown = ExoWitherBalance.EXO_SKULL_ATTACK_COOLDOWN;
         }
-        if (this.getAttackPhase() == AttackPhase.NONE) {
-            double idealDistance = ExoWitherBalance.IDEAL_DISTANCE_TO_TARGET;
-            double moveSpeedScale = ExoWitherBalance.MOVE_SPEED_SCALE;
-            Vec3 directionToTarget = this.position().vectorTo(target.position());
-            double distance = directionToTarget.horizontalDistance();
-            double targetY = target.getY() + 4.0D + Math.sin(this.tickCount * ExoWitherBalance.HOVER_Y_SPEED) * ExoWitherBalance.HOVER_Y_AMPLITUDE;
-            double ySpeed = Mth.clamp((targetY - this.getY()) * ExoWitherBalance.Y_ADJUST_SPEED, -ExoWitherBalance.Y_CLAMP, ExoWitherBalance.Y_CLAMP);
-            Vec3 horizontalDelta = Vec3.ZERO;
-            if (distance > idealDistance + 2.0D) {
-                horizontalDelta = directionToTarget.multiply(1, 0, 1).normalize().scale(moveSpeedScale);
-            } else if (distance < idealDistance - 2.0D) {
-                horizontalDelta = directionToTarget.multiply(1, 0, 1).normalize().scale(-moveSpeedScale * 0.7);
-            }
-            Vec3 finalDelta = this.getDeltaMovement().lerp(new Vec3(horizontalDelta.x, ySpeed, horizontalDelta.z), 0.1);
-            this.setDeltaMovement(finalDelta);
+        double moveSpeedScale = ExoWitherBalance.MOVE_SPEED_SCALE;
+        Vec3 directionToTarget = this.position().vectorTo(target.position());
+        double distance = directionToTarget.horizontalDistance();
+        double targetY = target.getY() + 3.0D + Math.sin(this.tickCount * ExoWitherBalance.HOVER_Y_SPEED) * ExoWitherBalance.HOVER_Y_AMPLITUDE;
+        double ySpeed = Mth.clamp((targetY - this.getY()) * ExoWitherBalance.Y_ADJUST_SPEED, -ExoWitherBalance.Y_CLAMP, ExoWitherBalance.Y_CLAMP);
+        Vec3 horizontalDelta = Vec3.ZERO;
+        if (distance > 0.5D) {
+            horizontalDelta = directionToTarget.multiply(1, 0, 1).normalize().scale(moveSpeedScale);
         }
+        Vec3 finalDelta = this.getDeltaMovement().lerp(new Vec3(horizontalDelta.x, ySpeed, horizontalDelta.z), 0.15);
+        this.setDeltaMovement(finalDelta);
     }
 
     public void resetChargeChain() {
@@ -319,8 +307,8 @@ public class ExoWither extends Monster {
                 .add(Attributes.ATTACK_DAMAGE, ExoWitherBalance.ATTACK_DAMAGE)
                 .add(Attributes.MOVEMENT_SPEED, ExoWitherBalance.MOVEMENT_SPEED)
                 .add(Attributes.FLYING_SPEED, ExoWitherBalance.FLYING_SPEED)
-                .add(Attributes.ARMOR,ExoWitherBalance.ARMOR)
-                .add(Attributes.ARMOR_TOUGHNESS,ExoWitherBalance.ARMOR_TOUGHNESS)
+                .add(Attributes.ARMOR, ExoWitherBalance.ARMOR)
+                .add(Attributes.ARMOR_TOUGHNESS, ExoWitherBalance.ARMOR_TOUGHNESS)
                 .add(Attributes.FOLLOW_RANGE, ExoWitherBalance.FOLLOW_RANGE);
     }
 
@@ -406,6 +394,13 @@ public class ExoWither extends Monster {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         Entity damageOwner = source.getDirectEntity();
+        Entity attacker = source.getEntity();
+        if (attacker != null) {
+            String attackerName = attacker.getClass().getSimpleName();
+            if (attackerName.contains("The_Harbinger_Entity") || attackerName.contains("Harbinger")) {
+                return false;
+            }
+        }
         if (damageOwner instanceof Projectile projectile) {
             if (projectile.getOwner() == this) {
                 return false;
@@ -488,15 +483,22 @@ public class ExoWither extends Monster {
             int scrapCount = 2 + this.random.nextInt(3);
             this.spawnAtLocation(new ItemStack(ModItems.FROSTED_SCRAP.get(), scrapCount));
         }
-
         super.die(pCause);
     }
+
     private boolean enraged = false;
 
     public boolean isEnraged() {
         return enraged;
     }
-
+    @Override
+    public boolean isAlliedTo(Entity entity) {
+        if (entity == null) return false;
+        if (entity == this) return true;
+        if (super.isAlliedTo(entity)) return true;
+        String className = entity.getClass().getSimpleName();
+        return className.contains("The_Harbinger_Entity") || className.contains("Harbinger");
+    }
     @Override
     public void tick() {
         super.tick();
@@ -664,6 +666,32 @@ public class ExoWither extends Monster {
         @Override
         public void stop() {
             this.target = null;
+        }
+    }
+    static class HarbingerIgnoringHurtByTargetGoal extends HurtByTargetGoal {
+
+        public HarbingerIgnoringHurtByTargetGoal(ExoWither mob) {
+            super(mob);
+
+            this.setAlertOthers(ExoWither.class);
+        }
+
+        @Override
+        public boolean canUse() {
+
+            if (!super.canUse()) {
+                return false;
+            }
+
+            LivingEntity attacker = this.mob.getLastHurtByMob();
+            if (attacker != null) {
+                String name = attacker.getClass().getSimpleName();
+
+                if (name.contains("Harbinger") || name.contains("The_Harbinger_Entity")) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

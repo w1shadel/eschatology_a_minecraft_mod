@@ -1,16 +1,10 @@
-package com.Maxwell.eschatology.client.GUI.Bossbar;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.client.GUI.Bossbar;import com.Maxwell.eschatology.Eschatology;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.Map;
+import net.minecraftforge.fml.common.Mod;import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+import java.util.concurrent.ConcurrentHashMap;@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class AttachBossBarEvents {
     private static final Map<UUID, Integer> BOSS_BAR_RENDER_IDS = new ConcurrentHashMap<>();
     public static void updateBossBarRenderId(UUID bossBarUuid, int renderId) {

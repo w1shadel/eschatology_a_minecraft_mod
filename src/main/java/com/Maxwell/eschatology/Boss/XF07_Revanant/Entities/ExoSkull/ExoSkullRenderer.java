@@ -1,15 +1,11 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;import com.Maxwell.eschatology.Eschatology;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-
-@SuppressWarnings("removal")
+import net.minecraft.resources.ResourceLocation;@SuppressWarnings("removal")
 public class ExoSkullRenderer extends EntityRenderer<ExoSkull> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(Eschatology.MODID, "textures/entity/exo_skull.png");
     private final ExoSkullModel model;

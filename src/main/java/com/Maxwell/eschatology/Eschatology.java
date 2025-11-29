@@ -1,7 +1,4 @@
-package com.Maxwell.eschatology;
-
-
-import com.Maxwell.eschatology.Config.Boss.BlackBoolConfig;
+package com.Maxwell.eschatology;import com.Maxwell.eschatology.Config.Boss.BlackBoolConfig;
 import com.Maxwell.eschatology.Config.Boss.ExoWitherConfig;
 import com.Maxwell.eschatology.Config.ClientConfig;
 import com.Maxwell.eschatology.Config.ModItemsConfig;
@@ -15,9 +12,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
-
-@Mod(Eschatology.MODID)
+import org.slf4j.Logger;@Mod(Eschatology.MODID)
 public class Eschatology
 {
     public static final Logger LOGGER =LogUtils.getLogger();

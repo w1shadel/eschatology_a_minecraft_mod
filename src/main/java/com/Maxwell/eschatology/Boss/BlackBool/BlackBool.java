@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool;
-
-import com.Maxwell.eschatology.Balance.BlackBoolBalance;
+package com.Maxwell.eschatology.Boss.BlackBool;import com.Maxwell.eschatology.Balance.BlackBoolBalance;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.BlackBoolMoveControl;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.SingularityGoal;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamEntity;
@@ -50,14 +48,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.EnumSet;
+import org.jetbrains.annotations.NotNull;import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-public class BlackBool extends Monster {
+import java.util.Set;public class BlackBool extends Monster {
     private static final EntityDataAccessor<Integer> DATA_ATTACK_PHASE = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_DEATH_TICKS = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_IS_PHASE_TWO =
@@ -79,6 +73,8 @@ public class BlackBool extends Monster {
     private boolean isCriticallyEnraged = false;
     private boolean isSpawning = true;
     private int spawnAnimationTicks = 0;
+    private int projectileReleaseTimer = 0;
+    private static final float PROJECTILE_RELEASE_INTERVAL = BlackBoolBalance.PROJECTILE_RELEASE_INTERVAL;
     public boolean isMeleeStance = true;
     private int stanceSwitchCooldown = 0;
 
@@ -110,28 +106,23 @@ public class BlackBool extends Monster {
         }
         this.reapplyConfigAttributes();
     }
-    private void reapplyConfigAttributes() {
 
+    private void reapplyConfigAttributes() {
         if (this.getAttribute(Attributes.MAX_HEALTH) != null) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(BlackBoolBalance.MAX_HEALTH);
         }
-
         if (this.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(BlackBoolBalance.ATTACK_DAMAGE);
         }
-
         if (this.getAttribute(Attributes.ARMOR) != null) {
             this.getAttribute(Attributes.ARMOR).setBaseValue(BlackBoolBalance.ARMOR);
         }
-
         if (this.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
             this.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(BlackBoolBalance.KNOCKBACK_RESISTANCE);
         }
-
         if (this.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(BlackBoolBalance.MOVEMENT_SPEED);
         }
-
         if (this.getAttribute(Attributes.FLYING_SPEED) != null) {
             this.getAttribute(Attributes.FLYING_SPEED).setBaseValue(BlackBoolBalance.FLYING_SPEED);
         }
@@ -142,6 +133,7 @@ public class BlackBool extends Monster {
             this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(BlackBoolBalance.ATTACK_SPEED);
         }
     }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -192,12 +184,10 @@ public class BlackBool extends Monster {
         final int COLLAPSE_END_TICK = OUTBURST_END_TICK + BlackBoolBalance.DEATH_PHASE2_COLLAPSE_TICKS;
         final int IMPLOSION_END_TICK = COLLAPSE_END_TICK + BlackBoolBalance.DEATH_PHASE3_IMPLOSION_TICKS;
         final int FINAL_TICK = IMPLOSION_END_TICK + BlackBoolBalance.DEATH_PHASE4_FINAL_TICKS;
-
         this.deathAnimationTicks++;
         this.setInvulnerable(true);
         this.getNavigation().stop();
         this.setDeltaMovement(Vec3.ZERO);
-
         if (!this.level().isClientSide) {
             if (this.deathAnimationTicks == 1) {
                 this.playSound(SoundEvents.WITHER_HURT, 2.0F, 0.5F);
@@ -223,11 +213,9 @@ public class BlackBool extends Monster {
                     this.playSound(SoundEvents.GLASS_BREAK, 1.5F, 1.5F);
                 }
             }
-
             if (this.deathAnimationTicks >= FINAL_TICK) {
                 this.dropExperience();
                 this.dropAllDeathLoot(this.getLastDamageSource() != null ? this.getLastDamageSource() : this.damageSources().generic());
-
                 if (!this.level().isClientSide) {
                     for (int i = 0; i < 4; i++) {
                         ItemStack crystal = new ItemStack(ModItems.A_TIME_CRYSTAL.get());
@@ -238,7 +226,6 @@ public class BlackBool extends Monster {
                     if (this.random.nextFloat() < BlackBoolBalance.SING_CORE_PERCENT) {
                         this.spawnAtLocation(new ItemStack(ModItems.SINGULARITY_CORE.get()), 0.5F);
                     }
-
                     ServerLevel serverLevel = (ServerLevel) this.level();
                     serverLevel.sendParticles(ParticleTypes.END_ROD,
                             this.getX(), this.getY() + 1.0, this.getZ(),
@@ -250,7 +237,6 @@ public class BlackBool extends Monster {
                             SoundEvents.END_PORTAL_SPAWN, this.getSoundSource(),
                             1.5F, 1.1F);
                 }
-
                 GlitchState.forcedGlitchIntensity = 0.0f;
                 ModMessages.sendToAll(new SyncEclipseStatePacket(false));
                 this.remove(RemovalReason.KILLED);
@@ -271,17 +257,52 @@ public class BlackBool extends Monster {
             if (this.getCurrentAttackPhase() != AttackPhase.LASER) {
                 captureNearbyProjectiles();
             }
+
+            handleCapturedProjectiles();
+
             applyContactDamage();
         }
     }
+    private void handleCapturedProjectiles() {
+        List<Entity> passengers = this.getPassengers();
 
+        if (passengers.isEmpty()) {
+            this.projectileReleaseTimer = 0;
+            return;
+        }
+
+        this.projectileReleaseTimer++;
+
+        if (this.projectileReleaseTimer >= PROJECTILE_RELEASE_INTERVAL) {
+
+            Entity projectile = passengers.get(0);
+
+            projectile.stopRiding();
+
+            RandomSource random = this.getRandom();
+            double x = (random.nextDouble() - 0.5D) * 2.0D; 
+            double y = (random.nextDouble() - 0.5D) * 2.0D;
+            double z = (random.nextDouble() - 0.5D) * 2.0D;
+
+            Vec3 shootDir = new Vec3(x, y, z).normalize().scale(1.5D); 
+
+            projectile.setDeltaMovement(shootDir);
+
+            projectile.setYRot((float)(Mth.atan2(shootDir.x, shootDir.z) * (double)(180F / (float)Math.PI)));
+            projectile.setXRot((float)(Mth.atan2(shootDir.y, shootDir.horizontalDistance()) * (double)(180F / (float)Math.PI)));
+
+            this.playSound(SoundEvents.WITHER_SHOOT, 1.0F, 1.5F);
+
+            this.projectileReleaseTimer = 0;
+        }
+    }
     public float getHealthPercent() {
         return this.getHealth() / this.getMaxHealth();
     }
 
     public int getCooldownTicksByHealth(int baseCooldown) {
         float healthPercent = this.getHealthPercent();
-        if (healthPercent < BlackBoolBalance.PHASE_TWO_HP_THRESHOLD) {
+        if (healthPercent < BlackBoolBalance.PHASE_TWO_HP_THRESHOLD || BlackBoolBalance.AFTER_SUMMON_MUST_RAGE_MODE) {
             return (int) (baseCooldown * (0.25f + (healthPercent * 1.5f)));
         }
         return (int) (baseCooldown * (0.5f + healthPercent));
@@ -389,7 +410,7 @@ public class BlackBool extends Monster {
             this.setDeltaMovement(finalDelta);
         }
         float healthPercent = this.getHealthPercent();
-        if (healthPercent <= BlackBoolBalance.CRITICAL_ENRAGE_HP_THRESHOLD && !this.isCriticallyEnraged) {
+        if ((healthPercent <= BlackBoolBalance.CRITICAL_ENRAGE_HP_THRESHOLD && !this.isCriticallyEnraged) || BlackBoolBalance.AFTER_SUMMON_MUST_RAGE_MODE) {
             this.isCriticallyEnraged = true;
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, 0, false, false, true));
             this.playSound(SoundEvents.WITHER_DEATH, 2.0F, 1.0F);
@@ -473,16 +494,21 @@ public class BlackBool extends Monster {
     }
 
     private void captureNearbyProjectiles() {
+
         if (this.getPassengers().size() >= BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
             return;
         }
+
         AABB scanBox = this.getBoundingBox().inflate(BlackBoolBalance.PROJECTILE_CAPTURE_RADIUS);
         List<Projectile> projectiles = this.level().getEntitiesOfClass(Projectile.class, scanBox,
                 (projectile) -> projectile.getOwner() != this && !projectile.isVehicle());
+
         for (Projectile p : projectiles) {
             if (this.getPassengers().size() < BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
                 p.setDeltaMovement(Vec3.ZERO);
+                p.setOwner(this);
                 p.startRiding(this, true);
+                this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 2.0F);
             } else {
                 break;
             }
@@ -753,7 +779,7 @@ public class BlackBool extends Monster {
                     if (player.isCreative() || player.isSpectator()) continue;
                     Vec3 knockbackDir = player.position().subtract(this.mob.position()).normalize();
                     player.knockback(BlackBoolBalance.CHARGE_END_EXPLOSION_KNOCKBACK, -knockbackDir.x, -knockbackDir.z);
-                    player.hurt(this.mob.damageSources().mobAttack(this.mob), (float) this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE) * BlackBoolBalance.CHARGE_END_EXPLOSION_DAMAGE_RATIO);
+                    player.hurt(this.mob.damageSources().outOfBorder(), (float) this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE) * BlackBoolBalance.CHARGE_END_EXPLOSION_DAMAGE_RATIO);
                 }
                 if (this.mob.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.EXPLOSION, this.mob.getX(), this.mob.getY(0.5), this.mob.getZ(), 5, 2.0, 0.5, 2.0, 0.0);

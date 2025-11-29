@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidWave;
-
-import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidWave;import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,15 +18,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
-
-import javax.annotation.Nullable;
+import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
-
-public class VoidWaveEntity extends Entity {    public static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.INT);
+import java.util.UUID;public class VoidWaveEntity extends Entity {
+    public static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.INT);
     private BlackBool owner;
-    private UUID ownerUUID;    public static final EntityDataAccessor<Float> DATA_SCALE = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.FLOAT);    public VoidWaveEntity(EntityType<?> pEntityType, Level pLevel) {
+    private UUID ownerUUID;
+    public static final EntityDataAccessor<Float> DATA_SCALE = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.FLOAT);    public VoidWaveEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
     }    public VoidWaveEntity(Level pLevel, BlackBool owner, Vec3 direction) {
@@ -36,46 +32,58 @@ public class VoidWaveEntity extends Entity {    public static final EntityDataAc
         this.setOwner(owner);
         this.setPos(owner.getX(), owner.getY() + 0.5, owner.getZ());
         this.noPhysics = true;
-        this.setDeltaMovement(direction); 
+        this.setDeltaMovement(direction);
     }    @Override
     protected void defineSynchedData() {
-        this.entityData.define(DATA_SCALE, 0.1F); 
+        this.entityData.define(DATA_SCALE, 0.1F);
         this.entityData.define(DATA_OWNER_ID, 0);
     }    @Override
     public void tick() {
-        super.tick();        if (this.tickCount > 60) { 
+        super.tick();
+        if (this.tickCount > 60) {
             this.discard();
             return;
-        }        Vec3 delta = this.getDeltaMovement();
+        }
+        Vec3 delta = this.getDeltaMovement();
         if (delta.horizontalDistanceSqr() > 1.0E-7D) {
-            float yaw = (float)(Mth.atan2(delta.x, delta.z) * (double)(180F / (float)Math.PI));
+            float yaw = (float) (Mth.atan2(delta.x, delta.z) * (double) (180F / (float) Math.PI));
             this.setYRot(yaw);
-        }        this.setPos(this.position().add(delta));        float newScale = this.getScale() + 0.15F; 
-        this.entityData.set(DATA_SCALE, Math.min(newScale, 4.0F));         if (!this.level().isClientSide) {
+        }
+        this.setPos(this.position().add(delta));
+        float newScale = this.getScale() + 0.15F;
+        this.entityData.set(DATA_SCALE, Math.min(newScale, 4.0F));
+        if (!this.level().isClientSide) {
             LivingEntity currentOwner = getOwner();
             if (currentOwner == null) {
-                this.discard(); 
+                this.discard();
                 return;
-            }            float scale = getScale();
+            }
+            float scale = getScale();
             float width = 1.0F * scale;
-            float height = 2.0F * scale; 
+            float height = 2.0F * scale;
             AABB damageArea = new AABB(
                     this.getX() - width, this.getY(), this.getZ() - width,
                     this.getX() + width, this.getY() + height, this.getZ() + width
-            );            List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, damageArea);            for (LivingEntity entity : entities) {
-                if (!entity.is(currentOwner) && !entity.isAlliedTo(currentOwner)) {                    if (entity.getTags().stream().noneMatch(tag -> tag.equals("hit_by_wave_" + this.getId()))) {
+            );
+            List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, damageArea);
+            for (LivingEntity entity : entities) {
+                if (!entity.is(currentOwner) && !entity.isAlliedTo(currentOwner)) {
+                    if (entity.getTags().stream().noneMatch(tag -> tag.equals("hit_by_wave_" + this.getId()))) {
                         float waveDamage = (float) currentOwner.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.6F;
-                        entity.hurt(this.damageSources().mobAttack(currentOwner), waveDamage);
+                        entity.hurt(this.damageSources().outOfBorder(), waveDamage);
                         entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80, 1));
                         entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 2));
                         entity.addTag("hit_by_wave_" + this.getId());
                     }
                 }
             }
-        }        else {            float scale = getScale();            for (int i = 0; i < 4; i++) {
-                float randomOffset = (this.random.nextFloat() - 0.5f) * scale * 2.0f;                Vec3 sideVector = new Vec3(-delta.z, 0, delta.x).normalize().scale(randomOffset);
+        } else {
+            float scale = getScale();
+            for (int i = 0; i < 4; i++) {
+                float randomOffset = (this.random.nextFloat() - 0.5f) * scale * 2.0f;
+                Vec3 sideVector = new Vec3(-delta.z, 0, delta.x).normalize().scale(randomOffset);
                 double px = this.getX() + sideVector.x;
-                double py = this.getY() + this.random.nextFloat() * scale * 1.5; 
+                double py = this.getY() + this.random.nextFloat() * scale * 1.5;
                 double pz = this.getZ() + sideVector.z;
                 this.level().addParticle(ParticleTypes.SOUL, px, py, pz, 0, 0, 0);
             }

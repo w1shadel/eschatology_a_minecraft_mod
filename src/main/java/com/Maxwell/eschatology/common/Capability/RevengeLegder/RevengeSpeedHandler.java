@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Capability.RevengeLegder;
-
-import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.common.Capability.RevengeLegder;import com.Maxwell.eschatology.Eschatology;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -8,11 +6,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-import java.util.UUID;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+import net.minecraftforge.fml.common.Mod;import java.util.UUID;@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RevengeSpeedHandler {
     private static final UUID REVENGE_SPEED_UUID = UUID.fromString("5b8a3f5d-9f1a-4b6f-9f4e-1b2cde9f0001");    private static final double MAX_ATTACK_SPEED_BONUS = 2.0D;    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {

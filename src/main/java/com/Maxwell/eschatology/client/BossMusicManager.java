@@ -5,12 +5,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;public class BossMusicManager {
-    private static SoundInstance currentBossMusic;
-
-    public static void playBossMusic(ResourceLocation soundLocation) {
-        System.out.println("BossMusicManager: Playing music -> " + soundLocation.toString());
-
-        if (currentBossMusic != null && currentBossMusic.getLocation().equals(soundLocation) && Minecraft.getInstance().getSoundManager().isActive(currentBossMusic)) {
+    private static SoundInstance currentBossMusic;    public static void playBossMusic(ResourceLocation soundLocation) {
+        System.out.println("BossMusicManager: Playing music -> " + soundLocation.toString());        if (currentBossMusic != null && currentBossMusic.getLocation().equals(soundLocation) && Minecraft.getInstance().getSoundManager().isActive(currentBossMusic)) {
             return;
         }
         stopBossMusic();
@@ -28,9 +24,7 @@ import net.minecraft.util.RandomSource;public class BossMusicManager {
                 true
         );
         Minecraft.getInstance().getSoundManager().play(currentBossMusic);
-    }
-
-    public static void stopBossMusic() {
+    }    public static void stopBossMusic() {
         if (currentBossMusic != null) {
             Minecraft.getInstance().getSoundManager().stop(currentBossMusic);
             currentBossMusic = null;

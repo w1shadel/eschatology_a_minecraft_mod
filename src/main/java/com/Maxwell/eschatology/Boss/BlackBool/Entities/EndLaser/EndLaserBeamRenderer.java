@@ -14,7 +14,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 @SuppressWarnings("removal")
 public class EndLaserBeamRenderer extends EntityRenderer<EndLaserBeamEntity> {    private static final ResourceLocation BEAM_TEXTURE = new ResourceLocation("eschatology", "textures/entity/end_laser_beam.png");
-    private static final ResourceLocation AURA_TEXTURE = new ResourceLocation("eschatology", "textures/entity/end_laser_aura.png"); 
+    private static final ResourceLocation AURA_TEXTURE = new ResourceLocation("eschatology", "textures/entity/end_laser_aura.png");
     private static final Vector3f FORWARD = new Vector3f(0.0F, 0.0F, 1.0F);    public EndLaserBeamRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
     }    @Override
@@ -27,8 +27,8 @@ public class EndLaserBeamRenderer extends EntityRenderer<EndLaserBeamEntity> {  
         if (length <= 0.1f) return;        pPoseStack.pushPose();        Vec3 directionVec = endPos.subtract(startPos).normalize();
         Vector3f direction = new Vector3f((float)directionVec.x, (float)directionVec.y, (float)directionVec.z);
         Quaternionf rotation = new Quaternionf().rotationTo(FORWARD, direction);        pPoseStack.translate(startPos.x - pEntity.getX(), startPos.y - pEntity.getY(), startPos.z - pEntity.getZ());
-        pPoseStack.mulPose(rotation);        float totalTicks = pEntity.tickCount + pPartialTick;        float pulseFrequency = 0.4f; 
-        float pulseAmplitude = 0.1f; 
+        pPoseStack.mulPose(rotation);        float totalTicks = pEntity.tickCount + pPartialTick;        float pulseFrequency = 0.4f;
+        float pulseAmplitude = 0.1f;
         float pulse = 1.0f + Mth.sin(totalTicks * pulseFrequency) * pulseAmplitude;        VertexConsumer beamConsumer = pBuffer.getBuffer(RenderType.entityCutoutNoCull(BEAM_TEXTURE));
         renderBeam(pPoseStack, beamConsumer, length, totalTicks, 0.4f * pulse, 1.0f, 255, 255, 255, 255);         VertexConsumer auraConsumer = pBuffer.getBuffer(RenderType.entityTranslucent(BEAM_TEXTURE));
         renderBeam(pPoseStack, auraConsumer, length, totalTicks, 0.8f * pulse, 0.5f, 200, 180, 255, 128);         pPoseStack.popPose();
@@ -44,10 +44,10 @@ public class EndLaserBeamRenderer extends EntityRenderer<EndLaserBeamEntity> {  
         addVertex(matrix4f, matrix3f, consumer, radius, 0, 0, 0, 1 + vScroll, r, g, b, a);        poseStack.popPose();
     }    private void addVertex(Matrix4f matrix4f, Matrix3f matrix3f, VertexConsumer consumer, float x, float y, float z, float u, float v, int r, int g, int b, int a) {
         consumer.vertex(matrix4f, x, y, z)
-                .color(r, g, b, a) 
+                .color(r, g, b, a)
                 .uv(u, v)
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(15728880) 
+                .uv2(15728880)
                 .normal(matrix3f, 0.0F, 1.0F, 0.0F)
                 .endVertex();
     }

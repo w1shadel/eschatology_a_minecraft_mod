@@ -1,15 +1,11 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;
-
-import com.mojang.blaze3d.vertex.PoseStack;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-
-@SuppressWarnings("removal")
+import net.minecraft.resources.ResourceLocation;@SuppressWarnings("removal")
 public class ExoSkullModel extends HierarchicalModel<ExoSkull> {	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "exoskullmodel"), "main");
 	private final ModelPart bb_main;	public ExoSkullModel(ModelPart root) {
 		this.bb_main = root.getChild("bb_main");

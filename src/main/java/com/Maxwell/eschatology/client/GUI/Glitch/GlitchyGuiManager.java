@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.client.GUI.Glitch;
-
-import com.mojang.blaze3d.systems.RenderSystem;
+package com.Maxwell.eschatology.client.GUI.Glitch;import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -23,11 +21,7 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.List;
-
-public class GlitchyGuiManager {    private final Minecraft mc = Minecraft.getInstance();
+import net.minecraftforge.eventbus.api.SubscribeEvent;import java.util.List;public class GlitchyGuiManager {    private final Minecraft mc = Minecraft.getInstance();
     private final RandomSource random = RandomSource.create();
     private static float currentIntensity = 0.0f; 
     private static float targetIntensity = 0.0f;  

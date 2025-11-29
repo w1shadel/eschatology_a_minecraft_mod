@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb;
-
-import com.Maxwell.eschatology.register.ModEntities;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb;import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -20,13 +18,11 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
-
-import javax.annotation.Nullable;
-import java.util.UUID;
-
-public class LightOrbEntity extends Entity {    private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);    private LivingEntity owner;
+import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
+import java.util.UUID;public class LightOrbEntity extends Entity {
+    private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);
+    private LivingEntity owner;
     private UUID ownerUUID;
     private LivingEntity target;
     private UUID targetUUID;
@@ -49,24 +45,30 @@ public class LightOrbEntity extends Entity {    private static final EntityDataA
         this.setDeltaMovement(direction.normalize().scale(initialSpeed));
     }    @Override
     public void tick() {
-        super.tick();        if (this.tickCount > 120) {            if (!this.level().isClientSide) {
-                this.explode(); 
+        super.tick();
+        if (this.tickCount > 120) {
+            if (!this.level().isClientSide) {
+                this.explode();
             }
             this.discard();
             return;
-        }        if (this.ignoreOwnerTime > 0) {
+        }
+        if (this.ignoreOwnerTime > 0) {
             this.ignoreOwnerTime--;
-        }        if (!this.level().isClientSide) {
+        }
+        if (!this.level().isClientSide) {
             if (this.getOwner() == null || !this.getOwner().isAlive()) {
                 this.discard();
                 return;
-            }            Vec3 currentPos = this.position();
+            }
+            Vec3 currentPos = this.position();
             Vec3 nextPos = currentPos.add(this.getDeltaMovement());
             EntityHitResult entityHitResult = this.findHitEntity(currentPos, nextPos);
             if (entityHitResult != null) {
                 this.onEntityHit(entityHitResult);
                 return;
-            }            LivingEntity currentTarget = this.getTarget();
+            }
+            LivingEntity currentTarget = this.getTarget();
             if (currentTarget != null && currentTarget.isAlive()) {
                 Vec3 directionToTarget = currentTarget.getEyePosition().subtract(this.position()).normalize();
                 Vec3 currentVelocity = this.getDeltaMovement();
@@ -76,21 +78,27 @@ public class LightOrbEntity extends Entity {    private static final EntityDataA
                 Vec3 newVelocity = currentVelocity.add(homingVector).normalize().scale(homingSpeed);
                 this.setDeltaMovement(newVelocity);
             }
-        }        this.setPos(this.getX() + this.getDeltaMovement().x, this.getY() + this.getDeltaMovement().y, this.getZ() + this.getDeltaMovement().z);        if (this.level().isClientSide) {
+        }
+        this.setPos(this.getX() + this.getDeltaMovement().x, this.getY() + this.getDeltaMovement().y, this.getZ() + this.getDeltaMovement().z);
+        if (this.level().isClientSide) {
             this.level().addParticle(ParticleTypes.END_ROD, this.getRandomX(0.2D), this.getRandomY(), this.getRandomZ(0.2D), 0.0D, 0.0D, 0.0D);
         }
     }    protected void onEntityHit(EntityHitResult pResult) {
         if (!this.level().isClientSide) {
             Entity hitEntity = pResult.getEntity();
             LivingEntity attacker = this.getOwner();
-            if (attacker != null && hitEntity instanceof LivingEntity livingHitEntity) {                float orbDamage = (float) attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.7F;
-                hitEntity.hurt(this.damageSources().mobAttack(attacker), orbDamage);                livingHitEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0)); 
+            if (attacker != null && hitEntity instanceof LivingEntity livingHitEntity) {
+                float orbDamage = (float) attacker.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.7F;
+                hitEntity.hurt(this.damageSources().outOfBorder(), orbDamage);
+                livingHitEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0));
             }
             this.explode();
         }
         this.discard();
     }    private void explode() {
-        if (!this.level().isClientSide) {            this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, Level.ExplosionInteraction.NONE);            if (this.level() instanceof ServerLevel serverLevel) {
+        if (!this.level().isClientSide) {
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, Level.ExplosionInteraction.NONE);
+            if (this.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 5, 0.5, 0.5, 0.5, 0.0);
             }
             this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));

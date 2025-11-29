@@ -21,9 +21,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;@Mod.EventBusSubscriber(modid = Eschatology.MODID)
-public class AbilityTickHandler {
-
-    @SubscribeEvent
+public class AbilityTickHandler {    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.player.level().isClientSide) return;
         ServerPlayer player = (ServerPlayer) event.player;
@@ -144,9 +142,7 @@ public class AbilityTickHandler {
                 finishAbility(player);
                 break;
         }
-    }
-
-    private static void finishAbility(ServerPlayer player) {
+    }    private static void finishAbility(ServerPlayer player) {
         player.setInvulnerable(false);
         if (!player.isCreative() && !player.isSpectator()) {
             player.setNoGravity(false);
@@ -158,9 +154,7 @@ public class AbilityTickHandler {
         data.remove("revenge_skill_target");
         data.remove("revenge_skill_start_y");
         ModMessages.sendToPlayer(new SyncRLAbilityGuiPacket(true, ""), player);
-    }
-
-    @SubscribeEvent
+    }    @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
         DamageSource source = event.getSource();
         if (source.getDirectEntity() instanceof FallingBlockEntity fallingBlock) {

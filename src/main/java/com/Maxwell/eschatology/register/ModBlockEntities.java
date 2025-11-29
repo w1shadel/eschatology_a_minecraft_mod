@@ -6,7 +6,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Eschatology.MODID);    public static final RegistryObject<BlockEntityType<EFBlockEntity>> ECLIPSE_FORGE =
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Eschatology.MODID);
+    public static final RegistryObject<BlockEntityType<EFBlockEntity>> ECLIPSE_FORGE =
             BLOCK_ENTITIES.register("eclipse_forge",
                     () -> BlockEntityType.Builder.of(
                             EFBlockEntity::new,

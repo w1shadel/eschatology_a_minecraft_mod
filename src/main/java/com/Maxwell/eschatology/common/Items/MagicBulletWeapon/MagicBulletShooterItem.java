@@ -1,6 +1,4 @@
-package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;
-
-import com.Maxwell.eschatology.Balance.ModConstants;
+package com.Maxwell.eschatology.common.Items.MagicBulletWeapon;import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.register.ModEntities;
 import com.Maxwell.eschatology.register.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -16,42 +14,28 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
-
-import javax.annotation.Nullable;
+import org.joml.Vector3f;import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.List;
-
-public class MagicBulletShooterItem extends SwordItem {
+import java.util.List;public class MagicBulletShooterItem extends SwordItem {
     private static final String NBT_BULLETS = "MagicBullets";
     private static final int MAX_BULLETS = 7;
-    private static final int MIN_CHARGE_TIME = 20;
-
-    public MagicBulletShooterItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
+    private static final int MIN_CHARGE_TIME = 20;    public MagicBulletShooterItem(Tier tier, int attackDamageModifier, float attackSpeedModifier, Properties properties) {
         super(tier, attackDamageModifier, attackSpeedModifier, properties);
-    }
-
-    public static int getBulletCount(ItemStack stack) {
+    }    public static int getBulletCount(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(NBT_BULLETS)) {
             return tag.getInt(NBT_BULLETS);
         }
         setBulletCount(stack, MAX_BULLETS);
         return MAX_BULLETS;
-    }
-
-    public static void setBulletCount(ItemStack stack, int count) {
+    }    public static void setBulletCount(ItemStack stack, int count) {
         stack.getOrCreateTag().putInt(NBT_BULLETS, count);
-    }
-
-    public static void consumeBullet(ItemStack stack) {
+    }    public static void consumeBullet(ItemStack stack) {
         int current = getBulletCount(stack);
         if (current > 0) {
             setBulletCount(stack, current - 1);
         }
-    }
-
-    @Override
+    }    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.level().isClientSide) {
             if (getBulletCount(stack) > 0) {
@@ -61,17 +45,13 @@ public class MagicBulletShooterItem extends SwordItem {
             }
         }
         return super.hurtEnemy(stack, target, attacker);
-    }
-
-    @Override
+    }    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         player.startUsingItem(hand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MAGIC_BULLET_CREATE.get(), SoundSource.PLAYERS, 1F, 1.0F);
         return InteractionResultHolder.consume(itemstack);
-    }
-
-    @Override
+    }    @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeCharged) {
         if (!(entity instanceof Player player)) {
             return;
@@ -89,9 +69,7 @@ public class MagicBulletShooterItem extends SwordItem {
                 float damage = ModConstants.MagicBullet.BASE_DAMAGE + Math.min(chargeDuration, ModConstants.MagicBullet.CHARGE_DAMAGE_CAP) * ModConstants.MagicBullet.CHARGE_DAMAGE_MULTIPLIER;
                 bullet.setDamage(damage);    bullet.setDamage(damage);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.0F, 1.0F);
-                level.addFreshEntity(bullet);
-
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MAGIC_BULLET_SHOOT.get(), SoundSource.PLAYERS, 0.7F, 1.5F);
+                level.addFreshEntity(bullet);                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MAGIC_BULLET_SHOOT.get(), SoundSource.PLAYERS, 0.7F, 1.5F);
                 player.getCooldowns().addCooldown(this, ModConstants.MagicBullet.COOLDOWN_NORMAL);
             } else {
                 setBulletCount(stack, ModConstants.MagicBullet.MAX_BULLETS);
@@ -100,15 +78,11 @@ public class MagicBulletShooterItem extends SwordItem {
                 bullet.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
                 bullet.setDamage(ModConstants.MagicBullet.ULTRA_SHOT_DAMAGE);
                 bullet.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 5.0F, 0.5F);
-                level.addFreshEntity(bullet);
-
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MAGIC_BULLET_SHOOT.get(), SoundSource.PLAYERS, 0.8F, 1.2F);
+                level.addFreshEntity(bullet);                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MAGIC_BULLET_SHOOT.get(), SoundSource.PLAYERS, 0.8F, 1.2F);
                 player.getCooldowns().addCooldown(this, ModConstants.MagicBullet.COOLDOWN_ULTRA);
             }
         }
-    }
-
-    @Override
+    }    @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
         if (!level.isClientSide || !(entity instanceof Player player)) {
             return;
@@ -149,9 +123,7 @@ public class MagicBulletShooterItem extends SwordItem {
                 drawStarLine(level, starVertices.get(4), starVertices.get(1), starDust, starProgress);
             }
         }
-    }
-
-    private void drawStarLine(Level level, Vec3 start, Vec3 end, DustParticleOptions particleOptions, float progress) {
+    }    private void drawStarLine(Level level, Vec3 start, Vec3 end, DustParticleOptions particleOptions, float progress) {
         Vec3 difference = end.subtract(start);
         int lineParticles = 8;
         for (int i = 0; i < lineParticles * progress; i++) {
@@ -159,19 +131,13 @@ public class MagicBulletShooterItem extends SwordItem {
             Vec3 point = start.add(difference.scale(t));
             level.addParticle(particleOptions, point.x, point.y, point.z, 0, 0, 0);
         }
-    }
-
-    @Override
+    }    @Override
     public int getUseDuration(ItemStack stack) {
         return 72000;
-    }
-
-    @Override
+    }    @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.BOW;
-    }
-
-    @Override
+    }    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
         int bullets = getBulletCount(stack);
@@ -179,23 +145,17 @@ public class MagicBulletShooterItem extends SwordItem {
                 .withStyle(bullets > 0 ? ChatFormatting.AQUA : ChatFormatting.RED));
         tooltip.add(Component.translatable("item.eschatology.magic_bullet.desc").withStyle(ChatFormatting.BLUE));
         tooltip.add(Component.translatable("item.eschatology.magic_bullet.desc2").withStyle(ChatFormatting.WHITE));
-    }
-
-    @Override
+    }    @Override
     public boolean isDamaged(ItemStack stack) {
         return false;
-    }
-
-    @Override
+    }    @Override
     public boolean isBarVisible(ItemStack stack) {
         return getBulletCount(stack) < ModConstants.MagicBullet.MAX_BULLETS;
     }
     @Override
     public int getBarWidth(ItemStack stack) {
         return Math.round(13.0F * (float)getBulletCount(stack) / ModConstants.MagicBullet.MAX_BULLETS);
-    }
-
-    @Override
+    }    @Override
     public int getBarColor(ItemStack stack) {
         return 0x00AFFFFF;
     }

@@ -1,24 +1,14 @@
-package com.Maxwell.eschatology.Config;
-
-import com.Maxwell.eschatology.Balance.ModConstants;
+package com.Maxwell.eschatology.Config;import com.Maxwell.eschatology.Balance.ModConstants;
 import com.Maxwell.eschatology.Eschatology;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-
-@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModItemsConfigSync {
-
-    @SubscribeEvent
+import net.minecraftforge.fml.event.config.ModConfigEvent;@Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class ModItemsConfigSync {    @SubscribeEvent
     public static void onModConfigEvent(ModConfigEvent event) {
         if (event.getConfig().getSpec() == ModItemsConfig.SPEC) {
             bakeConfig();
         }
-    }
-
-    private static void bakeConfig() {
-
-        ModConstants.Revenge.PAUSE_DURATION = ModItemsConfig.REVENGE_PAUSE_DURATION.get();
+    }    private static void bakeConfig() {        ModConstants.Revenge.PAUSE_DURATION = ModItemsConfig.REVENGE_PAUSE_DURATION.get();
         ModConstants.Revenge.JUMP_HEIGHT = ModItemsConfig.REVENGE_JUMP_HEIGHT.get();
         ModConstants.Revenge.JUMP_DURATION = ModItemsConfig.REVENGE_JUMP_DURATION.get();
         ModConstants.Revenge.HOVER_DURATION = ModItemsConfig.REVENGE_HOVER_DURATION.get();
@@ -37,9 +27,7 @@ public class ModItemsConfigSync {
         ModConstants.Revenge.BASE_EXTRA_DAMAGE_AT_FULL = ModItemsConfig.REVENGE_BASE_EXTRA_DAMAGE_AT_FULL.get();
         ModConstants.Revenge.BASE_ATTACK_SPEED_REF = ModItemsConfig.REVENGE_BASE_ATTACK_SPEED_REF.get();
         ModConstants.Revenge.TARGET_SEARCH_DIST = ModItemsConfig.REVENGE_TARGET_SEARCH_DIST.get();
-        ModConstants.Revenge.TARGET_SEARCH_WIDTH = ModItemsConfig.REVENGE_TARGET_SEARCH_WIDTH.get();
-
-        ModConstants.WitchsCrest.GAIN_POISONOUS = ModItemsConfig.WITCH_GAIN_POISONOUS.get();
+        ModConstants.Revenge.TARGET_SEARCH_WIDTH = ModItemsConfig.REVENGE_TARGET_SEARCH_WIDTH.get();        ModConstants.WitchsCrest.GAIN_POISONOUS = ModItemsConfig.WITCH_GAIN_POISONOUS.get();
         ModConstants.WitchsCrest.GAIN_RECIPE = ModItemsConfig.WITCH_GAIN_RECIPE.get();
         ModConstants.WitchsCrest.GAIN_TAG = ModItemsConfig.WITCH_GAIN_TAG.get();
         ModConstants.WitchsCrest.DURATION_PER_LEVEL = ModItemsConfig.WITCH_DURATION_PER_LEVEL.get();
@@ -48,18 +36,14 @@ public class ModItemsConfigSync {
         ModConstants.WitchsCrest.PENALTY_DURATION = ModItemsConfig.WITCH_PENALTY_DURATION.get();
         ModConstants.WitchsCrest.SELF_DAMAGE = ModItemsConfig.WITCH_SELF_DAMAGE.get().floatValue();
         ModConstants.WitchsCrest.SORN_BASE_DAMAGE = ModItemsConfig.WITCH_SORN_BASE_DAMAGE.get().floatValue();
-        ModConstants.WitchsCrest.DAMAGE_PER_LEVEL = ModItemsConfig.WITCH_DAMAGE_PER_LEVEL.get().floatValue();
-
-        ModConstants.TOaFG.TARGET_RANGE = ModItemsConfig.TOAFG_TARGET_RANGE.get();
+        ModConstants.WitchsCrest.DAMAGE_PER_LEVEL = ModItemsConfig.WITCH_DAMAGE_PER_LEVEL.get().floatValue();        ModConstants.TOaFG.TARGET_RANGE = ModItemsConfig.TOAFG_TARGET_RANGE.get();
         ModConstants.TOaFG.CHECK_INTERVAL = ModItemsConfig.TOAFG_CHECK_INTERVAL.get();
         ModConstants.TOaFG.MAX_TARGETS = ModItemsConfig.TOAFG_MAX_TARGETS.get();
         ModConstants.TOaFG.ATTACK_DAMAGE = ModItemsConfig.TOAFG_ATTACK_DAMAGE.get().floatValue();
         ModConstants.TOaFG.PARTICLES_PER_TARGET = ModItemsConfig.TOAFG_PARTICLES_PER_TARGET.get();
         ModConstants.TOaFG.TRAIL_COUNT = ModItemsConfig.TOAFG_TRAIL_COUNT.get();
         ModConstants.TOaFG.SPAWN_SPREAD_XZ = ModItemsConfig.TOAFG_SPAWN_SPREAD_XZ.get();
-        ModConstants.TOaFG.SPAWN_HEIGHT = ModItemsConfig.TOAFG_SPAWN_HEIGHT.get();
-
-        ModConstants.ExoHeart.CHARGE_BAR_SCALE = ModItemsConfig.EXO_CHARGE_BAR_SCALE.get().floatValue();
+        ModConstants.TOaFG.SPAWN_HEIGHT = ModItemsConfig.TOAFG_SPAWN_HEIGHT.get();        ModConstants.ExoHeart.CHARGE_BAR_SCALE = ModItemsConfig.EXO_CHARGE_BAR_SCALE.get().floatValue();
         ModConstants.ExoHeart.TEXT_COLOR = ModItemsConfig.EXO_TEXT_COLOR.get();
         ModConstants.ExoHeart.BOSS_CHECK_RADIUS = ModItemsConfig.EXO_BOSS_CHECK_RADIUS.get();
         ModConstants.ExoHeart.LOSS_DELAY_TICKS = ModItemsConfig.EXO_LOSS_DELAY_TICKS.get();
@@ -69,11 +53,7 @@ public class ModItemsConfigSync {
         ModConstants.ExoHeart.ACTIVE_HEAL_INTERVAL = ModItemsConfig.EXO_ACTIVE_HEAL_INTERVAL.get();
         ModConstants.ExoHeart.ACTIVE_HEAL_AMOUNT = ModItemsConfig.EXO_ACTIVE_HEAL_AMOUNT.get().floatValue();
         ModConstants.ExoHeart.PASSIVE_CHARGE_AMOUNT = ModItemsConfig.EXO_PASSIVE_CHARGE_AMOUNT.get();
-        ModConstants.ExoHeart.PASSIVE_DRAIN_AMOUNT = ModItemsConfig.EXO_PASSIVE_DRAIN_AMOUNT.get();
-
-        ModConstants.Apocalypse.DAMAGE_MULTIPLIER = ModItemsConfig.APOCALYPSE_DAMAGE_MULTIPLIER.get().floatValue();
-
-        ModConstants.Counter.DAMAGE_INSTANCES = ModItemsConfig.COUNTER_DAMAGE_INSTANCES.get();
+        ModConstants.ExoHeart.PASSIVE_DRAIN_AMOUNT = ModItemsConfig.EXO_PASSIVE_DRAIN_AMOUNT.get();        ModConstants.Apocalypse.DAMAGE_MULTIPLIER = ModItemsConfig.APOCALYPSE_DAMAGE_MULTIPLIER.get().floatValue();        ModConstants.Counter.DAMAGE_INSTANCES = ModItemsConfig.COUNTER_DAMAGE_INSTANCES.get();
         ModConstants.Counter.DAMAGE_INTERVAL = ModItemsConfig.COUNTER_DAMAGE_INTERVAL.get();
         ModConstants.Counter.DAMAGE_AMOUNT = ModItemsConfig.COUNTER_DAMAGE_AMOUNT.get().floatValue();
         ModConstants.Counter.DAMAGE_RADIUS = ModItemsConfig.COUNTER_DAMAGE_RADIUS.get();
@@ -85,14 +65,10 @@ public class ModItemsConfigSync {
         ModConstants.Counter.CONTEMPT_DAMAGE_MULT = ModItemsConfig.COUNTER_CONTEMPT_DAMAGE_MULT.get().floatValue();
         ModConstants.Counter.SELF_CONTEMPT_DAMAGE_MULT = ModItemsConfig.COUNTER_SELF_CONTEMPT_DAMAGE_MULT.get().floatValue();
         ModConstants.Counter.SWEEP_DAMAGE = ModItemsConfig.COUNTER_SWEEP_DAMAGE.get().floatValue();
-        ModConstants.Counter.RANGE = ModItemsConfig.COUNTER_RANGE.get();
-
-        ModConstants.FellBullet.BASE_DAMAGE = ModItemsConfig.FELL_BASE_DAMAGE.get().floatValue();
+        ModConstants.Counter.RANGE = ModItemsConfig.COUNTER_RANGE.get();        ModConstants.FellBullet.BASE_DAMAGE = ModItemsConfig.FELL_BASE_DAMAGE.get().floatValue();
         ModConstants.FellBullet.MAX_LIFE_TICKS = ModItemsConfig.FELL_MAX_LIFE_TICKS.get();
         ModConstants.FellBullet.SHARD_DAMAGE = ModItemsConfig.FELL_SHARD_DAMAGE.get().floatValue();
-        ModConstants.FellBullet.SHARD_LIFE_TICKS = ModItemsConfig.FELL_SHARD_LIFE_TICKS.get();
-
-        ModConstants.MagicBullet.MAX_BULLETS = ModItemsConfig.MAGIC_MAX_BULLETS.get();
+        ModConstants.FellBullet.SHARD_LIFE_TICKS = ModItemsConfig.FELL_SHARD_LIFE_TICKS.get();        ModConstants.MagicBullet.MAX_BULLETS = ModItemsConfig.MAGIC_MAX_BULLETS.get();
         ModConstants.MagicBullet.MIN_CHARGE_TIME = ModItemsConfig.MAGIC_MIN_CHARGE_TIME.get();
         ModConstants.MagicBullet.BASE_DAMAGE = ModItemsConfig.MAGIC_BASE_DAMAGE.get().floatValue();
         ModConstants.MagicBullet.CHARGE_DAMAGE_CAP = ModItemsConfig.MAGIC_CHARGE_DAMAGE_CAP.get().floatValue();

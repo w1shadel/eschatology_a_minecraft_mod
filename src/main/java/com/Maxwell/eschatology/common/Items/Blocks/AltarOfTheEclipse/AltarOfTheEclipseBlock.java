@@ -17,26 +17,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.BlockHitResult;
-
-@SuppressWarnings("removal")
-public class AltarOfTheEclipseBlock extends Block {
-
-    public AltarOfTheEclipseBlock() {
+import net.minecraft.world.phys.BlockHitResult;@SuppressWarnings("removal")
+public class AltarOfTheEclipseBlock extends Block {    public AltarOfTheEclipseBlock() {
         super(Properties.of()
                 .mapColor(MapColor.COLOR_BLACK)
                 .requiresCorrectToolForDrops()
                 .strength(35.0F, 1200.0F)
                 .sound(SoundType.GILDED_BLACKSTONE));
-    }
-
-    @Override
+    }    @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
-        }
-
-        ItemStack heldItem = pPlayer.getItemInHand(pHand);
+        }        ItemStack heldItem = pPlayer.getItemInHand(pHand);
         if (!(pPlayer instanceof ServerPlayer serverPlayer)) {
             return InteractionResult.PASS;
         }
@@ -49,22 +41,16 @@ public class AltarOfTheEclipseBlock extends Block {
         }
         serverPlayer.sendSystemMessage(Component.translatable("guide.alter.nether_star"));
         return InteractionResult.PASS;
-    }
-
-    private InteractionResult startNormalRitual(ServerPlayer player, ItemStack stack, ServerLevel level, BlockPos pos) {
+    }    private InteractionResult startNormalRitual(ServerPlayer player, ItemStack stack, ServerLevel level, BlockPos pos) {
         if (!player.getAbilities().instabuild) {
             stack.shrink(1);
         }
         EclipseManager.tryStartEclipse(level, pos, ModEntities.BLACK_BOOL.get());
         grantAdvancement(player, "boss/summon_black_bool");
         return InteractionResult.CONSUME;
-    }
-
-    private void grantAdvancement(ServerPlayer player, String advancementId) {
+    }    private void grantAdvancement(ServerPlayer player, String advancementId) {
         ResourceLocation advancementRL = new ResourceLocation(Eschatology.MODID, advancementId);
-        Advancement advancement = player.getServer().getAdvancements().getAdvancement(advancementRL);
-
-        if (advancement != null) {
+        Advancement advancement = player.getServer().getAdvancements().getAdvancement(advancementRL);        if (advancement != null) {
             AdvancementProgress progress = player.getAdvancements().getOrStartProgress(advancement);
             if (!progress.isDone()) {
                 for (String criterion : progress.getRemainingCriteria()) {
