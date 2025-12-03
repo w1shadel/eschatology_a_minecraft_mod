@@ -66,5 +66,6 @@ public class BlackBoolConfigSync {    @SubscribeEvent
         BlackBoolBalance.PROJECTILE_RELEASE_INTERVAL = BlackBoolConfig.PROJECTILE_RELEASE_INTERVAL.get().floatValue();
         BlackBoolBalance.AFTER_SUMMON_MUST_RAGE_MODE = BlackBoolConfig.AFTER_SUMMON_MUST_RAGE_MODE.get();
         BlackBoolBalance.SING_CORE_PERCENT = BlackBoolConfig.SING_CORE_PERCENT.get().floatValue();
+        BlackBoolBalance.LASER_TRACKING_SPPED = BlackBoolConfig.LASER_TRACKING_SPEED.get();
     }
 }

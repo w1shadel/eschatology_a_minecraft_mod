@@ -8,6 +8,7 @@ package com.Maxwell.eschatology.Balance;public class ExoWitherBalance {
     public static double ARMOR_TOUGHNESS = 0;    public static int CHARGE_COOLDOWN_BASE = 140;
     public static int MISSILE_ATTACK_COOLDOWN_BASE = 120;
     public static int SIMPLE_LASER_COOLDOWN_BASE = 80;
+    public static double LASER_TRACKING_SPEED = 0.05D;
     public static int LASER_BEAM_COOLDOWN_BASE = 200;
     public static int MORTAR_BARRAGE_COOLDOWN_BASE = 50;
     public static int EXO_SKULL_ATTACK_COOLDOWN = 120;    public static int BLACKBOOL_DETECT_RADIUS = 32;

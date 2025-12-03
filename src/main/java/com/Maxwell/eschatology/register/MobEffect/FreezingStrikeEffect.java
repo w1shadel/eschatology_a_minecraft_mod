@@ -1,4 +1,7 @@
-package com.Maxwell.eschatology.register.MobEffect;import net.minecraft.core.particles.ParticleTypes;
+package com.Maxwell.eschatology.register.MobEffect;
+
+import com.Maxwell.eschatology.Balance.ModConstants;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -11,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;public class FreezingStrikeEffect
             if (entity.level() instanceof ServerLevel server) {
                 entity.hurt(
                         server.damageSources().outOfBorder(),
-                        12.0F + amplifier * 1.5F
+                        ModConstants.Freezing_Strike.DAMAGE + amplifier * 1.5F
                 );
                 for (int i = 0; i < 40; i++) {
                     double ox = (server.random.nextDouble() - 0.5) * 1.5;

@@ -34,9 +34,9 @@ public class Eschatology
         ModTriggers.register();
         ModMessages.register();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModSoundConfig.SPEC, "eschatology-music.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BlackBoolConfig.SPEC, "eschatology-black_bool.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ExoWitherConfig.SPEC, "eschatology-exo_wither.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ModItemsConfig.SPEC, "eschatology-items.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BlackBoolConfig.SPEC, "eschatology-black_bool.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ExoWitherConfig.SPEC, "eschatology-exo_wither.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModItemsConfig.SPEC, "eschatology-items.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_SPEC, "eschatology-client.toml");
     }
 }

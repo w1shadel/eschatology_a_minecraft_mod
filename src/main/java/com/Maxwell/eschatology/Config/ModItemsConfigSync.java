@@ -77,5 +77,6 @@ public class ModItemsConfigSync {    @SubscribeEvent
         ModConstants.MagicBullet.COOLDOWN_NORMAL = ModItemsConfig.MAGIC_COOLDOWN_NORMAL.get();
         ModConstants.MagicBullet.COOLDOWN_ULTRA = ModItemsConfig.MAGIC_COOLDOWN_ULTRA.get();
         ModConstants.MagicBullet.PROJECTILE_LIFE = ModItemsConfig.MAGIC_PROJECTILE_LIFE.get();
+    ModConstants.Freezing_Strike.DAMAGE = ModItemsConfig.FS_DAMAGE.get().floatValue();
     }
 }

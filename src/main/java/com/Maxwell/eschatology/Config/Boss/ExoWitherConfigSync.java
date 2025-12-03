@@ -57,7 +57,9 @@ public class ExoWitherConfigSync {    @SubscribeEvent
         ExoWitherBalance.CHARGE_CANCEL_DIST_SQ = ExoWitherConfig.CHARGE_CANCEL_DIST_SQ.get();        ExoWitherBalance.LASER_BEAM_CHARGE_UP_TICKS = ExoWitherConfig.LASER_BEAM_CHARGE_UP_TICKS.get();
         ExoWitherBalance.LASER_BEAM_FIRE_DURATION_TICKS = ExoWitherConfig.LASER_BEAM_FIRE_DURATION_TICKS.get();
         ExoWitherBalance.LASER_BEAM_TOTAL_DURATION_TICKS = ExoWitherConfig.LASER_BEAM_TOTAL_DURATION_TICKS.get();
-        ExoWitherBalance.LASER_BEAM_DAMAGE = ExoWitherConfig.LASER_BEAM_DAMAGE.get().floatValue();        ExoWitherBalance.MISSILE_MIN_DIST_SQ = ExoWitherConfig.MISSILE_MIN_DIST_SQ.get();
+        ExoWitherBalance.LASER_BEAM_DAMAGE = ExoWitherConfig.LASER_BEAM_DAMAGE.get().floatValue();
+    ExoWitherBalance.LASER_TRACKING_SPEED = ExoWitherConfig.LASER_TRACKING_SPEED.get();
+    ExoWitherBalance.MISSILE_MIN_DIST_SQ = ExoWitherConfig.MISSILE_MIN_DIST_SQ.get();
         ExoWitherBalance.MISSILE_COUNT_PER_SIDE = ExoWitherConfig.MISSILE_COUNT_PER_SIDE.get();
         ExoWitherBalance.MISSILE_FIRE_INTERVAL_NORMAL = ExoWitherConfig.MISSILE_FIRE_INTERVAL_NORMAL.get();
         ExoWitherBalance.MISSILE_FIRE_INTERVAL_ENRAGED = ExoWitherConfig.MISSILE_FIRE_INTERVAL_ENRAGED.get();

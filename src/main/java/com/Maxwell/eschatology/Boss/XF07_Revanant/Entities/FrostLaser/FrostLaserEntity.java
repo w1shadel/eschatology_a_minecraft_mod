@@ -1,5 +1,6 @@
 package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostLaser;
 
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncLaserEffectsPacket;
 import com.Maxwell.eschatology.register.ModDataSerializers;
@@ -42,7 +43,9 @@ public class FrostLaserEntity extends Entity {
     private LivingEntity caster;
     private LivingEntity target;
     private final Set<Entity> damagedEntitiesThisTick = new HashSet<>();
+    private Vec3 currentBeamDir = null;
 
+    private static final double TRACKING_SPEED = ExoWitherBalance.LASER_TRACKING_SPEED;
     public FrostLaserEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noCulling = true;
@@ -75,16 +78,22 @@ public class FrostLaserEntity extends Entity {
         super.tick();
         LivingEntity currentCaster = this.getCaster();
         LivingEntity currentTarget = this.getTarget();
+
         if (currentCaster == null || !currentCaster.isAlive() || currentTarget == null || !currentTarget.isAlive() || this.tickCount > this.getDuration()) {
             this.discard();
             return;
         }
+
         if (!this.level().isClientSide) {
             this.damagedEntitiesThisTick.clear();
             Vec3 startPos = currentCaster.getEyePosition();
             this.setPos(startPos);
-            Vec3 lookVec = currentTarget.getEyePosition().subtract(startPos).normalize();
-            Vec3 endPos = startPos.add(lookVec.scale(64.0D));
+            Vec3 targetVec = currentTarget.getEyePosition().subtract(startPos).normalize();
+            if (this.currentBeamDir == null) {
+                this.currentBeamDir = targetVec;
+            }
+            this.currentBeamDir = this.currentBeamDir.lerp(targetVec, TRACKING_SPEED).normalize();
+            Vec3 endPos = startPos.add(this.currentBeamDir.scale(64.0D));
             BlockHitResult blockHit = this.level().clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
             Vec3 finalEndPos = blockHit.getLocation();
             this.setEndPos(finalEndPos);
@@ -158,7 +167,7 @@ public class FrostLaserEntity extends Entity {
         ).inflate(1.0D);
         List<LivingEntity> potentialTargets = this.level().getEntitiesOfClass(LivingEntity.class, laserBoundingBox,
                 (entity) -> entity.isAlive() && !entity.is(owner) && !owner.isAlliedTo(entity) && entity.isPickable());
-        DamageSource damageSource = this.damageSources().outOfBorder();
+        DamageSource damageSource = this.damageSources().mobAttack(owner);
         float damage = getDamagePerTick();
         for (LivingEntity target : potentialTargets) {
             float collisionPadding = target.getPickRadius() + 0.3F;

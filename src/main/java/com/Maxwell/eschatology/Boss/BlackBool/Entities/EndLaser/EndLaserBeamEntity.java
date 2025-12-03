@@ -1,4 +1,7 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser;import com.Maxwell.eschatology.common.Network.ModMessages;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser;
+
+import com.Maxwell.eschatology.Balance.BlackBoolBalance;
+import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.SyncLaserEffectsPacket;
 import com.Maxwell.eschatology.register.ModDataSerializers;
 import com.Maxwell.eschatology.register.ModEntities;
@@ -35,10 +38,15 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
     private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(EndLaserBeamEntity.class, EntityDataSerializers.INT);
     private LivingEntity caster;
     private LivingEntity target;
-    private final Set<Entity> damagedEntitiesThisTick = new HashSet<>();    public EndLaserBeamEntity(EntityType<?> pEntityType, Level pLevel) {
+    private final Set<Entity> damagedEntitiesThisTick = new HashSet<>();
+    private Vec3 currentBeamDir = null;
+    private static final double TRACKING_SPEED = BlackBoolBalance.LASER_TRACKING_SPPED;
+    public EndLaserBeamEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noCulling = true;
-    }    public EndLaserBeamEntity(Level pLevel, LivingEntity pCaster, LivingEntity pTarget, int pDuration, float pDamagePerTick, boolean pShouldLeaveField) {
+    }
+
+    public EndLaserBeamEntity(Level pLevel, LivingEntity pCaster, LivingEntity pTarget, int pDuration, float pDamagePerTick, boolean pShouldLeaveField) {
         this(ModEntities.END_LASER_BEAM.get(), pLevel);
         this.setOwner(pCaster);
         this.setTarget(pTarget);
@@ -48,7 +56,9 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
         if (pCaster != null) {
             this.setPos(pCaster.getEyePosition());
         }
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_END_POS, Vec3.ZERO);
         this.entityData.define(DATA_CASTER_ID, 0);
@@ -56,29 +66,41 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
         this.entityData.define(DATA_DURATION, 100);
         this.entityData.define(DATA_DAMAGE_PER_TICK, 10.0f);
         this.entityData.define(DATA_SHOULD_LEAVE_FIELD, false);
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         LivingEntity currentCaster = this.getCaster();
         LivingEntity currentTarget = this.getTarget();
+
         if (currentCaster == null || !currentCaster.isAlive() || currentTarget == null || !currentTarget.isAlive() || this.tickCount > this.getDuration()) {
             this.discard();
             return;
         }
+
         if (!this.level().isClientSide) {
             this.damagedEntitiesThisTick.clear();
             Vec3 startPos = currentCaster.getEyePosition();
             this.setPos(startPos);
-            Vec3 lookVec = currentTarget.getEyePosition().subtract(startPos).normalize();
-            Vec3 endPos = startPos.add(lookVec.scale(64.0D));
+            Vec3 targetVec = currentTarget.getEyePosition().subtract(startPos).normalize();
+            if (this.currentBeamDir == null) {
+                this.currentBeamDir = targetVec;
+            }
+            this.currentBeamDir = this.currentBeamDir.lerp(targetVec, TRACKING_SPEED).normalize();
+            Vec3 endPos = startPos.add(this.currentBeamDir.scale(64.0D));
+
             BlockHitResult blockHit = this.level().clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
             Vec3 finalEndPos = blockHit.getLocation();
+
             this.setEndPos(finalEndPos);
             performRaycastDamage(startPos, finalEndPos);
             performTerrainDestruction(startPos, finalEndPos);
             spawnLaserParticles(startPos, finalEndPos);
         }
-    }    private void spawnLaserParticles(Vec3 start, Vec3 end) {
+    }
+
+    private void spawnLaserParticles(Vec3 start, Vec3 end) {
         if (!(this.level() instanceof ServerLevel serverLevel)) return;
         RandomSource random = this.level().getRandom();
         if (start.distanceToSqr(end) < 63 * 63) {
@@ -100,7 +122,9 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
             Vec3 velocity = pointOnBeam.subtract(px, py, pz).normalize().scale(0.1);
             serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, px, py, pz, 1, velocity.x, velocity.y, velocity.z, 0.0);
         }
-    }    private void performTerrainDestruction(Vec3 start, Vec3 end) {
+    }
+
+    private void performTerrainDestruction(Vec3 start, Vec3 end) {
         LivingEntity owner = getCaster();
         if (owner == null) return;
         if (owner.getHealth() / owner.getMaxHealth() > 0.5f) {
@@ -129,7 +153,9 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
                 }
             }
         }
-    }    private void performRaycastDamage(Vec3 start, Vec3 end) {
+    }
+
+    private void performRaycastDamage(Vec3 start, Vec3 end) {
         LivingEntity owner = getCaster();
         if (owner == null) return;
         AABB laserBoundingBox = new AABB(
@@ -152,7 +178,9 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
                 }
             }
         }
-    }    @Override
+    }
+
+    @Override
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
         if (!this.level().isClientSide && this.getCaster() != null) {
@@ -161,55 +189,89 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
                 ModMessages.sendToPlayer(new SyncLaserEffectsPacket(SyncLaserEffectsPacket.EffectPhase.STOP_FIRING), player);
             }
         }
-    }    public Vec3 getEndPos() {
+    }
+
+    public Vec3 getEndPos() {
         return this.entityData.get(DATA_END_POS);
-    }    public void setEndPos(Vec3 pos) {
+    }
+
+    public void setEndPos(Vec3 pos) {
         this.entityData.set(DATA_END_POS, pos);
-    }    public LivingEntity getCaster() {
+    }
+
+    public LivingEntity getCaster() {
         if (this.caster == null || !this.caster.isAlive()) {
             Entity found = this.level().getEntity(this.entityData.get(DATA_CASTER_ID));
             if (found instanceof LivingEntity) this.caster = (LivingEntity) found;
         }
         return this.caster;
-    }    private void setOwner(LivingEntity owner) {
+    }
+
+    private void setOwner(LivingEntity owner) {
         this.caster = owner;
         if (owner != null) {
             this.entityData.set(DATA_CASTER_ID, owner.getId());
         }
-    }    public LivingEntity getTarget() {
+    }
+
+    public LivingEntity getTarget() {
         if (this.target == null || !this.target.isAlive()) {
             Entity found = this.level().getEntity(this.entityData.get(DATA_TARGET_ID));
             if (found instanceof LivingEntity) this.target = (LivingEntity) found;
         }
         return this.target;
-    }    private void setTarget(LivingEntity pTarget) {
+    }
+
+    private void setTarget(LivingEntity pTarget) {
         this.target = pTarget;
         if (pTarget != null) {
             this.entityData.set(DATA_TARGET_ID, pTarget.getId());
         }
-    }    public int getDuration() {
+    }
+
+    public int getDuration() {
         return this.entityData.get(DATA_DURATION);
-    }    public void setDuration(int duration) {
+    }
+
+    public void setDuration(int duration) {
         this.entityData.set(DATA_DURATION, duration);
-    }    public float getDamagePerTick() {
+    }
+
+    public float getDamagePerTick() {
         return this.entityData.get(DATA_DAMAGE_PER_TICK);
-    }    public void setDamagePerTick(float damage) {
+    }
+
+    public void setDamagePerTick(float damage) {
         this.entityData.set(DATA_DAMAGE_PER_TICK, damage);
-    }    public boolean shouldLeaveField() {
+    }
+
+    public boolean shouldLeaveField() {
         return this.entityData.get(DATA_SHOULD_LEAVE_FIELD);
-    }    public void setShouldLeaveField(boolean shouldLeaveField) {
+    }
+
+    public void setShouldLeaveField(boolean shouldLeaveField) {
         this.entityData.set(DATA_SHOULD_LEAVE_FIELD, shouldLeaveField);
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag c) {
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag c) {
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
-    }    @Override
+    }
+
+    @Override
     public boolean isPickable() {
         return false;
-    }    @Override
+    }
+
+    @Override
     public boolean canBeCollidedWith() {
         return false;
     }

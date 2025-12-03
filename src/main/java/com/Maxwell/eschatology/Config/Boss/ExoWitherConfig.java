@@ -20,6 +20,7 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_DIRECT_DAMAGE_RATIO;
     public static final ForgeConfigSpec.DoubleValue EXO_SKULL_EXPLOSION_DAMAGE_RATIO;
     public static final ForgeConfigSpec.DoubleValue IDEAL_DISTANCE_TO_TARGET;
+    public static final ForgeConfigSpec.DoubleValue LASER_TRACKING_SPEED;
     public static final ForgeConfigSpec.DoubleValue MOVE_SPEED_SCALE;
     public static final ForgeConfigSpec.DoubleValue HOVER_Y_AMPLITUDE;
     public static final ForgeConfigSpec.DoubleValue HOVER_Y_SPEED;
@@ -105,7 +106,9 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_BASE_DURATION;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_DAMAGE_DURATION_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_NORMAL;
-    public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED;    public static final ForgeConfigSpec.DoubleValue FROZEN_EXOHEART_PERCENT;    static {
+    public static final ForgeConfigSpec.IntValue SMALL_BEAM_EFFECT_AMPLIFIER_ENRAGED;
+    public static final ForgeConfigSpec.DoubleValue FROZEN_EXOHEART_PERCENT;
+    static {
         BUILDER.push("ExoWither_Settings");        BUILDER.push("BaseStats");
         MAX_HEALTH = BUILDER.defineInRange("max_health", 950.0, 1.0, 100000.0);
         ATTACK_DAMAGE = BUILDER.defineInRange("attack_damage", 20.0, 0.0, 1000.0);
@@ -167,6 +170,7 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
         LASER_BEAM_CHARGE_UP_TICKS = BUILDER.defineInRange("beam_charge_ticks", 25, 0, 200);
         LASER_BEAM_FIRE_DURATION_TICKS = BUILDER.defineInRange("beam_fire_ticks", 75, 0, 200);
         LASER_BEAM_TOTAL_DURATION_TICKS = BUILDER.defineInRange("beam_total_ticks", 160, 0, 1000);
+        LASER_TRACKING_SPEED = BUILDER.defineInRange("laser_tracking_spped",0.05D,0,1000);
         LASER_BEAM_DAMAGE = BUILDER.defineInRange("beam_damage", 6.0, 0.0, 1000.0);
         BUILDER.pop();        BUILDER.push("MissileAttack");
         MISSILE_MIN_DIST_SQ = BUILDER.defineInRange("missile_min_dist_sq", 100.0, 0.0, 1024.0);

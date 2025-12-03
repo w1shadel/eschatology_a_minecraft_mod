@@ -60,6 +60,7 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue REVENANT_DETECT_RADIUS;
     public static final ForgeConfigSpec.DoubleValue PROJECTILE_RELEASE_INTERVAL;
     public static final ForgeConfigSpec.BooleanValue AFTER_SUMMON_MUST_RAGE_MODE;
+    public static final ForgeConfigSpec.DoubleValue LASER_TRACKING_SPEED;
     public static final ForgeConfigSpec.DoubleValue SING_CORE_PERCENT;    static {
         BUILDER.push("BlackBool_Settings");
         BUILDER.push("BaseStats");
@@ -141,6 +142,7 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
         LASER_CHARGE_UP_TICKS = BUILDER.defineInRange("laser_charge_ticks", 40, 0, 200);
         LASER_DURATION_TICKS = BUILDER.defineInRange("laser_duration_ticks", 100, 0, 1000);
         LASER_DAMAGE_RATIO = BUILDER.defineInRange("laser_damage_ratio", 1.2, 0.0, 10.0);
+        LASER_TRACKING_SPEED = BUILDER.defineInRange("laser_tracking_speed", 0.05D, 0.0, 1000.0);
         LASER_FIELD_HP_THRESHOLD = BUILDER.defineInRange("laser_field_hp", 0.3, 0.0, 1.0);
         BUILDER.pop();
         BUILDER.push("Misc");

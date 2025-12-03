@@ -19,7 +19,8 @@ public class ModMessages {
     private static int id() {
         return packetId++;
     }    
-    public static void register() {        addServerboundMessage(AnimationEndMessage.class, AnimationEndMessage::new);
+    public static void register() {
+        addServerboundMessage(AnimationEndMessage.class, AnimationEndMessage::new);
         addServerboundMessage(RequestGlitchStrengthPacket.class, RequestGlitchStrengthPacket::new);
         addServerboundMessage(RequestRevengeGaugeIncreasePacket.class, RequestRevengeGaugeIncreasePacket::new);
         addServerboundMessage(StartWorkbenchCraftPacket.class, StartWorkbenchCraftPacket::new);

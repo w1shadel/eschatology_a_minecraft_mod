@@ -72,4 +72,8 @@ package com.Maxwell.eschatology.Balance;public class ModConstants {    public st
         public static  int EXO_WITHER_BASE = 0x555555;
         public static  int EXO_WITHER_DOT = 0x00FFFF;
     }
+    public static class Freezing_Strike
+    {
+        public static float DAMAGE = 12f;
+    }
 }

@@ -58,5 +58,6 @@ public class BlackBoolBalance {    public static double MAX_HEALTH = 550.0;
     public static float SING_CORE_PERCENT = 0.40f;
     public static boolean AFTER_SUMMON_MUST_RAGE_MODE = false;
     public static float PROJECTILE_RELEASE_INTERVAL = 15.0F;
+    public static double LASER_TRACKING_SPPED = 0.05D;
 
 }

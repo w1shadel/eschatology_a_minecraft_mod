@@ -70,6 +70,8 @@ public class ModItemsConfig {
     public static final ForgeConfigSpec.DoubleValue MAGIC_ULTRA_SHOT_DAMAGE;
     public static final ForgeConfigSpec.IntValue MAGIC_COOLDOWN_NORMAL;
     public static final ForgeConfigSpec.IntValue MAGIC_COOLDOWN_ULTRA;
+
+    public static final ForgeConfigSpec.DoubleValue FS_DAMAGE;
     public static final ForgeConfigSpec.IntValue MAGIC_PROJECTILE_LIFE;    static {
         BUILDER.push("ModItems_Settings");        BUILDER.push("RevengeLedger");
         REVENGE_PAUSE_DURATION = BUILDER.defineInRange("pause_duration", 18, 0, 1000);
@@ -140,7 +142,8 @@ public class ModItemsConfig {
         COUNTER_SELF_CONTEMPT_DAMAGE_MULT = BUILDER.defineInRange("self_contempt_dmg_mult", 0.3, 0.0, 100.0);
         COUNTER_SWEEP_DAMAGE = BUILDER.defineInRange("sweep_damage", 120.0, 0.0, 10000.0);
         COUNTER_RANGE = BUILDER.defineInRange("range", 3.0, 0.0, 64.0);
-        BUILDER.pop();        BUILDER.push("FellBullet");
+        BUILDER.pop();
+        BUILDER.push("FellBullet");
         FELL_BASE_DAMAGE = BUILDER.defineInRange("base_damage", 40.0, 0.0, 10000.0);
         FELL_MAX_LIFE_TICKS = BUILDER.defineInRange("max_life_ticks", 100, 1, 10000);
         FELL_SHARD_DAMAGE = BUILDER.defineInRange("shard_damage", 6.0, 0.0, 10000.0);
@@ -155,7 +158,11 @@ public class ModItemsConfig {
         MAGIC_COOLDOWN_NORMAL = BUILDER.defineInRange("cooldown_normal", 10, 0, 1000);
         MAGIC_COOLDOWN_ULTRA = BUILDER.defineInRange("cooldown_ultra", 60, 0, 1000);
         MAGIC_PROJECTILE_LIFE = BUILDER.defineInRange("projectile_life", 100, 1, 10000);
+        BUILDER.push("Freezing Strike Effect");
+        FS_DAMAGE = BUILDER.defineInRange("freezing_strike_effect_damage",12,0,1000f);
+        BUILDER.pop();
         BUILDER.pop();        BUILDER.pop();
+
         SPEC = BUILDER.build();
     }
 }
