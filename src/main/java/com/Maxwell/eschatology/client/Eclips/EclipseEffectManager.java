@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.client.Eclips;import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.client.Eclips;
+
+import com.Maxwell.eschatology.Eschatology;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -6,13 +8,22 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
+
 @SuppressWarnings("removal")
-public class EclipseEffectManager {    private static boolean eclipseActive = false;    public static void setEclipseActive(boolean active) {
+public class EclipseEffectManager {
+    private static boolean eclipseActive = false;
+
+    public static void setEclipseActive(boolean active) {
         eclipseActive = active;
     }
-    private static final ResourceLocation BLACK_SUN_TEXTURE = new ResourceLocation(Eschatology.MODID, "textures/gui/black_sun.png");    public static boolean isEclipseActive() {
+
+    private static final ResourceLocation BLACK_SUN_TEXTURE = new ResourceLocation(Eschatology.MODID, "textures/gui/black_sun.png");
+
+    public static boolean isEclipseActive() {
         return eclipseActive;
-    }    public static void renderBlackSky(PoseStack poseStack) {
+    }
+
+    public static void renderBlackSky(PoseStack poseStack) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(false);
@@ -41,17 +52,26 @@ public class EclipseEffectManager {    private static boolean eclipseActive = fa
         RenderSystem.enableCull();
         RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
-    }    public static void renderCustomSun(PoseStack poseStack, float partialTick) {
+    }
+
+    public static void renderCustomSun(PoseStack poseStack, float partialTick) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BLACK_SUN_TEXTURE);        poseStack.pushPose();        poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(Minecraft.getInstance().level.getSunAngle(partialTick) * 360.0F));        Matrix4f matrix = poseStack.last().pose();
-        float size = 30.0F;         Tesselator tesselator = Tesselator.getInstance();
+        RenderSystem.setShaderTexture(0, BLACK_SUN_TEXTURE);
+        poseStack.pushPose();
+        poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(Minecraft.getInstance().level.getSunAngle(partialTick) * 360.0F));
+        Matrix4f matrix = poseStack.last().pose();
+        float size = 30.0F;
+        Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder bufferbuilder = tesselator.getBuilder();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);        bufferbuilder.vertex(matrix, -size, 100.0F, -size).uv(0.0F, 0.0F).endVertex();
-        bufferbuilder.vertex(matrix,  size, 100.0F, -size).uv(1.0F, 0.0F).endVertex();
-        bufferbuilder.vertex(matrix,  size, 100.0F,  size).uv(1.0F, 1.0F).endVertex();
-        bufferbuilder.vertex(matrix, -size, 100.0F,  size).uv(0.0F, 1.0F).endVertex();        tesselator.end();
-        poseStack.popPose();        RenderSystem.depthMask(true);
+        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferbuilder.vertex(matrix, -size, 100.0F, -size).uv(0.0F, 0.0F).endVertex();
+        bufferbuilder.vertex(matrix, size, 100.0F, -size).uv(1.0F, 0.0F).endVertex();
+        bufferbuilder.vertex(matrix, size, 100.0F, size).uv(1.0F, 1.0F).endVertex();
+        bufferbuilder.vertex(matrix, -size, 100.0F, size).uv(0.0F, 1.0F).endVertex();
+        tesselator.end();
+        poseStack.popPose();
+        RenderSystem.depthMask(true);
         RenderSystem.disableBlend();
     }
 }

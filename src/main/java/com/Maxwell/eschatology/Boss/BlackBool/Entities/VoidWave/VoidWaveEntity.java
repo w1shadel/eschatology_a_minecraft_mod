@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidWave;import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidWave;
+
+import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -18,26 +20,38 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;public class VoidWaveEntity extends Entity {
+import java.util.UUID;
+
+public class VoidWaveEntity extends Entity {
     public static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.INT);
     private BlackBool owner;
     private UUID ownerUUID;
-    public static final EntityDataAccessor<Float> DATA_SCALE = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.FLOAT);    public VoidWaveEntity(EntityType<?> pEntityType, Level pLevel) {
+    public static final EntityDataAccessor<Float> DATA_SCALE = SynchedEntityData.defineId(VoidWaveEntity.class, EntityDataSerializers.FLOAT);
+
+    public VoidWaveEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
-    }    public VoidWaveEntity(Level pLevel, BlackBool owner, Vec3 direction) {
+    }
+
+    public VoidWaveEntity(Level pLevel, BlackBool owner, Vec3 direction) {
         this(ModEntities.VOID_WAVE.get(), pLevel);
         this.setOwner(owner);
         this.setPos(owner.getX(), owner.getY() + 0.5, owner.getZ());
         this.noPhysics = true;
         this.setDeltaMovement(direction);
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_SCALE, 0.1F);
         this.entityData.define(DATA_OWNER_ID, 0);
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount > 60) {
@@ -88,13 +102,17 @@ import java.util.UUID;public class VoidWaveEntity extends Entity {
                 this.level().addParticle(ParticleTypes.SOUL, px, py, pz, 0, 0, 0);
             }
         }
-    }    public void setOwner(@Nullable BlackBool pOwner) {
+    }
+
+    public void setOwner(@Nullable BlackBool pOwner) {
         if (pOwner != null) {
             this.owner = pOwner;
             this.ownerUUID = pOwner.getUUID();
             this.entityData.set(DATA_OWNER_ID, pOwner.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getOwner() {
         if (this.owner != null && this.owner.isAlive()) {
             return this.owner;
@@ -112,15 +130,23 @@ import java.util.UUID;public class VoidWaveEntity extends Entity {
             }
         }
         return null;
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         if (this.ownerUUID != null) pCompound.putUUID("Owner", this.ownerUUID);
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.hasUUID("Owner")) this.ownerUUID = pCompound.getUUID("Owner");
-    }    public float getScale() {
+    }
+
+    public float getScale() {
         return this.entityData.get(DATA_SCALE);
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

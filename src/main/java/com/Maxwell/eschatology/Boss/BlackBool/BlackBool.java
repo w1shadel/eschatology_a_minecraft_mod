@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool;import com.Maxwell.eschatology.Balance.BlackBoolBalance;
+package com.Maxwell.eschatology.Boss.BlackBool;
+
+import com.Maxwell.eschatology.Balance.BlackBoolBalance;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.BlackBoolMoveControl;
 import com.Maxwell.eschatology.Boss.BlackBool.AI.SingularityGoal;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamEntity;
@@ -9,11 +11,9 @@ import com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidLance.VoidLanceEntity
 import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
 import com.Maxwell.eschatology.Config.ModSoundConfig;
 import com.Maxwell.eschatology.client.GUI.Glitch.GlitchState;
-import com.Maxwell.eschatology.common.Items.Blocks.AltarOfTheEclipse.EclipseManager;
 import com.Maxwell.eschatology.common.MaxwellCustomBossEvent;
 import com.Maxwell.eschatology.common.Network.*;
 import com.Maxwell.eschatology.register.ModItems;
-import com.Maxwell.eschatology.register.ModSounds;
 import com.Maxwell.eschatology.register.advancements.ModTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -48,10 +48,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;import java.util.EnumSet;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;public class BlackBool extends Monster {
+import java.util.Set;
+
+public class BlackBool extends Monster {
     private static final EntityDataAccessor<Integer> DATA_ATTACK_PHASE = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_DEATH_TICKS = SynchedEntityData.defineId(BlackBool.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_IS_PHASE_TWO =
@@ -257,45 +261,34 @@ import java.util.Set;public class BlackBool extends Monster {
             if (this.getCurrentAttackPhase() != AttackPhase.LASER) {
                 captureNearbyProjectiles();
             }
-
             handleCapturedProjectiles();
-
             applyContactDamage();
         }
     }
+
     private void handleCapturedProjectiles() {
         List<Entity> passengers = this.getPassengers();
-
         if (passengers.isEmpty()) {
             this.projectileReleaseTimer = 0;
             return;
         }
-
         this.projectileReleaseTimer++;
-
         if (this.projectileReleaseTimer >= PROJECTILE_RELEASE_INTERVAL) {
-
             Entity projectile = passengers.get(0);
-
             projectile.stopRiding();
-
             RandomSource random = this.getRandom();
-            double x = (random.nextDouble() - 0.5D) * 2.0D; 
+            double x = (random.nextDouble() - 0.5D) * 2.0D;
             double y = (random.nextDouble() - 0.5D) * 2.0D;
             double z = (random.nextDouble() - 0.5D) * 2.0D;
-
-            Vec3 shootDir = new Vec3(x, y, z).normalize().scale(1.5D); 
-
+            Vec3 shootDir = new Vec3(x, y, z).normalize().scale(1.5D);
             projectile.setDeltaMovement(shootDir);
-
-            projectile.setYRot((float)(Mth.atan2(shootDir.x, shootDir.z) * (double)(180F / (float)Math.PI)));
-            projectile.setXRot((float)(Mth.atan2(shootDir.y, shootDir.horizontalDistance()) * (double)(180F / (float)Math.PI)));
-
+            projectile.setYRot((float) (Mth.atan2(shootDir.x, shootDir.z) * (double) (180F / (float) Math.PI)));
+            projectile.setXRot((float) (Mth.atan2(shootDir.y, shootDir.horizontalDistance()) * (double) (180F / (float) Math.PI)));
             this.playSound(SoundEvents.WITHER_SHOOT, 1.0F, 1.5F);
-
             this.projectileReleaseTimer = 0;
         }
     }
+
     public float getHealthPercent() {
         return this.getHealth() / this.getMaxHealth();
     }
@@ -494,15 +487,12 @@ import java.util.Set;public class BlackBool extends Monster {
     }
 
     private void captureNearbyProjectiles() {
-
         if (this.getPassengers().size() >= BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
             return;
         }
-
         AABB scanBox = this.getBoundingBox().inflate(BlackBoolBalance.PROJECTILE_CAPTURE_RADIUS);
         List<Projectile> projectiles = this.level().getEntitiesOfClass(Projectile.class, scanBox,
                 (projectile) -> projectile.getOwner() != this && !projectile.isVehicle());
-
         for (Projectile p : projectiles) {
             if (this.getPassengers().size() < BlackBoolBalance.MAX_ORBITING_PROJECTILES) {
                 p.setDeltaMovement(Vec3.ZERO);

@@ -26,10 +26,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import java.util.HashSet;
+import net.minecraftforge.network.NetworkHooks;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;public class EndLaserBeamEntity extends Entity {
+import java.util.Set;
+
+public class EndLaserBeamEntity extends Entity {
     private static final EntityDataAccessor<Vec3> DATA_END_POS = SynchedEntityData.defineId(EndLaserBeamEntity.class, ModDataSerializers.VEC3.get());
     private static final EntityDataAccessor<Integer> DATA_CASTER_ID = SynchedEntityData.defineId(EndLaserBeamEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_DURATION = SynchedEntityData.defineId(EndLaserBeamEntity.class, EntityDataSerializers.INT);
@@ -41,6 +45,7 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
     private final Set<Entity> damagedEntitiesThisTick = new HashSet<>();
     private Vec3 currentBeamDir = null;
     private static final double TRACKING_SPEED = BlackBoolBalance.LASER_TRACKING_SPPED;
+
     public EndLaserBeamEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noCulling = true;
@@ -73,12 +78,10 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
         super.tick();
         LivingEntity currentCaster = this.getCaster();
         LivingEntity currentTarget = this.getTarget();
-
         if (currentCaster == null || !currentCaster.isAlive() || currentTarget == null || !currentTarget.isAlive() || this.tickCount > this.getDuration()) {
             this.discard();
             return;
         }
-
         if (!this.level().isClientSide) {
             this.damagedEntitiesThisTick.clear();
             Vec3 startPos = currentCaster.getEyePosition();
@@ -89,10 +92,8 @@ import java.util.Set;public class EndLaserBeamEntity extends Entity {
             }
             this.currentBeamDir = this.currentBeamDir.lerp(targetVec, TRACKING_SPEED).normalize();
             Vec3 endPos = startPos.add(this.currentBeamDir.scale(64.0D));
-
             BlockHitResult blockHit = this.level().clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
             Vec3 finalEndPos = blockHit.getLocation();
-
             this.setEndPos(finalEndPos);
             performRaycastDamage(startPos, finalEndPos);
             performTerrainDestruction(startPos, finalEndPos);

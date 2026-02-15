@@ -1,6 +1,11 @@
-package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.ForgeConfigSpec;public class BlackBoolConfig {
+package com.Maxwell.eschatology.Config.Boss;
+
+import net.minecraftforge.common.ForgeConfigSpec;
+
+public class BlackBoolConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec SPEC;    public static final ForgeConfigSpec.DoubleValue MAX_HEALTH;
+    public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec.DoubleValue MAX_HEALTH;
     public static final ForgeConfigSpec.DoubleValue MOVEMENT_SPEED;
     public static final ForgeConfigSpec.DoubleValue FLYING_SPEED;
     public static final ForgeConfigSpec.DoubleValue ATTACK_DAMAGE;
@@ -8,13 +13,15 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue FOLLOW_RANGE;
     public static final ForgeConfigSpec.DoubleValue KNOCKBACK_RESISTANCE;
     public static final ForgeConfigSpec.DoubleValue ARMOR;
-    public static final ForgeConfigSpec.DoubleValue CONTACT_DAMAGE_RATIO;    public static final ForgeConfigSpec.IntValue SPAWN_ANIMATION_DURATION_TICKS;
+    public static final ForgeConfigSpec.DoubleValue CONTACT_DAMAGE_RATIO;
+    public static final ForgeConfigSpec.IntValue SPAWN_ANIMATION_DURATION_TICKS;
     public static final ForgeConfigSpec.IntValue DEATH_PHASE1_OUTBURST_TICKS;
     public static final ForgeConfigSpec.IntValue DEATH_PHASE2_COLLAPSE_TICKS;
     public static final ForgeConfigSpec.IntValue DEATH_PHASE3_IMPLOSION_TICKS;
     public static final ForgeConfigSpec.IntValue DEATH_PHASE4_FINAL_TICKS;
     public static final ForgeConfigSpec.DoubleValue DEATH_PULL_AREA_RADIUS;
-    public static final ForgeConfigSpec.DoubleValue DEATH_PULL_STRENGTH;    public static final ForgeConfigSpec.DoubleValue STANCE_SWITCH_MELEE_RANGE_SQ;
+    public static final ForgeConfigSpec.DoubleValue DEATH_PULL_STRENGTH;
+    public static final ForgeConfigSpec.DoubleValue STANCE_SWITCH_MELEE_RANGE_SQ;
     public static final ForgeConfigSpec.DoubleValue STANCE_SWITCH_RANGED_RANGE_SQ;
     public static final ForgeConfigSpec.IntValue STANCE_SWITCH_COOLDOWN_MIN;
     public static final ForgeConfigSpec.IntValue STANCE_SWITCH_COOLDOWN_RANDOM;
@@ -24,16 +31,20 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue RANGED_STANCE_IDEAL_DISTANCE;
     public static final ForgeConfigSpec.DoubleValue MELEE_STANCE_SPEED_SCALE;
     public static final ForgeConfigSpec.DoubleValue RANGED_STANCE_SPEED_SCALE;
-    public static final ForgeConfigSpec.DoubleValue RANDOM_FLY_RADIUS;    public static final ForgeConfigSpec.DoubleValue PHASE_TWO_HP_THRESHOLD;
+    public static final ForgeConfigSpec.DoubleValue RANDOM_FLY_RADIUS;
+    public static final ForgeConfigSpec.DoubleValue PHASE_TWO_HP_THRESHOLD;
     public static final ForgeConfigSpec.DoubleValue CRITICAL_ENRAGE_HP_THRESHOLD;
-    public static final ForgeConfigSpec.DoubleValue LANCE_SPAWN_START_HP_THRESHOLD;    public static final ForgeConfigSpec.IntValue CHARGE_COOLDOWN_BASE;
+    public static final ForgeConfigSpec.DoubleValue LANCE_SPAWN_START_HP_THRESHOLD;
+    public static final ForgeConfigSpec.IntValue CHARGE_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue GRAVITY_ORB_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue BARRAGE_COOLDOWN_BASE;
     public static final ForgeConfigSpec.IntValue LASER_COOLDOWN_BASE;
-    public static final ForgeConfigSpec.IntValue PASSIVE_ORB_COOLDOWN_BASE;    public static final ForgeConfigSpec.IntValue MAX_ORBITING_PROJECTILES;
+    public static final ForgeConfigSpec.IntValue PASSIVE_ORB_COOLDOWN_BASE;
+    public static final ForgeConfigSpec.IntValue MAX_ORBITING_PROJECTILES;
     public static final ForgeConfigSpec.DoubleValue PROJECTILE_CAPTURE_RADIUS;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_CAP_PER_TICK;
-    public static final ForgeConfigSpec.DoubleValue DAMAGE_CAP_REDUCTION_RATIO;    public static final ForgeConfigSpec.DoubleValue CHARGE_MIN_DISTANCE_SQ;
+    public static final ForgeConfigSpec.DoubleValue DAMAGE_CAP_REDUCTION_RATIO;
+    public static final ForgeConfigSpec.DoubleValue CHARGE_MIN_DISTANCE_SQ;
     public static final ForgeConfigSpec.DoubleValue CHARGE_MAX_DISTANCE_SQ;
     public static final ForgeConfigSpec.IntValue CHARGE_PREPARATION_TICKS;
     public static final ForgeConfigSpec.IntValue CHARGE_TIMEOUT_TICKS;
@@ -43,14 +54,16 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue CHARGE_END_EXPLOSION_RADIUS;
     public static final ForgeConfigSpec.DoubleValue CHARGE_END_EXPLOSION_DAMAGE_RATIO;
     public static final ForgeConfigSpec.IntValue CHARGE_COUNT_NORMAL;
-    public static final ForgeConfigSpec.IntValue CHARGE_COUNT_ENRAGED;    public static final ForgeConfigSpec.DoubleValue GRAVITY_ORB_MIN_DISTANCE_SQ;
+    public static final ForgeConfigSpec.IntValue CHARGE_COUNT_ENRAGED;
+    public static final ForgeConfigSpec.DoubleValue GRAVITY_ORB_MIN_DISTANCE_SQ;
     public static final ForgeConfigSpec.IntValue GRAVITY_ORB_CHARGE_UP_TICKS;
     public static final ForgeConfigSpec.DoubleValue BARRAGE_MIN_DISTANCE_SQ;
     public static final ForgeConfigSpec.IntValue BARRAGE_CHARGE_UP_TICKS;
     public static final ForgeConfigSpec.IntValue BARRAGE_DURATION_NORMAL;
     public static final ForgeConfigSpec.IntValue BARRAGE_FIRE_RATE_NORMAL;
     public static final ForgeConfigSpec.IntValue BARRAGE_DURATION_ENRAGED;
-    public static final ForgeConfigSpec.IntValue BARRAGE_FIRE_RATE_ENRAGED;    public static final ForgeConfigSpec.DoubleValue LASER_HP_THRESHOLD;
+    public static final ForgeConfigSpec.IntValue BARRAGE_FIRE_RATE_ENRAGED;
+    public static final ForgeConfigSpec.DoubleValue LASER_HP_THRESHOLD;
     public static final ForgeConfigSpec.IntValue LASER_CHARGE_UP_TICKS;
     public static final ForgeConfigSpec.IntValue LASER_DURATION_TICKS;
     public static final ForgeConfigSpec.DoubleValue LASER_DAMAGE_RATIO;
@@ -61,7 +74,9 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
     public static final ForgeConfigSpec.DoubleValue PROJECTILE_RELEASE_INTERVAL;
     public static final ForgeConfigSpec.BooleanValue AFTER_SUMMON_MUST_RAGE_MODE;
     public static final ForgeConfigSpec.DoubleValue LASER_TRACKING_SPEED;
-    public static final ForgeConfigSpec.DoubleValue SING_CORE_PERCENT;    static {
+    public static final ForgeConfigSpec.DoubleValue SING_CORE_PERCENT;
+
+    static {
         BUILDER.push("BlackBool_Settings");
         BUILDER.push("BaseStats");
         MAX_HEALTH = BUILDER.defineInRange("max_health", 550.0, 1.0, 100000.0);
@@ -150,7 +165,7 @@ package com.Maxwell.eschatology.Config.Boss;import net.minecraftforge.common.For
         EVENT_HORIZON_CAST_TIME_TICKS = BUILDER.defineInRange("event_horizon_cast_time", 60, 0, 1000);
         REVENANT_DETECT_RADIUS = BUILDER.defineInRange("revenant_detect_radius", 64.0, 0.0, 256.0);
         PROJECTILE_RELEASE_INTERVAL = BUILDER.defineInRange("projectile_release_interval", 15.0, 0.0, 256.0);
-        AFTER_SUMMON_MUST_RAGE_MODE = BUILDER.define("after_summon_must_rage_mode",false);
+        AFTER_SUMMON_MUST_RAGE_MODE = BUILDER.define("after_summon_must_rage_mode", false);
         SING_CORE_PERCENT = BUILDER.defineInRange("singularity_core_drop_chance", 0.4, 0.0, 1.0);
         BUILDER.pop();
         BUILDER.pop();

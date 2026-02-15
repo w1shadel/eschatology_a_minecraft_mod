@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.SmallBeam;import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.SmallBeam;
+
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,20 +11,32 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;public class SmallBeamEntity extends ThrowableProjectile {
+import net.minecraft.world.phys.HitResult;
+
+public class SmallBeamEntity extends ThrowableProjectile {
     private float damage = ExoWitherBalance.SMALL_BEAM_BASE_DAMAGE;
     private boolean enraged = false;
-    private int pierceCount = 0;    public SmallBeamEntity(EntityType<? extends ThrowableProjectile> type, Level level) {
+    private int pierceCount = 0;
+
+    public SmallBeamEntity(EntityType<? extends ThrowableProjectile> type, Level level) {
         super(type, level);
-    }    public SmallBeamEntity(Level level, LivingEntity owner) {
+    }
+
+    public SmallBeamEntity(Level level, LivingEntity owner) {
         super(ModEntities.SMALL_BEAM.get(), owner, level);
         this.setPos(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
         this.setNoGravity(true);
-    }    public void setDamage(float damage) {
+    }
+
+    public void setDamage(float damage) {
         this.damage = damage;
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
@@ -37,7 +51,9 @@ import net.minecraft.world.phys.HitResult;public class SmallBeamEntity extends T
         if (this.tickCount > ExoWitherBalance.SMALL_BEAM_MAX_LIFE) {
             this.discard();
         }
-    }    @Override
+    }
+
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
         if (this.level().isClientSide) return;
@@ -66,7 +82,9 @@ import net.minecraft.world.phys.HitResult;public class SmallBeamEntity extends T
             this.level().addParticle(ParticleTypes.SNOWFLAKE, getX(), getY(), getZ(), 0.0, 0.1, 0.0);
             this.discard();
         }
-    }    @Override
+    }
+
+    @Override
     protected float getGravity() {
         return 0.0f;
     }

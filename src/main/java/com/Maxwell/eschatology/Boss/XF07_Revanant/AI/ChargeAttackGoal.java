@@ -1,5 +1,7 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.AI;import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.AI;
+
 import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+import com.Maxwell.eschatology.Boss.XF07_Revanant.ExoWither;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,25 +9,39 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;import java.util.EnumSet;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;public class ChargeAttackGoal extends Goal {
+import java.util.Set;
+
+public class ChargeAttackGoal extends Goal {
     private final ExoWither owner;
     private final int cooldown;
-    private LivingEntity target;    private enum Phase {PREPARING, CHARGING}    private Phase phase;
+    private LivingEntity target;
+
+    private enum Phase {PREPARING, CHARGING}
+
+    private Phase phase;
     private double currentChargeSpeed;
     private int collisionCount = 0;
     private int actionTicks;
     private Vec3 chargeDirection;
     private final Set<LivingEntity> hitEntities = new HashSet<>();
-    private boolean isEnraged = false;    public ChargeAttackGoal(ExoWither owner, int cooldown) {
+    private boolean isEnraged = false;
+
+    public ChargeAttackGoal(ExoWither owner, int cooldown) {
         this.owner = owner;
         this.cooldown = cooldown;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-    }    public void setEnraged(boolean enraged) {
+    }
+
+    public void setEnraged(boolean enraged) {
         this.isEnraged = enraged;
-    }    @Override
+    }
+
+    @Override
     public boolean canUse() {
         this.target = this.owner.getTarget();
         if (owner.isSpawning()) return false;
@@ -47,7 +63,9 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
                 this.owner.chargeCooldown <= 0 &&
                 distanceSq > ExoWitherBalance.CHARGE_MIN_DIST_SQ_NORMAL &&
                 distanceSq < ExoWitherBalance.CHARGE_MAX_DIST_SQ_NORMAL;
-    }    @Override
+    }
+
+    @Override
     public boolean canContinueToUse() {
         if (this.target == null || !this.target.isAlive() || this.owner.getAttackPhase() != ExoWither.AttackPhase.CHARGE) {
             return false;
@@ -57,7 +75,9 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
         boolean timedOut = this.actionTicks >= ExoWitherBalance.CHARGE_MAX_DURATION_TICKS;
         boolean tooManyCollisions = this.collisionCount >= ExoWitherBalance.CHARGE_MAX_COLLISIONS;
         return !(timedOut || tooManyCollisions || tooFarFromTarget);
-    }    @Override
+    }
+
+    @Override
     public void start() {
         this.actionTicks = 0;
         this.phase = Phase.PREPARING;
@@ -65,7 +85,10 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
         this.owner.setAttackPhase(ExoWither.AttackPhase.CHARGE);
         this.owner.getNavigation().stop();
         this.currentChargeSpeed = ExoWitherBalance.CHARGE_INITIAL_SPEED;
-        this.collisionCount = 0;    }    @Override
+        this.collisionCount = 0;
+    }
+
+    @Override
     public void stop() {
         this.owner.setDeltaMovement(Vec3.ZERO);
         if (this.owner.chargeCooldown <= 0) {
@@ -87,20 +110,29 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
                 }
             }
         }
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         if (this.target == null || !this.target.isAlive()) {
             return;
         }
-        this.owner.getLookControl().setLookAt(this.target, 100.0F, 100.0F); 
-        this.actionTicks++;        if (this.phase == Phase.PREPARING) {            Vec3 targetPos = this.target.getBoundingBox().getCenter();
+        this.owner.getLookControl().setLookAt(this.target, 100.0F, 100.0F);
+        this.actionTicks++;
+        if (this.phase == Phase.PREPARING) {
+            Vec3 targetPos = this.target.getBoundingBox().getCenter();
             Vec3 ownerPos = this.owner.getBoundingBox().getCenter();
-            double yDiff = targetPos.y - ownerPos.y;            double verticalSpeed = Mth.clamp(yDiff * 0.1, -1.0, 1.0); 
-            this.owner.setDeltaMovement(this.owner.getDeltaMovement().multiply(0.5, 0, 0.5).add(0, verticalSpeed, 0));             if (this.actionTicks >= ExoWitherBalance.CHARGE_PREPARE_DURATION_TICKS) {
+            double yDiff = targetPos.y - ownerPos.y;
+            double verticalSpeed = Mth.clamp(yDiff * 0.1, -1.0, 1.0);
+            this.owner.setDeltaMovement(this.owner.getDeltaMovement().multiply(0.5, 0, 0.5).add(0, verticalSpeed, 0));
+            if (this.actionTicks >= ExoWitherBalance.CHARGE_PREPARE_DURATION_TICKS) {
                 this.phase = Phase.CHARGING;
                 this.actionTicks = 0;
-                this.owner.playSound(SoundEvents.WITHER_HURT, 2.0F, 0.8F);                Vec3 targetFuturePos = this.target.position().add(this.target.getDeltaMovement().scale(ExoWitherBalance.CHARGE_LEAD_PREDICTION_FACTOR));                Vec3 aimTarget = targetFuturePos.add(0, this.target.getBbHeight() / 2.0, 0);
-                Vec3 aimSource = this.owner.position().add(0, this.owner.getBbHeight() / 2.0, 0);                this.chargeDirection = aimTarget.subtract(aimSource).normalize();
+                this.owner.playSound(SoundEvents.WITHER_HURT, 2.0F, 0.8F);
+                Vec3 targetFuturePos = this.target.position().add(this.target.getDeltaMovement().scale(ExoWitherBalance.CHARGE_LEAD_PREDICTION_FACTOR));
+                Vec3 aimTarget = targetFuturePos.add(0, this.target.getBbHeight() / 2.0, 0);
+                Vec3 aimSource = this.owner.position().add(0, this.owner.getBbHeight() / 2.0, 0);
+                this.chargeDirection = aimTarget.subtract(aimSource).normalize();
             }
         } else if (this.phase == Phase.CHARGING) {
             if (this.actionTicks % 2 == 0) {
@@ -108,7 +140,8 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
             }
             Vec3 velocity = this.chargeDirection.scale(this.currentChargeSpeed);
             this.owner.move(MoverType.SELF, velocity);
-            this.owner.setDeltaMovement(velocity);            float penetrationDamage = (float) this.owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * ExoWitherBalance.CHARGE_PENETRATION_DAMAGE_RATIO;
+            this.owner.setDeltaMovement(velocity);
+            float penetrationDamage = (float) this.owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * ExoWitherBalance.CHARGE_PENETRATION_DAMAGE_RATIO;
             AABB chargeHitbox = this.owner.getBoundingBox().inflate(ExoWitherBalance.CHARGE_HITBOX_INFLATE_XZ, ExoWitherBalance.CHARGE_HITBOX_INFLATE_Y, ExoWitherBalance.CHARGE_HITBOX_INFLATE_XZ);
             List<LivingEntity> nearbyEntities = this.owner.level().getEntitiesOfClass(LivingEntity.class, chargeHitbox);
             boolean hasHitTarget = false;
@@ -123,10 +156,14 @@ import java.util.Set;public class ChargeAttackGoal extends Goal {
             if (hasHitTarget) {
                 this.currentChargeSpeed *= ExoWitherBalance.CHARGE_SPEED_REDUCTION_ON_HIT;
                 this.owner.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.5F, 0.5F);
-            }            boolean hitWall = this.owner.horizontalCollision || (this.owner.verticalCollision && this.actionTicks > 5);             boolean timedOut = this.actionTicks >= ExoWitherBalance.CHARGE_MAX_DURATION_TICKS;
-            boolean tooManyCollisions = this.collisionCount >= ExoWitherBalance.CHARGE_MAX_COLLISIONS;             if (hitWall) {
+            }
+            boolean hitWall = this.owner.horizontalCollision || (this.owner.verticalCollision && this.actionTicks > 5);
+            boolean timedOut = this.actionTicks >= ExoWitherBalance.CHARGE_MAX_DURATION_TICKS;
+            boolean tooManyCollisions = this.collisionCount >= ExoWitherBalance.CHARGE_MAX_COLLISIONS;
+            if (hitWall) {
                 this.collisionCount++;
-            }            if (timedOut || tooManyCollisions) {
+            }
+            if (timedOut || tooManyCollisions) {
                 this.owner.chargeCooldown = this.cooldown;
                 this.owner.setAttackPhase(ExoWither.AttackPhase.NONE);
             }

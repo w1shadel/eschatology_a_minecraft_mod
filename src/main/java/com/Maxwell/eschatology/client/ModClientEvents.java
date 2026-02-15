@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.client;import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolModel;
+package com.Maxwell.eschatology.client;
+
+import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolModel;
 import com.Maxwell.eschatology.Boss.BlackBool.BlackBoolRenderer;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EmptyRenderer;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamRenderer;
@@ -41,9 +43,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
 @SuppressWarnings("removal")
 @Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ModClientEvents {    @SubscribeEvent
+public class ModClientEvents {
+    @SubscribeEvent
     public static void onRegisterRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.BLACK_BOOL.get(), BlackBoolRenderer::new);
         event.registerEntityRenderer(ModEntities.VOID_WAVE.get(), VoidWaveRenderer::new);
@@ -67,6 +71,7 @@ public class ModClientEvents {    @SubscribeEvent
         event.registerEntityRenderer(ModEntities.FELL_BULLET.get(), EmptyRenderer::new);
         event.registerEntityRenderer(ModEntities.FELL_SHARD.get(), EmptyRenderer::new);
     }
+
     @SubscribeEvent
     public static void onRegisterLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BlackBoolModel.LAYER_LOCATION, BlackBoolModel::createBodyLayer);
@@ -80,6 +85,7 @@ public class ModClientEvents {    @SubscribeEvent
         event.registerLayerDefinition(WitchsSornModel.LAYER_LOCATION, WitchsSornModel::createBodyLayer);
         event.registerLayerDefinition(Eclipse_Forge_Model.LAYER_LOCATION, Eclipse_Forge_Model::createBodyLayer);
     }
+
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(new GlitchyGuiManager());

@@ -7,7 +7,7 @@
     "firstperson_lefthand": {
       "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
     },
-    "firstperson_righthand":{
+    "firstperson_righthand": {
       "parent": "eschatology:item/witchs_crest/witchs_crest_handheld"
     },
     "thirdperson_lefthand": {

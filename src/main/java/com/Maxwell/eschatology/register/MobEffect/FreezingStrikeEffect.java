@@ -5,10 +5,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;public class FreezingStrikeEffect extends MobEffect {
+import net.minecraft.world.entity.LivingEntity;
+
+public class FreezingStrikeEffect extends MobEffect {
     public FreezingStrikeEffect(MobEffectCategory category, int color) {
         super(category, color);
-    }    @Override
+    }
+
+    @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (amplifier >= 9) {
             if (entity.level() instanceof ServerLevel server) {
@@ -30,7 +34,9 @@ import net.minecraft.world.entity.LivingEntity;public class FreezingStrikeEffect
                 entity.removeEffect(this);
             }
         }
-    }    @Override
+    }
+
+    @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }

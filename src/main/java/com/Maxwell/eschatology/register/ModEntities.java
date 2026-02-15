@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.register;import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
+package com.Maxwell.eschatology.register;
+
+import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.DamageField.EndLaserBeamDMGFieldEntity;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.EndLaserBeamEntity;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.EventHorizon.EventHorizonControllerEntity;
@@ -24,7 +26,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;@SuppressWarnings("removal")
+import net.minecraftforge.registries.RegistryObject;
+
+@SuppressWarnings("removal")
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Eschatology.MODID);
     public static final RegistryObject<EntityType<BlackBool>> BLACK_BOOL = ENTITY_TYPES.register("blackbool",
@@ -44,45 +48,48 @@ public class ModEntities {
                             .clientTrackingRange(10)
                             .updateInterval(1)
                             .build(new ResourceLocation(Eschatology.MODID, "gravity_orb").toString()));
-                    public static final RegistryObject<EntityType<LightOrbEntity>> LIGHT_ORB =
+    public static final RegistryObject<EntityType<LightOrbEntity>> LIGHT_ORB =
             ENTITY_TYPES.register("light_orb",
                     () -> EntityType.Builder.<LightOrbEntity>of(LightOrbEntity::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "light_orb").toString()));    public static final RegistryObject<EntityType<VoidWaveEntity>> VOID_WAVE =
+                            .build(new ResourceLocation(Eschatology.MODID, "light_orb").toString()));
+    public static final RegistryObject<EntityType<VoidWaveEntity>> VOID_WAVE =
             ENTITY_TYPES.register("void_wave",
                     () -> EntityType.Builder.<VoidWaveEntity>of(VoidWaveEntity::new, MobCategory.MISC)
                             .sized(1.0f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "void_wave").toString()));    public static final RegistryObject<EntityType<VoidLanceEntity>> VOID_LANCE =
+                            .build(new ResourceLocation(Eschatology.MODID, "void_wave").toString()));
+    public static final RegistryObject<EntityType<VoidLanceEntity>> VOID_LANCE =
             ENTITY_TYPES.register("void_lance",
                     () -> EntityType.Builder.<VoidLanceEntity>of(VoidLanceEntity::new, MobCategory.MISC)
                             .sized(1.0f, 2.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "void_lance").toString()));    public static final RegistryObject<EntityType<VoidRiftEntity>> VOID_RIFT =
+                            .build(new ResourceLocation(Eschatology.MODID, "void_lance").toString()));
+    public static final RegistryObject<EntityType<VoidRiftEntity>> VOID_RIFT =
             ENTITY_TYPES.register("void_rift",
                     () -> EntityType.Builder.<VoidRiftEntity>of(VoidRiftEntity::new, MobCategory.MISC)
                             .sized(1.0f, 2.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "void_rift").toString()));    public static final RegistryObject<EntityType<SingularityEntity>> SINGULARITY =
+                            .build(new ResourceLocation(Eschatology.MODID, "void_rift").toString()));
+    public static final RegistryObject<EntityType<SingularityEntity>> SINGULARITY =
             ENTITY_TYPES.register("singularity",
                     () -> EntityType.Builder.<SingularityEntity>of(SingularityEntity::new, MobCategory.MISC)
                             .sized(1.0f, 2.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
                             .build(new ResourceLocation(Eschatology.MODID, "singularity").toString()));
-                            public static final RegistryObject<EntityType<EndLaserBeamEntity>> END_LASER_BEAM =
+    public static final RegistryObject<EntityType<EndLaserBeamEntity>> END_LASER_BEAM =
             ENTITY_TYPES.register("end_laser_beam",
                     () -> EntityType.Builder.<EndLaserBeamEntity>of(EndLaserBeamEntity::new, MobCategory.MISC)
                             .sized(1.0f, 2.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
                             .build(new ResourceLocation(Eschatology.MODID, "end_laser_beam").toString()));
-
     public static final RegistryObject<EntityType<FrostLaserEntity>> FROST_LASER =
             ENTITY_TYPES.register("frost_laser",
                     () -> EntityType.Builder.<FrostLaserEntity>of(FrostLaserEntity::new, MobCategory.MISC)
@@ -90,7 +97,6 @@ public class ModEntities {
                             .clientTrackingRange(10)
                             .updateInterval(1)
                             .build(new ResourceLocation(Eschatology.MODID, "frost_laser").toString()));
-
     public static final RegistryObject<EntityType<EndLaserBeamDMGFieldEntity>> END_LASER_BEAM_DAMAGE_FILED =
             ENTITY_TYPES.register("end_laser_beam_dmg_filed",
                     () -> EntityType.Builder.<EndLaserBeamDMGFieldEntity>of(EndLaserBeamDMGFieldEntity::new, MobCategory.MISC)
@@ -104,49 +110,57 @@ public class ModEntities {
                             .sized(1.1f, 1.1f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "event_horizon").toString()));    public static final RegistryObject<EntityType<SmallBeamEntity>> SMALL_BEAM =
+                            .build(new ResourceLocation(Eschatology.MODID, "event_horizon").toString()));
+    public static final RegistryObject<EntityType<SmallBeamEntity>> SMALL_BEAM =
             ENTITY_TYPES.register("small_beam",
                     () -> EntityType.Builder.<SmallBeamEntity>of(SmallBeamEntity::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "small_beam").toString()));    public static final RegistryObject<EntityType<ExoMissile>> EXO_MISSILE =
+                            .build(new ResourceLocation(Eschatology.MODID, "small_beam").toString()));
+    public static final RegistryObject<EntityType<ExoMissile>> EXO_MISSILE =
             ENTITY_TYPES.register("exo_missile",
                     () -> EntityType.Builder.<ExoMissile>of(ExoMissile::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "exo_missile").toString()));    public static final RegistryObject<EntityType<FrostFieldEntity>> FROST_FIELD =
+                            .build(new ResourceLocation(Eschatology.MODID, "exo_missile").toString()));
+    public static final RegistryObject<EntityType<FrostFieldEntity>> FROST_FIELD =
             ENTITY_TYPES.register("frost_field",
                     () -> EntityType.Builder.<FrostFieldEntity>of(FrostFieldEntity::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "frost_field").toString()));    public static final RegistryObject<EntityType<ExoSkull>> EXO_SKULL =
+                            .build(new ResourceLocation(Eschatology.MODID, "frost_field").toString()));
+    public static final RegistryObject<EntityType<ExoSkull>> EXO_SKULL =
             ENTITY_TYPES.register("exo_skull",
                     () -> EntityType.Builder.<ExoSkull>of(ExoSkull::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "exo_skull").toString()));    public static final RegistryObject<EntityType<WitchsSorn>> WITCHS_SORN =
+                            .build(new ResourceLocation(Eschatology.MODID, "exo_skull").toString()));
+    public static final RegistryObject<EntityType<WitchsSorn>> WITCHS_SORN =
             ENTITY_TYPES.register("witchs_sorn",
                     () -> EntityType.Builder.<WitchsSorn>of(WitchsSorn::new, MobCategory.MISC)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .updateInterval(1)
-                            .build(new ResourceLocation(Eschatology.MODID, "witchs_sorn").toString()));    public static final RegistryObject<EntityType<MagicBullet>> PENETRATING_BULLET =
+                            .build(new ResourceLocation(Eschatology.MODID, "witchs_sorn").toString()));
+    public static final RegistryObject<EntityType<MagicBullet>> PENETRATING_BULLET =
             ENTITY_TYPES.register("penetrating_bullet",
                     () -> EntityType.Builder.of(MagicBullet::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F)
                             .clientTrackingRange(4)
                             .updateInterval(10)
-                            .build(new ResourceLocation(Eschatology.MODID, "penetrating_bullet").toString()));    public static final RegistryObject<EntityType<FellBulletEntity>> FELL_BULLET =
+                            .build(new ResourceLocation(Eschatology.MODID, "penetrating_bullet").toString()));
+    public static final RegistryObject<EntityType<FellBulletEntity>> FELL_BULLET =
             ENTITY_TYPES.register("fell_bullet",
                     () -> EntityType.Builder.<FellBulletEntity>of(FellBulletEntity::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F)
                             .clientTrackingRange(4)
                             .updateInterval(10)
-                            .build(new ResourceLocation(Eschatology.MODID, "fell_bullet").toString()));    public static final RegistryObject<EntityType<FellBulletShardEntity>> FELL_SHARD =
+                            .build(new ResourceLocation(Eschatology.MODID, "fell_bullet").toString()));
+    public static final RegistryObject<EntityType<FellBulletShardEntity>> FELL_SHARD =
             ENTITY_TYPES.register("fell_shard",
                     () -> EntityType.Builder.<FellBulletShardEntity>of(FellBulletShardEntity::new, MobCategory.MISC)
                             .sized(0.5F, 0.5F)

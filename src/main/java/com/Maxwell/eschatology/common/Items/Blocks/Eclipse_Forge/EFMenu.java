@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;import com.Maxwell.eschatology.register.ModMenuTypes;
+package com.Maxwell.eschatology.common.Items.Blocks.Eclipse_Forge;
+
+import com.Maxwell.eschatology.register.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -7,11 +9,17 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;public class EFMenu extends AbstractContainerMenu {
+import net.minecraftforge.items.SlotItemHandler;
+
+public class EFMenu extends AbstractContainerMenu {
     private final EFBlockEntity blockEntity;
-    private final ContainerData data;    public EFMenu(int id, Inventory playerInv, FriendlyByteBuf extraData) {
+    private final ContainerData data;
+
+    public EFMenu(int id, Inventory playerInv, FriendlyByteBuf extraData) {
         this(id, playerInv, (EFBlockEntity) playerInv.player.level().getBlockEntity(extraData.readBlockPos()));
-    }    public EFMenu(int id, Inventory playerInv, EFBlockEntity entity) {
+    }
+
+    public EFMenu(int id, Inventory playerInv, EFBlockEntity entity) {
         super(ModMenuTypes.ECLIPSE_FORGE.get(), id);
         this.blockEntity = entity;
         this.data = new ContainerData() {
@@ -22,10 +30,14 @@ import net.minecraftforge.items.SlotItemHandler;public class EFMenu extends Abst
                     case 1 -> blockEntity.getAnimationTicks();
                     default -> 0;
                 };
-            }            @Override
+            }
+
+            @Override
             public void set(int index, int value) {
                 if (index == 0) blockEntity.startAnimation();
-            }            @Override
+            }
+
+            @Override
             public int getCount() {
                 return 2;
             }
@@ -37,17 +49,25 @@ import net.minecraftforge.items.SlotItemHandler;public class EFMenu extends Abst
         this.addSlot(new SlotItemHandler(handler, EFBlockEntity.SLOT_CENTER, 80, 33));
         addPlayerInventory(playerInv);
         addPlayerHotbar(playerInv);
-    }    private void addPlayerInventory(Inventory playerInventory) {
+    }
+
+    private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i)
             for (int j = 0; j < 9; ++j)
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-    }    private void addPlayerHotbar(Inventory playerInventory) {
+    }
+
+    private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i)
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-    }    @Override
+    }
+
+    @Override
     public boolean stillValid(Player player) {
         return true;
-    }    @Override
+    }
+
+    @Override
     public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
@@ -68,9 +88,13 @@ import net.minecraftforge.items.SlotItemHandler;public class EFMenu extends Abst
             }
         }
         return itemstack;
-    }    public EFBlockEntity getBlockEntity() {
+    }
+
+    public EFBlockEntity getBlockEntity() {
         return blockEntity;
-    }    @Override
+    }
+
+    @Override
     public void broadcastChanges() {
         super.broadcastChanges();
         if (this.blockEntity != null && this.blockEntity.getLevel() != null) {
@@ -78,9 +102,13 @@ import net.minecraftforge.items.SlotItemHandler;public class EFMenu extends Abst
                 this.data.set(1, this.blockEntity.getAnimationTicks());
             }
         }
-    }    public boolean isAnimating() {
+    }
+
+    public boolean isAnimating() {
         return data.get(0) == 1;
-    }    public int getAnimationTicks() {
+    }
+
+    public int getAnimationTicks() {
         return data.get(1);
     }
 }

@@ -1,10 +1,16 @@
-package com.Maxwell.eschatology.register.MobEffect;import net.minecraft.world.damagesource.DamageSource;
+package com.Maxwell.eschatology.register.MobEffect;
+
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;public class InfernalFlamesEffect extends MobEffect {
+import net.minecraft.world.entity.LivingEntity;
+
+public class InfernalFlamesEffect extends MobEffect {
     public InfernalFlamesEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xFF4500);
-    }    @Override
+    }
+
+    @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity.level().getGameTime() % 10 == 0) {
             DamageSource infernalDamage = pLivingEntity.damageSources().outOfBorder();
@@ -14,7 +20,9 @@ import net.minecraft.world.entity.LivingEntity;public class InfernalFlamesEffect
             pLivingEntity.hurt(infernalDamage, damage);
         }
         pLivingEntity.setSecondsOnFire(1);
-    }    @Override
+    }
+
+    @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
         return true;
     }

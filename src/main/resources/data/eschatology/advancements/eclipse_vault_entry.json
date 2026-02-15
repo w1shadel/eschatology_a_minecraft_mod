@@ -23,11 +23,19 @@
     "show_toast": true,
     "hidden": false,
     "frame": "goal",
-    "icon": { "item": "minecraft:amethyst_shard" },
-    "title": { "translate": "advancements.eschatology.eclipse_vault_entry.title" },
-    "description": { "translate": "advancements.eschatology.eclipse_vault_entry.description" }
+    "icon": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "title": {
+      "translate": "advancements.eschatology.eclipse_vault_entry.title"
+    },
+    "description": {
+      "translate": "advancements.eschatology.eclipse_vault_entry.description"
+    }
   },
   "requirements": [
-    ["enter_vault"]
+    [
+      "enter_vault"
+    ]
   ]
 }

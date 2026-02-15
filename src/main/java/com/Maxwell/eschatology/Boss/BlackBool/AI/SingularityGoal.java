@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.AI;import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
+package com.Maxwell.eschatology.Boss.BlackBool.AI;
+
+import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidWave.VoidWaveEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,8 +11,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;import java.util.EnumSet;
-import java.util.List;public class SingularityGoal extends Goal {
+import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
+import java.util.List;
+
+public class SingularityGoal extends Goal {
     private final BlackBool mob;
     private int ticks;
     private BlockPos targetPos;

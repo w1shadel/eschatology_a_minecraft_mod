@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant;import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+package com.Maxwell.eschatology.Boss.XF07_Revanant;
+
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.Boss.BlackBool.BlackBool;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.AI.*;
 import com.Maxwell.eschatology.Boss.XF07_Revanant.Animation.ExoWitherAnimationTicks;
@@ -12,7 +14,6 @@ import com.Maxwell.eschatology.common.Network.ModMessages;
 import com.Maxwell.eschatology.common.Network.PlayBossMusicPacket;
 import com.Maxwell.eschatology.register.ModEntities;
 import com.Maxwell.eschatology.register.ModItems;
-import com.Maxwell.eschatology.register.ModSounds;
 import com.Maxwell.eschatology.register.advancements.ModTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,8 +48,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;import java.util.EnumSet;
-import java.util.List;public class ExoWither extends Monster {
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
+import java.util.List;
+
+public class ExoWither extends Monster {
     public enum AttackPhase {
         NONE,
         CHARGE,
@@ -491,6 +496,7 @@ import java.util.List;public class ExoWither extends Monster {
     public boolean isEnraged() {
         return enraged;
     }
+
     @Override
     public boolean isAlliedTo(Entity entity) {
         if (entity == null) return false;
@@ -499,6 +505,7 @@ import java.util.List;public class ExoWither extends Monster {
         String className = entity.getClass().getSimpleName();
         return className.contains("The_Harbinger_Entity") || className.contains("Harbinger");
     }
+
     @Override
     public void tick() {
         super.tick();
@@ -668,25 +675,21 @@ import java.util.List;public class ExoWither extends Monster {
             this.target = null;
         }
     }
-    static class HarbingerIgnoringHurtByTargetGoal extends HurtByTargetGoal {
 
+    static class HarbingerIgnoringHurtByTargetGoal extends HurtByTargetGoal {
         public HarbingerIgnoringHurtByTargetGoal(ExoWither mob) {
             super(mob);
-
             this.setAlertOthers(ExoWither.class);
         }
 
         @Override
         public boolean canUse() {
-
             if (!super.canUse()) {
                 return false;
             }
-
             LivingEntity attacker = this.mob.getLastHurtByMob();
             if (attacker != null) {
                 String name = attacker.getClass().getSimpleName();
-
                 if (name.contains("Harbinger") || name.contains("The_Harbinger_Entity")) {
                     return false;
                 }

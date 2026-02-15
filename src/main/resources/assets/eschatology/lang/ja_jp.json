@@ -10,7 +10,7 @@
   "item.eschatology.awe_contempt": "軽蔑、畏敬",
   "item.eschatology.awe_contempt.desc": "「お前ら全員面白いもんを見せてやろう」",
   "item.eschatology.awe_contempt.desc2": "攻撃を的中させた敵に視線を付与する。右クリックで軽蔑を回収し視線の軽蔑に変更する。",
-  "item.eschatology.awe_contempt.desc3":"もし凶弾による射撃が当たった際、「撃ち放たん/いつでも」を発動する。",
+  "item.eschatology.awe_contempt.desc3": "もし凶弾による射撃が当たった際、「撃ち放たん/いつでも」を発動する。",
   "ability.revenge_ledger.dialogue1": "お遊びはここまで。",
   "ability.revenge_ledger.dialogue2": "全員、",
   "ability.revenge_ledger.dialogue3": "処刑だ！",
@@ -36,7 +36,7 @@
   "item.eschatology.magic_bullet.desc2": "右クリック長押しでチャージし、離すと味方をも貫通する高威力の弾を発射する。魔弾を消費する通常攻撃は、着弾時に爆発し敵を炎上させる。",
   "item.eschatology.fell_bullet_weapon.desc2": "右クリック長押しでチャージし、放たれた凶弾は着弾した敵を自動で追撃する。",
   "item.eschatology.the_once_and_future_gun.desc2": "ベルトスロットに装着しているとき、周囲の敵に自動で追撃を行う。",
-  "item.eschatology.revenge_ledger.desc":"「俺のヘアクーポォオオオン！！！」",
+  "item.eschatology.revenge_ledger.desc": "「俺のヘアクーポォオオオン！！！」",
   "item.eschatology.revenge_ledger.desc2": "攻撃してきた敵を「仕返し帳簿」に記録する。記録した敵を攻撃するたび「復讐」が10%蓄積され、100%に達した時に右クリックすることで、「俺のヘアクーポォオオオン！！！」を使用する。",
   "item.eschatology.the_once_and_future_gun": "たった1度の未来の銃",
   "item.eschatology.magic_bullet": "Der Freischütz",
@@ -98,5 +98,4 @@
   "death.attack.white": "%1$s は %2$s の終末の魔法に解き放たれた。",
   "death.attack.black": "%1$s は %2$s によって魂を引き裂かれた。",
   "death.attack.pale": "%1$s は %2$s の力によって内側から破裂した。"
-
 }

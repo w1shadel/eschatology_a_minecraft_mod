@@ -1,10 +1,8 @@
 {
   "name": "eschatology:eclipse_vault/start_pool",
   "fallback": "minecraft:empty",
-
   "elements": [
     {
-
       "weight": 1,
       "element": {
         "location": "eschatology:eclipse_vault_structure",

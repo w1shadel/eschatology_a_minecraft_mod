@@ -1,5 +1,7 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostStrikeField.FrostFieldEntity;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.ExoSkull;
+
 import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+import com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostStrikeField.FrostFieldEntity;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,22 +23,34 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
-import java.util.List;public class ExoSkull extends Projectile {
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class ExoSkull extends Projectile {
     private float directHitDamage = ExoWitherBalance.EXO_SKULL_DIRECT_DAMAGE;
     private float explosionDamage = ExoWitherBalance.EXO_SKULL_EXPLOSION_DAMAGE;
     private int life = 0;
     private static final int MAX_LIFE = ExoWitherBalance.EXO_SKULL_MAX_LIFE;
-    private @Nullable LivingEntity target;    public ExoSkull(EntityType<? extends ExoSkull> type, Level level) {
+    private @Nullable LivingEntity target;
+
+    public ExoSkull(EntityType<? extends ExoSkull> type, Level level) {
         super(type, level);
-    }    public ExoSkull(Level level, LivingEntity owner) {
+    }
+
+    public ExoSkull(Level level, LivingEntity owner) {
         this(ModEntities.EXO_SKULL.get(), level);
         this.setOwner(owner);
         this.setPos(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
-    }    public void setDamage(float direct, float explosion) {
+    }
+
+    public void setDamage(float direct, float explosion) {
         this.directHitDamage = direct;
         this.explosionDamage = explosion;
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (level().isClientSide) {
@@ -61,7 +75,9 @@ import java.util.List;public class ExoSkull extends Projectile {
         HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (hit.getType() != HitResult.Type.MISS) onHit(hit);
         setPos(position().add(getDeltaMovement()));
-    }    @Override
+    }
+
+    @Override
     protected void onHit(HitResult result) {
         if (level().isClientSide || isRemoved()) return;
         if (result.getType() == HitResult.Type.ENTITY) {
@@ -75,7 +91,9 @@ import java.util.List;public class ExoSkull extends Projectile {
         }
         explode(result.getLocation());
         discard();
-    }    private void explode(@Nullable Vec3 location) {
+    }
+
+    private void explode(@Nullable Vec3 location) {
         if (level().isClientSide) return;
         ServerLevel server = (ServerLevel) level();
         Vec3 pos = (location != null ? location : position());
@@ -97,19 +115,31 @@ import java.util.List;public class ExoSkull extends Projectile {
         FrostFieldEntity field = new FrostFieldEntity(server, pos.x, pos.y, pos.z);
         if (getOwner() != null) field.setOwnerUUID(getOwner().getUUID());
         server.addFreshEntity(field);
-    }    @Override
+    }
+
+    @Override
     public boolean isPickable() {
         return false;
-    }    @Override
+    }
+
+    @Override
     public boolean hurt(DamageSource source, float amount) {
         return false;
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

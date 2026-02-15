@@ -1,7 +1,13 @@
 {
   "type": "eschatology:eclipse_forge",
-  "left": { "item": "eschatology:a_time_crystal" },
-  "right": { "item": "eschatology:demond" },
-  "output": { "item": "eschatology:apocalypse" },
+  "left": {
+    "item": "eschatology:a_time_crystal"
+  },
+  "right": {
+    "item": "eschatology:demond"
+  },
+  "output": {
+    "item": "eschatology:apocalypse"
+  },
   "time": 20
 }

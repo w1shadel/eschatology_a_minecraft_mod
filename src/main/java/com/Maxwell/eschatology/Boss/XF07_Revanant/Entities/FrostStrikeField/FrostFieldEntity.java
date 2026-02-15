@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostStrikeField;import com.Maxwell.eschatology.Balance.ExoWitherBalance;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Entities.FrostStrikeField;
+
+import com.Maxwell.eschatology.Balance.ExoWitherBalance;
 import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,14 +12,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;import java.util.List;public class FrostFieldEntity extends Entity {
+import net.minecraftforge.network.NetworkHooks;
+
+import java.util.List;
+
+public class FrostFieldEntity extends Entity {
     private int duration = ExoWitherBalance.FROST_FIELD_DURATION;
-    private float radius = ExoWitherBalance.FROST_FIELD_RADIUS;    public FrostFieldEntity(EntityType<?> p_19870_, Level p_19871_) {
+    private float radius = ExoWitherBalance.FROST_FIELD_RADIUS;
+
+    public FrostFieldEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
-    }    public FrostFieldEntity(Level level, double x, double y, double z) {
+    }
+
+    public FrostFieldEntity(Level level, double x, double y, double z) {
         this(ModEntities.FROST_FIELD.get(), level);
         this.setPos(x, y, z);
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount >= this.duration) {
@@ -48,23 +60,37 @@ import net.minecraftforge.network.NetworkHooks;import java.util.List;public clas
                 }
             }
         }
-    }    private java.util.UUID ownerUUID;    public void setOwnerUUID(java.util.UUID uuid) {
+    }
+
+    private java.util.UUID ownerUUID;
+
+    public void setOwnerUUID(java.util.UUID uuid) {
         this.ownerUUID = uuid;
-    }    public java.util.UUID getOwnerUUID() {
+    }
+
+    public java.util.UUID getOwnerUUID() {
         return this.ownerUUID;
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         if (compound.hasUUID("Owner")) {
             this.ownerUUID = compound.getUUID("Owner");
         }
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
         if (this.ownerUUID != null) {
             compound.putUUID("Owner", this.ownerUUID);
         }
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

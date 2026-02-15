@@ -14,6 +14,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+
 @SuppressWarnings("removal")
 public class FrostLaserRenderer extends EntityRenderer<FrostLaserEntity> {
     private static final ResourceLocation BEAM_TEXTURE = new ResourceLocation("eschatology", "textures/entity/frost_laser_beam.png");

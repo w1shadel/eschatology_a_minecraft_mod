@@ -44,8 +44,8 @@ public class FrostLaserEntity extends Entity {
     private LivingEntity target;
     private final Set<Entity> damagedEntitiesThisTick = new HashSet<>();
     private Vec3 currentBeamDir = null;
-
     private static final double TRACKING_SPEED = ExoWitherBalance.LASER_TRACKING_SPEED;
+
     public FrostLaserEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noCulling = true;
@@ -78,12 +78,10 @@ public class FrostLaserEntity extends Entity {
         super.tick();
         LivingEntity currentCaster = this.getCaster();
         LivingEntity currentTarget = this.getTarget();
-
         if (currentCaster == null || !currentCaster.isAlive() || currentTarget == null || !currentTarget.isAlive() || this.tickCount > this.getDuration()) {
             this.discard();
             return;
         }
-
         if (!this.level().isClientSide) {
             this.damagedEntitiesThisTick.clear();
             Vec3 startPos = currentCaster.getEyePosition();

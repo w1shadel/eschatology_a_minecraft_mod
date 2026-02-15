@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.GravityOrb;import com.Maxwell.eschatology.register.ModEffects;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.GravityOrb;
+
+import com.Maxwell.eschatology.register.ModEffects;
 import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -18,9 +20,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;public class GravityOrbEntity extends Entity {
+import java.util.UUID;
+
+public class GravityOrbEntity extends Entity {
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_PHASE = SynchedEntityData.defineId(GravityOrbEntity.class, EntityDataSerializers.INT);
@@ -28,27 +34,41 @@ import java.util.UUID;public class GravityOrbEntity extends Entity {
     private UUID ownerUUID;
     private LivingEntity target;
     private UUID targetUUID;
-    private int lifeTicks = 0;    private enum Phase {TRAVELING, PULLING}    public GravityOrbEntity(EntityType<?> pEntityType, Level pLevel) {
+    private int lifeTicks = 0;
+
+    private enum Phase {TRAVELING, PULLING}
+
+    public GravityOrbEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
-    }    public GravityOrbEntity(Level pLevel, LivingEntity pOwner, LivingEntity pTarget) {
+    }
+
+    public GravityOrbEntity(Level pLevel, LivingEntity pOwner, LivingEntity pTarget) {
         this(ModEntities.GRAVITY_ORB.get(), pLevel);
         this.setOwner(pOwner);
         this.setTarget(pTarget);
         Vec3 spawnPos = pOwner.position().add(pOwner.getLookAngle().scale(2.0D)).add(0, pOwner.getEyeHeight() - 0.5D, 0);
         this.setPos(spawnPos);
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_OWNER_ID, 0);
         this.entityData.define(DATA_TARGET_ID, 0);
         this.entityData.define(DATA_PHASE, Phase.TRAVELING.ordinal());
-    }    private Phase getPhase() {
+    }
+
+    private Phase getPhase() {
         return Phase.values()[this.entityData.get(DATA_PHASE)];
-    }    private void setPhase(Phase phase) {
+    }
+
+    private void setPhase(Phase phase) {
         if (getPhase() != phase && !this.level().isClientSide) {
             this.entityData.set(DATA_PHASE, phase.ordinal());
         }
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         this.lifeTicks++;
@@ -139,20 +159,26 @@ import java.util.UUID;public class GravityOrbEntity extends Entity {
                     break;
             }
         }
-    }    private void startPullingPhase() {
+    }
+
+    private void startPullingPhase() {
         if (getPhase() == Phase.TRAVELING) {
             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.5F, 0.8F);
             this.setDeltaMovement(Vec3.ZERO);
             this.setPhase(Phase.PULLING);
             this.lifeTicks = 0;
         }
-    }    public void setOwner(@Nullable LivingEntity pOwner) {
+    }
+
+    public void setOwner(@Nullable LivingEntity pOwner) {
         if (pOwner != null) {
             this.owner = pOwner;
             this.ownerUUID = pOwner.getUUID();
             this.entityData.set(DATA_OWNER_ID, pOwner.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getOwner() {
         if (this.owner != null && this.owner.isAlive()) return this.owner;
         if (this.level() instanceof ServerLevel sLevel && this.ownerUUID != null) {
@@ -169,13 +195,17 @@ import java.util.UUID;public class GravityOrbEntity extends Entity {
             }
         }
         return null;
-    }    public void setTarget(@Nullable LivingEntity pTarget) {
+    }
+
+    public void setTarget(@Nullable LivingEntity pTarget) {
         if (pTarget != null) {
             this.target = pTarget;
             this.targetUUID = pTarget.getUUID();
             this.entityData.set(DATA_TARGET_ID, pTarget.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getTarget() {
         if (this.target != null && this.target.isAlive()) return this.target;
         if (this.level() instanceof ServerLevel sLevel && this.targetUUID != null) {
@@ -192,15 +222,21 @@ import java.util.UUID;public class GravityOrbEntity extends Entity {
             }
         }
         return null;
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         if (this.ownerUUID != null) pCompound.putUUID("Owner", this.ownerUUID);
         if (this.targetUUID != null) pCompound.putUUID("Target", this.targetUUID);
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.hasUUID("Owner")) this.ownerUUID = pCompound.getUUID("Owner");
         if (pCompound.hasUUID("Target")) this.targetUUID = pCompound.getUUID("Target");
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

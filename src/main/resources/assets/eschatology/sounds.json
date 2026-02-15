@@ -2,7 +2,6 @@
   "black_bool": {
     "sounds": [
       "eschatology:music/black_bool"
-
     ],
     "stream": true,
     "volume": 1.0

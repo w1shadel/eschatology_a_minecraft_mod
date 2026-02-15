@@ -3,8 +3,8 @@
     "icon": {
       "item": "minecraft:ender_eye"
     },
-    "title":{
-      "translate":  "advancements.eschatology.boss.root.title"
+    "title": {
+      "translate": "advancements.eschatology.boss.root.title"
     },
     "description": {
       "translate": "advancements.eschatology.boss.root.description"

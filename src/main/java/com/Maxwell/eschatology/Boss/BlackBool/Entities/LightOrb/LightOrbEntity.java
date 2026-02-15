@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb;import com.Maxwell.eschatology.register.ModEntities;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.LightOrb;
+
+import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -18,32 +20,46 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
-import java.util.UUID;public class LightOrbEntity extends Entity {
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
+import java.util.UUID;
+
+public class LightOrbEntity extends Entity {
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_TARGET_ID = SynchedEntityData.defineId(LightOrbEntity.class, EntityDataSerializers.INT);
     private LivingEntity owner;
     private UUID ownerUUID;
     private LivingEntity target;
     private UUID targetUUID;
-    private int ignoreOwnerTime = 5;    public LightOrbEntity(EntityType<?> pEntityType, Level pLevel) {
+    private int ignoreOwnerTime = 5;
+
+    public LightOrbEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
-    }    public LightOrbEntity(Level pLevel, LivingEntity pOwner, @Nullable LivingEntity pTarget) {
+    }
+
+    public LightOrbEntity(Level pLevel, LivingEntity pOwner, @Nullable LivingEntity pTarget) {
         this(ModEntities.LIGHT_ORB.get(), pLevel);
         this.setOwner(pOwner);
         if (pTarget != null) {
             this.setTarget(pTarget);
         }
         this.setPos(pOwner.getX(), pOwner.getEyeY() - 0.2, pOwner.getZ());
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_OWNER_ID, 0);
         this.entityData.define(DATA_TARGET_ID, 0);
-    }    public void shoot(Vec3 direction) {
+    }
+
+    public void shoot(Vec3 direction) {
         double initialSpeed = 0.8D;
         this.setDeltaMovement(direction.normalize().scale(initialSpeed));
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount > 120) {
@@ -83,7 +99,9 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
         if (this.level().isClientSide) {
             this.level().addParticle(ParticleTypes.END_ROD, this.getRandomX(0.2D), this.getRandomY(), this.getRandomZ(0.2D), 0.0D, 0.0D, 0.0D);
         }
-    }    protected void onEntityHit(EntityHitResult pResult) {
+    }
+
+    protected void onEntityHit(EntityHitResult pResult) {
         if (!this.level().isClientSide) {
             Entity hitEntity = pResult.getEntity();
             LivingEntity attacker = this.getOwner();
@@ -95,7 +113,9 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
             this.explode();
         }
         this.discard();
-    }    private void explode() {
+    }
+
+    private void explode() {
         if (!this.level().isClientSide) {
             this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, Level.ExplosionInteraction.NONE);
             if (this.level() instanceof ServerLevel serverLevel) {
@@ -103,10 +123,14 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
             }
             this.playSound(SoundEvents.GENERIC_EXPLODE, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         }
-    }    @Nullable
+    }
+
+    @Nullable
     protected EntityHitResult findHitEntity(Vec3 pStartVec, Vec3 pEndVec) {
         return ProjectileUtil.getEntityHitResult(this.level(), this, pStartVec, pEndVec, this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D), this::canHitEntity);
-    }    protected boolean canHitEntity(Entity pTarget) {
+    }
+
+    protected boolean canHitEntity(Entity pTarget) {
         if (pTarget.isSpectator() || !pTarget.isAlive() || !pTarget.isPickable()) {
             return false;
         }
@@ -119,13 +143,17 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
             return false;
         }
         return true;
-    }    public void setOwner(@Nullable LivingEntity pOwner) {
+    }
+
+    public void setOwner(@Nullable LivingEntity pOwner) {
         if (pOwner != null) {
             this.owner = pOwner;
             this.ownerUUID = pOwner.getUUID();
             this.entityData.set(DATA_OWNER_ID, pOwner.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getOwner() {
         if (this.owner != null && this.owner.isAlive()) {
             return this.owner;
@@ -143,13 +171,17 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
             }
         }
         return null;
-    }    public void setTarget(@Nullable LivingEntity pTarget) {
+    }
+
+    public void setTarget(@Nullable LivingEntity pTarget) {
         if (pTarget != null) {
             this.target = pTarget;
             this.targetUUID = pTarget.getUUID();
             this.entityData.set(DATA_TARGET_ID, pTarget.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getTarget() {
         if (this.target != null && this.target.isAlive()) {
             return this.target;
@@ -167,15 +199,21 @@ import java.util.UUID;public class LightOrbEntity extends Entity {
             }
         }
         return null;
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         if (this.ownerUUID != null) pCompound.putUUID("Owner", this.ownerUUID);
         if (this.targetUUID != null) pCompound.putUUID("Target", this.targetUUID);
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.hasUUID("Owner")) this.ownerUUID = pCompound.getUUID("Owner");
         if (pCompound.hasUUID("Target")) this.targetUUID = pCompound.getUUID("Target");
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

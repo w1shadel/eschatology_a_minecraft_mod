@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.client;import com.Maxwell.eschatology.Eschatology;
+package com.Maxwell.eschatology.client;
+
+import com.Maxwell.eschatology.Eschatology;
 import com.Maxwell.eschatology.client.Eclips.EclipseEffectManager;
 import com.Maxwell.eschatology.client.GUI.LaserEffectManager;
 import com.Maxwell.eschatology.register.ModEffects;
@@ -16,6 +18,7 @@ import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 @SuppressWarnings("removal")
 @Mod.EventBusSubscriber(modid = Eschatology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ForgeClientModEvents {
@@ -24,7 +27,9 @@ public class ForgeClientModEvents {
         if (event.phase == TickEvent.Phase.END) {
             LaserEffectManager.tick();
         }
-    }    @SubscribeEvent
+    }
+
+    @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
             if (EclipseEffectManager.isEclipseActive()) {
@@ -32,14 +37,18 @@ public class ForgeClientModEvents {
                 EclipseEffectManager.renderCustomSun(event.getPoseStack(), event.getPartialTick());
             }
         }
-    }    @SubscribeEvent
+    }
+
+    @SubscribeEvent
     public static void onFogColor(ViewportEvent.ComputeFogColor event) {
         if (EclipseEffectManager.isEclipseActive()) {
             event.setRed(0.0f);
             event.setGreen(0.0f);
             event.setBlue(0.0f);
         }
-    }    @SubscribeEvent
+    }
+
+    @SubscribeEvent
     public static void onRenderFog(ViewportEvent.RenderFog event) {
         if (EclipseEffectManager.isEclipseActive()) {
             RenderSystem.setShaderFogStart(0.0f);
@@ -47,17 +56,23 @@ public class ForgeClientModEvents {
             RenderSystem.setShaderFogShape(FogShape.SPHERE);
             event.setCanceled(true);
         }
-    }    @SubscribeEvent
+    }
+
+    @SubscribeEvent
     public static void onRenderGuiPost(RenderGuiOverlayEvent.Post event) {
         if (LaserEffectManager.isLaserActive()) {
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.disableBlend();
         }
-    }    private static final ResourceLocation ICE_OVERLAY =
+    }
+
+    private static final ResourceLocation ICE_OVERLAY =
             new ResourceLocation("eschatology", "textures/gui/ice_overlay.png");
     private static float previousProgress = 0.0f;
     private static int fadeInTicks = 0;
-    private static final int MAX_FADE_TICKS = 20;    @SubscribeEvent
+    private static final int MAX_FADE_TICKS = 20;
+
+    @SubscribeEvent
     public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.player.isDeadOrDying()) return;

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "eschatology:block/eclipse_forge" }
+    "": {
+      "model": "eschatology:block/eclipse_forge"
+    }
   }
 }

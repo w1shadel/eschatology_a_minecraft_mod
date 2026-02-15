@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidLance.VoidRift;import com.Maxwell.eschatology.register.ModEntities;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.VoidLance.VoidRift;
+
+import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -11,19 +13,29 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;import java.util.List;
-import java.util.UUID;public class VoidRiftEntity extends Entity {
+import net.minecraft.world.phys.AABB;
+
+import java.util.List;
+import java.util.UUID;
+
+public class VoidRiftEntity extends Entity {
     private LivingEntity owner;
     private UUID ownerUUID;
     private int lifeTime = 200;
-    private float radius = 3.0f;    public VoidRiftEntity(EntityType<? extends VoidRiftEntity> pEntityType, Level pLevel) {
+    private float radius = 3.0f;
+
+    public VoidRiftEntity(EntityType<? extends VoidRiftEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
-    }    public VoidRiftEntity(Level pLevel, LivingEntity pOwner) {
+    }
+
+    public VoidRiftEntity(Level pLevel, LivingEntity pOwner) {
         this(ModEntities.VOID_RIFT.get(), pLevel);
         this.owner = pOwner;
         this.ownerUUID = pOwner.getUUID();
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (!this.level().isClientSide && this.owner == null) {
@@ -79,14 +91,20 @@ import java.util.UUID;public class VoidRiftEntity extends Entity {
                 }
             }
         }
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.hasUUID("Owner")) {
             this.ownerUUID = pCompound.getUUID("Owner");
         }
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         if (this.ownerUUID != null) {
             pCompound.putUUID("Owner", this.ownerUUID);

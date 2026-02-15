@@ -4,8 +4,8 @@
     "icon": {
       "item": "minecraft:lodestone"
     },
-    "title":{
-      "translate":  "advancements.eschatology.boss.summon_black_bool.title"
+    "title": {
+      "translate": "advancements.eschatology.boss.summon_black_bool.title"
     },
     "description": {
       "translate": "advancements.eschatology.boss.summon_black_bool.description"

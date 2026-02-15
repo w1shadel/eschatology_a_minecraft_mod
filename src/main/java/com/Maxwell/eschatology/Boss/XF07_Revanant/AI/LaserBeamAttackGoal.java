@@ -15,7 +15,6 @@ public class LaserBeamAttackGoal extends Goal {
     private final ExoWither owner;
     private int attackTime;
     private final int cooldown;
-
     private FrostLaserEntity activeLaser;
 
     public LaserBeamAttackGoal(ExoWither owner, int cooldown) {
@@ -55,7 +54,6 @@ public class LaserBeamAttackGoal extends Goal {
         owner.laserBeamCooldown = cooldown;
         owner.setAttackPhase(ExoWither.AttackPhase.NONE);
         owner.laserbeamattackAnimationState.stop();
-
         if (activeLaser != null && activeLaser.isAlive()) {
             activeLaser.discard();
             activeLaser = null;
@@ -70,37 +68,27 @@ public class LaserBeamAttackGoal extends Goal {
         if (target != null) {
             owner.getLookControl().setLookAt(target);
         }
-
         if (attackTime == ExoWitherBalance.LASER_BEAM_CHARGE_UP_TICKS / 2) {
             owner.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.4F, 0.8F);
         }
-
         if (attackTime == ExoWitherBalance.LASER_BEAM_CHARGE_UP_TICKS && target != null && owner.level() instanceof ServerLevel serverLevel) {
-
-
             FrostLaserEntity beam = new FrostLaserEntity(
                     serverLevel,
                     owner,
                     target,
                     ExoWitherBalance.LASER_BEAM_FIRE_DURATION_TICKS,
-                    (float) ExoWitherBalance.LASER_BEAM_DAMAGE, 
-                    false 
+                    (float) ExoWitherBalance.LASER_BEAM_DAMAGE,
+                    false
             );
             serverLevel.addFreshEntity(beam);
             activeLaser = beam;
-
             owner.playSound(SoundEvents.GHAST_SHOOT, 2.0F, 0.5F);
         }
-
-
-
-
         if (attackTime == ExoWitherBalance.LASER_BEAM_CHARGE_UP_TICKS + ExoWitherBalance.LASER_BEAM_FIRE_DURATION_TICKS && activeLaser != null) {
             activeLaser.discard();
             activeLaser = null;
             owner.playSound(SoundEvents.BLAZE_SHOOT, 1.5F, 0.7F);
         }
-
         if (attackTime >= ExoWitherBalance.LASER_BEAM_TOTAL_DURATION_TICKS - 10 && attackTime < ExoWitherBalance.LASER_BEAM_TOTAL_DURATION_TICKS) {
             owner.playSound(SoundEvents.BEACON_POWER_SELECT, 1.0F, 1.3F);
         }

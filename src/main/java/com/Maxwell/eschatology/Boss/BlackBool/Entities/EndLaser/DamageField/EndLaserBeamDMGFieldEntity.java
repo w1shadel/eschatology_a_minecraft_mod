@@ -1,4 +1,6 @@
-package com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.DamageField;import com.Maxwell.eschatology.register.ModEntities;
+package com.Maxwell.eschatology.Boss.BlackBool.Entities.EndLaser.DamageField;
+
+import com.Maxwell.eschatology.register.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -14,26 +16,38 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;import javax.annotation.Nullable;
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;public class EndLaserBeamDMGFieldEntity extends Entity {
+import java.util.UUID;
+
+public class EndLaserBeamDMGFieldEntity extends Entity {
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID =
             SynchedEntityData.defineId(EndLaserBeamDMGFieldEntity.class, EntityDataSerializers.INT);
     private LivingEntity owner;
     private UUID ownerUUID;
     private static final int DURATION = 80;
     private static final float RADIUS = 2.5f;
-    private static final float HEIGHT = 5.0f;    public EndLaserBeamDMGFieldEntity(EntityType<?> pEntityType, Level pLevel) {
+    private static final float HEIGHT = 5.0f;
+
+    public EndLaserBeamDMGFieldEntity(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
-    }    public EndLaserBeamDMGFieldEntity(Level pLevel, LivingEntity pOwner, Vec3 position) {
+    }
+
+    public EndLaserBeamDMGFieldEntity(Level pLevel, LivingEntity pOwner, Vec3 position) {
         this(ModEntities.END_LASER_BEAM_DAMAGE_FILED.get(), pLevel);
         this.setOwner(pOwner);
         this.setPos(position);
-    }    @Override
+    }
+
+    @Override
     protected void defineSynchedData() {
         this.entityData.define(DATA_OWNER_ID, 0);
-    }    @Override
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.tickCount > DURATION) {
@@ -69,13 +83,17 @@ import java.util.UUID;public class EndLaserBeamDMGFieldEntity extends Entity {
                 }
             }
         }
-    }    public void setOwner(@Nullable LivingEntity pOwner) {
+    }
+
+    public void setOwner(@Nullable LivingEntity pOwner) {
         if (pOwner != null) {
             this.owner = pOwner;
             this.ownerUUID = pOwner.getUUID();
             this.entityData.set(DATA_OWNER_ID, pOwner.getId());
         }
-    }    @Nullable
+    }
+
+    @Nullable
     public LivingEntity getOwner() {
         if (this.owner != null && this.owner.isAlive()) {
             return this.owner;
@@ -94,17 +112,23 @@ import java.util.UUID;public class EndLaserBeamDMGFieldEntity extends Entity {
             }
         }
         return null;
-    }    @Override
+    }
+
+    @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         if (this.ownerUUID != null) {
             pCompound.putUUID("Owner", this.ownerUUID);
         }
-    }    @Override
+    }
+
+    @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         if (pCompound.hasUUID("Owner")) {
             this.ownerUUID = pCompound.getUUID("Owner");
         }
-    }    @Override
+    }
+
+    @Override
     public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }

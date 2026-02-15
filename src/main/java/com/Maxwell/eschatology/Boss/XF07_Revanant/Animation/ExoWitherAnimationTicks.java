@@ -1,4 +1,7 @@
-package com.Maxwell.eschatology.Boss.XF07_Revanant.Animation;public class ExoWitherAnimationTicks {    public static final float SPAWN_LENGTH_IN_SECONDS = 4.5F;
+package com.Maxwell.eschatology.Boss.XF07_Revanant.Animation;
+
+public class ExoWitherAnimationTicks {
+    public static final float SPAWN_LENGTH_IN_SECONDS = 4.5F;
     public static final float IDLE_LENGTH_IN_SECONDS = 2.25F;
     public static final float WALK_LENGTH_IN_SECONDS = 3.375F;
     public static final float CHARGE_ATTACK_LENGTH_IN_SECONDS = 3.125F;

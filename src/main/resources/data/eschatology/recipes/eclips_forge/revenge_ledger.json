@@ -1,7 +1,13 @@
 {
   "type": "eschatology:eclipse_forge",
-  "left": { "item": "eschatology:a_time_crystal" },
-  "right": { "item": "minecraft:book" },
-  "output": { "item": "eschatology:revenge_ledger" },
+  "left": {
+    "item": "eschatology:a_time_crystal"
+  },
+  "right": {
+    "item": "minecraft:book"
+  },
+  "output": {
+    "item": "eschatology:revenge_ledger"
+  },
   "time": 10
 }
