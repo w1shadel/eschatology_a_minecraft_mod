@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 public class WCAttackLevel {
     private int attackLevel;
     private final int MIN_LEVEL = 0;
-    private final int MAX_LEVEL = 99999;
+    private final int MAX_LEVEL = 2147483647;
 
     public int getLevel() {
         return this.attackLevel;

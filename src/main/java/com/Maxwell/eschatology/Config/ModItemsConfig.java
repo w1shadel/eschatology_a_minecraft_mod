@@ -108,9 +108,9 @@ public class ModItemsConfig {
         REVENGE_TARGET_SEARCH_WIDTH = BUILDER.defineInRange("target_search_width", 2.5, 0.0, 64.0);
         BUILDER.pop();
         BUILDER.push("WitchsCrest");
-        WITCH_GAIN_POISONOUS = BUILDER.defineInRange("gain_poisonous", 10, 1, 100);
-        WITCH_GAIN_RECIPE = BUILDER.defineInRange("gain_recipe", 5, 1, 100);
-        WITCH_GAIN_TAG = BUILDER.defineInRange("gain_tag", 1, 1, 100);
+        WITCH_GAIN_POISONOUS = BUILDER.defineInRange("gain_poisonous", 10, 1, 2147483647);
+        WITCH_GAIN_RECIPE = BUILDER.defineInRange("gain_recipe", 5, 1, 2147483647);
+        WITCH_GAIN_TAG = BUILDER.defineInRange("gain_tag", 1, 1, 2147483647);
         WITCH_DURATION_PER_LEVEL = BUILDER.defineInRange("duration_per_level", 600, 1, 10000);
         WITCH_AMPLIFIER_THRESHOLD_LEVEL = BUILDER.defineInRange("amp_threshold", 10, 1, 100);
         WITCH_PENALTY_DAMAGE = BUILDER.defineInRange("penalty_damage", 2.0, 0.0, 1000.0);
